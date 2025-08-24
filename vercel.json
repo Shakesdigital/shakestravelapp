@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "shakes-travel-frontend",
+  "name": "shakestravel-app",
   "builds": [
     {
       "src": "frontend/package.json",
@@ -14,11 +14,12 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://your-backend-url.up.railway.app"
+    "NEXT_PUBLIC_API_URL": "https://shakestravel-dashboard.up.railway.app"
   },
   "build": {
     "env": {
       "NEXT_TELEMETRY_DISABLED": "1"
     }
-  }
+  },
+  "domains": ["shakestravel.app", "www.shakestravel.app"]
 }
