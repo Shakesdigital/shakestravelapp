@@ -1,22 +1,10 @@
 {
   "version": 2,
   "name": "shakestravel-app",
-  "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "frontend/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontend/$1"
-    }
-  ],
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && npm install",
+  "framework": "nextjs",
   "env": {
     "NEXT_PUBLIC_API_URL": "https://shakestravel-dashboard.up.railway.app",
     "NEXT_TELEMETRY_DISABLED": "1"
@@ -38,6 +26,12 @@
           "value": "1; mode=block"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/frontend/api/$1"
     }
   ]
 }
