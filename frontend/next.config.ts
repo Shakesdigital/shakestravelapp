@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Static export for cPanel hosting
-  output: process.env.NODE_ENV === 'production' && process.env.HOSTING_PLATFORM === 'cpanel' ? 'export' : undefined,
-  trailingSlash: true,
+  // Optimized for Vercel deployment - no static export
   
   // Environment variables for client-side
   env: {
@@ -22,9 +20,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Image configuration for different hosting platforms
+  // Optimized image configuration for Vercel
   images: {
-    unoptimized: process.env.HOSTING_PLATFORM === 'cpanel',
     domains: ['localhost', 'www.shakestravel.com', 'shakestravel.com'],
     remotePatterns: [
       {
@@ -38,14 +35,22 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'shakestravel.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.shakestravel.com',
       }
     ],
   },
   
-  // Enable experimental features for better performance
+  // Enable experimental features for better performance on Vercel
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  
+  // Performance optimizations for Vercel
+  poweredByHeader: false,
+  compress: true,
 };
 
 export default nextConfig;
