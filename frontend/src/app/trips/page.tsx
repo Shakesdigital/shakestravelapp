@@ -660,7 +660,7 @@ export default function ExperiencesPage() {
                   key={experience.id} 
                   className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Link href={`/trips/${experience.id}`}>
+                  <Link href={`/experiences/${experience.id}`}>
                     {/* Experience Image */}
                     <div 
                       className="h-48 flex items-center justify-center text-6xl relative overflow-hidden"
@@ -746,7 +746,7 @@ export default function ExperiencesPage() {
                           style={{ backgroundColor: primaryColor }}
                           onClick={(e) => {
                             e.preventDefault();
-                            window.location.href = `/trips/${experience.id}`;
+                            window.location.href = `/experiences/${experience.id}`;
                           }}
                         >
                           Book Now

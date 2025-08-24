@@ -580,7 +580,7 @@ export default function Home() {
               </p>
             </div>
             <Link 
-              href="/trips" 
+              href="/all-experiences" 
               className="btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors"
               style={{ backgroundColor: primaryColor }}
             >
@@ -592,7 +592,7 @@ export default function Home() {
             {featuredExperiences.map((experience) => (
               <Link
                 key={experience.id}
-                href={`/trips/${experience.id}`}
+                href={`/experiences/${experience.id}`}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover-effect"
               >
                 <div className="h-48 flex items-center justify-center text-6xl" style={{ backgroundColor: `${primaryColor}10` }}>
@@ -782,7 +782,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/trips" 
+              href="/all-experiences" 
               className="bg-white text-lg font-semibold px-8 py-4 rounded-xl transition-colors"
               style={{ color: primaryColor }}
             >

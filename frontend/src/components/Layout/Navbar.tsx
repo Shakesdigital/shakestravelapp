@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
                   Home
                 </Link>
                 <Link 
-                  href="/trips" 
+                  href="/all-experiences" 
                   className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap"
                   onMouseEnter={(e) => e.target.style.color = primaryColor}
                   onMouseLeave={(e) => e.target.style.color = '#111827'}
@@ -182,7 +182,7 @@ const Navbar: React.FC = () => {
                 Home
               </Link>
               <Link 
-                href="/trips" 
+                href="/all-experiences" 
                 className="text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
