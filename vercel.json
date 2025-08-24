@@ -20,6 +20,5 @@
     "env": {
       "NEXT_TELEMETRY_DISABLED": "1"
     }
-  },
-  "domains": ["shakestravel.app", "www.shakestravel.app"]
+  }
 }
