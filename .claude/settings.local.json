@@ -45,7 +45,9 @@
       "Bash(git push:*)",
       "Bash(vercel:*)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(git remote set-url:*)",
+      "WebFetch(domain:shakestravel.vercel.app)"
     ],
     "deny": [],
     "ask": []
