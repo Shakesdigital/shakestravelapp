@@ -4,21 +4,23 @@
   "builds": [
     {
       "src": "frontend/package.json",
-      "use": "@vercel/next"
+      "use": "@vercel/next",
+      "config": {
+        "distDir": ".next"
+      }
     }
   ],
   "routes": [
+    {
+      "handle": "filesystem"
+    },
     {
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
   ],
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://shakestravel-dashboard.up.railway.app"
-  },
-  "build": {
-    "env": {
-      "NEXT_TELEMETRY_DISABLED": "1"
-    }
+    "NEXT_PUBLIC_API_URL": "https://shakestravel-dashboard.up.railway.app",
+    "NEXT_TELEMETRY_DISABLED": "1"
   }
 }

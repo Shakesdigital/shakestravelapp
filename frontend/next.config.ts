@@ -1,14 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export', // Static export for Cloudflare Pages
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
-  
-  // Disable image optimization for Cloudflare Pages
-  images: {
-    unoptimized: true,
-  },
+  // Remove static export for Vercel compatibility
+  // output: 'export', // Commented out for Vercel deployment
   
   // Environment variables for client-side
   env: {
@@ -27,8 +21,25 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Configure asset prefix for CDN
-  assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
+  // Optimize images for Vercel
+  images: {
+    domains: ['localhost', 'shakestravel-dashboard.up.railway.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.railway.app',
+      },
+      {
+        protocol: 'https', 
+        hostname: '**.cloudinary.com',
+      }
+    ],
+  },
+  
+  // Enable experimental features for better performance
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
 };
 
 export default nextConfig;
