@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:cpanel": "NODE_ENV=production HOSTING_PLATFORM=cpanel next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy:cpanel": "npm run build:cpanel && echo 'Build complete! Copy contents of out/ folder to your cPanel public_html directory.'"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.85.3",

@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Remove static export for Vercel compatibility
-  // output: 'export', // Commented out for Vercel deployment
+  // Static export for cPanel hosting
+  output: process.env.NODE_ENV === 'production' && process.env.HOSTING_PLATFORM === 'cpanel' ? 'export' : undefined,
+  trailingSlash: true,
   
   // Environment variables for client-side
   env: {
@@ -21,9 +22,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Optimize images for Vercel
+  // Image configuration for different hosting platforms
   images: {
-    domains: ['localhost', 'shakestravel-dashboard.up.railway.app'],
+    unoptimized: process.env.HOSTING_PLATFORM === 'cpanel',
+    domains: ['localhost', 'www.shakestravel.com', 'shakestravel.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -32,6 +34,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https', 
         hostname: '**.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shakestravel.com',
       }
     ],
   },
