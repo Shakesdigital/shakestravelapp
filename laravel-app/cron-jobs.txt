@@ -1,0 +1,152 @@
+# ShakesTravel Laravel Cron Jobs Configuration
+# Copy these entries to your cPanel Cron Jobs section
+
+# IMPORTANT: Replace '/home/yourusername/shakestravel-laravel' with your actual path
+# Replace 'yourusername' with your actual cPanel username
+
+# ========================================
+# REQUIRED CRON JOBS
+# ========================================
+
+# Laravel Task Scheduler (REQUIRED - runs every minute)
+# This handles all scheduled tasks defined in app/Console/Kernel.php
+* * * * * cd /home/yourusername/shakestravel-laravel && php artisan schedule:run >> /dev/null 2>&1
+
+# ========================================
+# BACKUP CRON JOBS
+# ========================================
+
+# Daily Database Backup at 2:00 AM
+0 2 * * * cd /home/yourusername/shakestravel-laravel && bash scripts/backup-database.sh >> storage/logs/backup.log 2>&1
+
+# Weekly File Backup every Sunday at 3:00 AM
+0 3 * * 0 cd /home/yourusername/shakestravel-laravel && bash scripts/backup-files.sh >> storage/logs/backup.log 2>&1
+
+# ========================================
+# MONITORING CRON JOBS
+# ========================================
+
+# Health Check every 15 minutes
+*/15 * * * * cd /home/yourusername/shakestravel-laravel && bash scripts/health-check.sh >> storage/logs/health-check.log 2>&1
+
+# ========================================
+# MAINTENANCE CRON JOBS
+# ========================================
+
+# Clear expired sessions daily at 1:00 AM
+0 1 * * * cd /home/yourusername/shakestravel-laravel && php artisan session:gc
+
+# Clean up old log files weekly on Monday at 4:00 AM
+0 4 * * 1 cd /home/yourusername/shakestravel-laravel && find storage/logs -name "*.log" -mtime +30 -delete
+
+# Clear application cache weekly on Sunday at 4:30 AM
+30 4 * * 0 cd /home/yourusername/shakestravel-laravel && php artisan cache:clear && php artisan config:cache
+
+# Process failed queue jobs every hour
+0 * * * * cd /home/yourusername/shakestravel-laravel && php artisan queue:retry all >> storage/logs/queue.log 2>&1
+
+# ========================================
+# OPTIONAL CRON JOBS (Enable as needed)
+# ========================================
+
+# SSL Certificate Check weekly on Friday at 6:00 AM
+# 0 6 * * 5 cd /home/yourusername/shakestravel-laravel && bash scripts/setup-ssl.sh >> storage/logs/ssl-check.log 2>&1
+
+# Database optimization monthly on first day at 5:00 AM
+# 0 5 1 * * cd /home/yourusername/shakestravel-laravel && php artisan db:optimize
+
+# Generate sitemap daily at 6:30 AM (if sitemap package installed)
+# 30 6 * * * cd /home/yourusername/shakestravel-laravel && php artisan sitemap:generate
+
+# Send newsletter weekly on Wednesday at 10:00 AM (if newsletter system exists)
+# 0 10 * * 3 cd /home/yourusername/shakestravel-laravel && php artisan newsletter:send
+
+# ========================================
+# BUSINESS-SPECIFIC CRON JOBS
+# ========================================
+
+# Send booking reminders daily at 9:00 AM
+0 9 * * * cd /home/yourusername/shakestravel-laravel && php artisan bookings:send-reminders
+
+# Update trip availability daily at 7:00 AM
+0 7 * * * cd /home/yourusername/shakestravel-laravel && php artisan trips:update-availability
+
+# Process pending payments every 2 hours
+0 */2 * * * cd /home/yourusername/shakestravel-laravel && php artisan payments:process-pending
+
+# Clean up expired bookings daily at 11:00 PM
+0 23 * * * cd /home/yourusername/shakestravel-laravel && php artisan bookings:cleanup-expired
+
+# Generate analytics reports weekly on Monday at 8:00 AM
+0 8 * * 1 cd /home/yourusername/shakestravel-laravel && php artisan analytics:generate-reports
+
+# ========================================
+# CRON JOB SETUP INSTRUCTIONS
+# ========================================
+
+# 1. Log into your cPanel
+# 2. Navigate to "Cron Jobs" in the Advanced section
+# 3. For each cron job above:
+#    - Select the appropriate timing (minute, hour, day, month, weekday)
+#    - Or use "Common Settings" for standard intervals
+#    - Copy the command from above (starting after the time specification)
+#    - Replace '/home/yourusername/shakestravel-laravel' with your actual path
+#    - Click "Add New Cron Job"
+
+# ========================================
+# TESTING CRON JOBS
+# ========================================
+
+# To test a cron job manually, run:
+# cd /home/yourusername/shakestravel-laravel && php artisan schedule:run
+
+# To see scheduled tasks:
+# cd /home/yourusername/shakestravel-laravel && php artisan schedule:list
+
+# To test individual commands:
+# cd /home/yourusername/shakestravel-laravel && php artisan [command-name]
+
+# ========================================
+# MONITORING CRON JOBS
+# ========================================
+
+# Check cron job logs:
+# tail -f /var/log/cron
+# tail -f storage/logs/laravel.log
+# tail -f storage/logs/backup.log
+# tail -f storage/logs/health-check.log
+
+# ========================================
+# TROUBLESHOOTING
+# ========================================
+
+# If cron jobs are not running:
+# 1. Check the path to your application
+# 2. Verify PHP path: which php
+# 3. Check file permissions: chmod +x scripts/*.sh
+# 4. Test commands manually first
+# 5. Check cPanel Cron Jobs log for errors
+# 6. Ensure scripts have proper shebang: #!/bin/bash
+
+# Common issues:
+# - Wrong path to application directory
+# - Missing execute permissions on scripts
+# - PHP path not found (use full path like /usr/local/bin/php)
+# - Environment variables not loaded (use full path to .env)
+
+# ========================================
+# PERFORMANCE CONSIDERATIONS
+# ========================================
+
+# For shared hosting:
+# - Don't run resource-intensive tasks during peak hours
+# - Limit concurrent cron jobs
+# - Use >> /dev/null 2>&1 to suppress output
+# - Monitor resource usage in cPanel
+# - Consider running heavy tasks less frequently
+
+# For high-traffic sites:
+# - Use queue workers instead of direct cron execution
+# - Implement job batching for bulk operations
+# - Monitor database performance during scheduled tasks
+# - Use caching to reduce database load

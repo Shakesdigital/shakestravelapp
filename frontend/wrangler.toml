@@ -1,0 +1,29 @@
+name = "shakestravel-frontend"
+compatibility_date = "2024-08-21"
+
+# Production environment configuration
+[env.production]
+name = "shakestravel-frontend-production"
+
+# Custom domain routes
+[[env.production.routes]]
+pattern = "www.shakestravel.com/*"
+
+[[env.production.routes]]  
+pattern = "shakestravel.com/*"
+
+# Staging environment configuration
+[env.staging]
+name = "shakestravel-frontend-staging"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "frontend"
+watch_dir = "frontend"
+
+# Environment variables (set these in Cloudflare dashboard)
+# NEXT_PUBLIC_API_URL = "https://api.shakestravel.com"
+# NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_..."
+# NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "..."
+# NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "..."
