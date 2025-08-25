@@ -1,8 +1,19 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/.next",
-  "installCommand": "cd frontend && npm install",
-  "devCommand": "cd frontend && npm run dev",
+  "version": 2,
+  "functions": {
+    "frontend/src/app/**/*.{js,ts,jsx,tsx}": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "distDir": ".next"
+      }
+    }
+  ],
   "env": {
     "NEXT_PUBLIC_API_URL": "https://shakestravel-dashboard.up.railway.app",
     "NEXT_TELEMETRY_DISABLED": "1"
