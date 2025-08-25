@@ -21,9 +21,9 @@ export default function AdminLayout({
           {/* Top Header */}
           <AdminHeader />
           
-          {/* Page Content */}
-          <main className="py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Page Content - Aligned with sidebar content */}
+          <main className="lg:pt-0">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6">
               {children}
             </div>
           </main>

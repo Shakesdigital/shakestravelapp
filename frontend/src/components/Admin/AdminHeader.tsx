@@ -86,9 +86,9 @@ export default function AdminHeader() {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 lg:border-b-0 lg:shadow-none shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-12 lg:h-16">
           {/* Left side - Mobile menu button and breadcrumbs */}
           <div className="flex items-center flex-1">
             <button
