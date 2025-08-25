@@ -86,9 +86,9 @@ export default function AdminHeader() {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 lg:border-b-0 lg:shadow-none shadow-sm">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-12 lg:h-16">
+    <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <div className="px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
           {/* Left side - Mobile menu button and breadcrumbs */}
           <div className="flex items-center flex-1">
             <button
@@ -101,38 +101,26 @@ export default function AdminHeader() {
               </svg>
             </button>
 
-            {/* Enhanced Breadcrumb Navigation */}
+            {/* Clean Breadcrumb Navigation */}
             <div className="ml-4 lg:ml-0 flex-1">
-              <nav className="flex items-center justify-between" aria-label="Breadcrumb">
-                <ol className="flex items-center space-x-2">
-                  <li>
-                    <Link 
-                      href="/admin" 
-                      className="flex items-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-200 group"
-                    >
-                      <span className="group-hover:scale-110 transition-transform duration-200">🏠</span>
-                      <span className="ml-1 hidden sm:inline">Admin</span>
-                    </Link>
-                  </li>
-                  <li className="text-gray-300 dark:text-gray-600">›</li>
-                  <li className="flex items-center">
-                    <span className="text-gray-900 dark:text-white font-medium">
+              <nav className="flex items-center" aria-label="Breadcrumb">
+                <div className="flex items-center space-x-2">
+                  <Link 
+                    href="/admin" 
+                    className="flex items-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-200 group"
+                  >
+                    <span className="group-hover:scale-110 transition-transform duration-200">🏠</span>
+                    <span className="ml-2 text-sm font-medium hidden sm:inline">Admin</span>
+                  </Link>
+                  <span className="text-gray-300 dark:text-gray-600 hidden sm:inline">›</span>
+                  <div className="flex items-center">
+                    <span className="text-gray-900 dark:text-white font-semibold text-sm">
                       Dashboard
                     </span>
-                    <span className="ml-2 px-2 py-1 text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full">
+                    <span className="ml-2 px-2 py-1 text-xs bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200 rounded-full font-medium">
                       Live
                     </span>
-                  </li>
-                </ol>
-
-                {/* Page Actions */}
-                <div className="hidden md:flex items-center space-x-2">
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
-                    Last updated: {new Date().toLocaleTimeString()}
                   </div>
-                  <button className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
-                    🔄
-                  </button>
                 </div>
               </nav>
             </div>

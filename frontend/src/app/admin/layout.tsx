@@ -12,18 +12,18 @@ export default function AdminLayout({
 }) {
   return (
     <AdminProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
         {/* Admin Sidebar */}
         <AdminSidebar />
         
         {/* Main Content Area */}
-        <div className="lg:pl-64">
-          {/* Top Header */}
+        <div className="flex-1 lg:ml-64 flex flex-col">
+          {/* Top Header - Fixed height and clean */}
           <AdminHeader />
           
-          {/* Page Content - Aligned with sidebar content */}
-          <main className="lg:pt-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-6">
+          {/* Page Content - Clean spacing aligned with sidebar */}
+          <main className="flex-1 p-6 lg:p-8 overflow-auto">
+            <div className="max-w-none">
               {children}
             </div>
           </main>

@@ -156,21 +156,21 @@ export default function AdminSidebar() {
       {/* Sidebar */}
       <div
         data-tour="sidebar"
-        className={`fixed inset-y-0 left-0 z-30 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg lg:shadow-none transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           sidebarCollapsed ? '-translate-x-full' : 'translate-x-0'
         }`}
       >
-        {/* Logo */}
-        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 dark:border-gray-700">
-          <Link href="/admin" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-200">
+        {/* Logo - Clean header */}
+        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30">
+          <Link href="/admin" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform duration-200">
               🌍
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-900 dark:text-white leading-none">
+              <span className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
                 Shakes Travel
               </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-green-600 dark:text-green-400 font-medium">
                 Admin Portal
               </span>
             </div>
@@ -183,14 +183,20 @@ export default function AdminSidebar() {
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="mt-6 px-3">
-          {/* Quick Stats Banner */}
-          <div className="mb-6 p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-lg text-white">
-            <div className="text-sm font-medium mb-1">Today's Overview</div>
-            <div className="flex justify-between text-xs">
-              <span>📊 24 Bookings</span>
-              <span>💰 $12.5k Revenue</span>
+        {/* Navigation - Clean organization */}
+        <nav className="flex-1 mt-6 px-4 pb-4 overflow-y-auto">
+          {/* Quick Stats Banner - Better design */}
+          <div className="mb-6 p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl text-white shadow-lg">
+            <div className="text-sm font-semibold mb-2 opacity-90">Today's Overview</div>
+            <div className="flex justify-between text-sm font-medium">
+              <span className="flex items-center gap-1">
+                <span>📊</span>
+                24 Bookings
+              </span>
+              <span className="flex items-center gap-1">
+                <span>💰</span>
+                $12.5k
+              </span>
             </div>
           </div>
 
