@@ -27,6 +27,8 @@ export default function Home() {
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentDestinationIndex, setCurrentDestinationIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const watchDestination = watch('destination');
 
   const onSearch = (data: SearchForm) => {
@@ -200,9 +202,30 @@ export default function Home() {
     dest.name.toLowerCase().includes(watchDestination.toLowerCase())
   );
 
-  // Carousel navigation functions (5 cards per slide without looping)
-  const cardsPerSlide = 5;
+  // Responsive carousel navigation functions
+  const getCardsPerSlide = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 640) return 1; // Mobile: 1 card
+      if (window.innerWidth < 768) return 2; // Small tablet: 2 cards
+      if (window.innerWidth < 1024) return 3; // Tablet: 3 cards
+      if (window.innerWidth < 1280) return 4; // Desktop: 4 cards
+      return 5; // Large desktop: 5 cards
+    }
+    return 5; // Default for SSR
+  };
+
+  const [cardsPerSlide, setCardsPerSlide] = useState(getCardsPerSlide());
   const totalSlides = Math.ceil(ugandaDestinations.length / cardsPerSlide);
+
+  // Update cards per slide on window resize
+  React.useEffect(() => {
+    const handleResize = () => {
+      setCardsPerSlide(getCardsPerSlide());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const nextDestination = () => {
     if (currentDestinationIndex < totalSlides - 1) {
@@ -213,6 +236,33 @@ export default function Home() {
   const prevDestination = () => {
     if (currentDestinationIndex > 0) {
       setCurrentDestinationIndex(currentDestinationIndex - 1);
+    }
+  };
+
+  // Touch/swipe handlers for mobile
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && currentDestinationIndex < totalSlides - 1) {
+      nextDestination();
+    }
+    if (isRightSwipe && currentDestinationIndex > 0) {
+      prevDestination();
     }
   };
 
@@ -294,7 +344,7 @@ export default function Home() {
               Discover Uganda's Wonders
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
-              Experience the Pearl of Africa through sustainable adventures, eco-friendly stays, and meaningful cultural connections
+              Experience the Pearl of Africa through carefully planned adventures designed to meet your travel goals while conserving the environment, featuring eco-friendly accommodations and meaningful cultural connections
             </p>
           </header>
           
@@ -464,11 +514,11 @@ export default function Home() {
             {currentDestinationIndex > 0 && (
               <button
                 onClick={prevDestination}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-offset-2"
+                className="absolute left-1 sm:left-2 md:left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-offset-2"
                 style={{ focusRingColor: primaryColor }}
                 aria-label="Previous destinations"
               >
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
@@ -477,61 +527,64 @@ export default function Home() {
             {currentDestinationIndex < totalSlides - 1 && (
               <button
                 onClick={nextDestination}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-offset-2"
+                className="absolute right-1 sm:right-2 md:right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-offset-2"
                 style={{ focusRingColor: primaryColor }}
                 aria-label="Next destinations"
               >
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             )}
 
             {/* Carousel Container */}
-            <div className="overflow-hidden px-12">
+            <div className="overflow-hidden px-4 sm:px-8 lg:px-12">
               <div 
                 className="flex transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(-${currentDestinationIndex * 100}%)` }}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
               >
                 {Array.from({ length: totalSlides }, (_, slideIndex) => (
                   <div key={slideIndex} className="w-full flex-shrink-0">
-                    <div className="flex gap-4 justify-between">
+                    <div className="flex gap-2 sm:gap-3 md:gap-4 justify-between">
                       {ugandaDestinations
                         .slice(slideIndex * cardsPerSlide, (slideIndex + 1) * cardsPerSlide)
                         .map((destination, index) => (
-                          <article key={destination.name} className="flex-1 group">
+                          <article key={destination.name} className="flex-1 group min-w-0">
                             <Link 
                               href={getDestinationLink(destination.name)}
-                              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 block focus:ring-2 focus:ring-offset-2 flex flex-col h-64"
+                              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 block focus:ring-2 focus:ring-offset-2 flex flex-col h-56 sm:h-60 md:h-64"
                               style={{ focusRingColor: primaryColor }}
                               aria-label={`Explore ${destination.name}: ${destination.description}`}
                             >
                               <div 
-                                className="h-32 flex items-center justify-center text-4xl flex-shrink-0 group-hover:scale-110 transition-transform duration-200" 
+                                className="h-24 sm:h-28 md:h-32 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl flex-shrink-0 group-hover:scale-110 transition-transform duration-200" 
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
                                 {destination.image}
                               </div>
-                              <div className="p-4 flex flex-col justify-between h-32">
+                              <div className="p-2 sm:p-3 md:p-4 flex flex-col justify-between flex-1">
                                 <div>
-                                  <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-semibold text-sm text-gray-900 flex-1 line-clamp-1">{destination.name}</h3>
+                                  <div className="flex items-center justify-between mb-1 sm:mb-2">
+                                    <h3 className="font-semibold text-xs sm:text-sm text-gray-900 flex-1 line-clamp-1">{destination.name}</h3>
                                     {hasDestinationPage(destination.name) && (
-                                      <span className="bg-[#195e48] text-white text-xs px-2 py-1 rounded-full font-medium ml-2 flex-shrink-0">
+                                      <span className="bg-[#195e48] text-white text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium ml-1 sm:ml-2 flex-shrink-0 hidden sm:inline">
                                         ✨ Featured
                                       </span>
                                     )}
                                   </div>
-                                  <p className="text-gray-600 text-xs mb-3 line-clamp-2 h-8 leading-4">{destination.description}</p>
+                                  <p className="text-gray-600 text-xs mb-2 sm:mb-3 line-clamp-2 leading-3 sm:leading-4">{destination.description}</p>
                                 </div>
                                 <div className="flex justify-between items-center mt-auto">
-                                  <span className="text-xs font-medium" style={{ color: primaryColor }}>{destination.experiences} experiences</span>
+                                  <span className="text-xs font-medium" style={{ color: primaryColor }}>{destination.experiences} exp</span>
                                   <span 
-                                    className="text-xs font-semibold transition-colors opacity-0 group-hover:opacity-100"
+                                    className="text-xs font-semibold transition-colors opacity-0 group-hover:opacity-100 hidden sm:inline"
                                     style={{ color: primaryColor }}
                                   >
-                                    {hasDestinationPage(destination.name) ? 'Visit Page →' : 'Explore →'}
+                                    {hasDestinationPage(destination.name) ? 'Visit →' : 'Explore →'}
                                   </span>
                                 </div>
                               </div>

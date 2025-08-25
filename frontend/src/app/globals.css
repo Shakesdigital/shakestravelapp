@@ -165,22 +165,6 @@ body {
 .hero-carousel {
   background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
               url('/brand_assets/images/Banners/Home page/gorilla 1.jpg') center/cover;
-  animation: hero-background-cycle 15s ease-in-out infinite;
-}
-
-@keyframes hero-background-cycle {
-  0%, 25% {
-    background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
-                url('/brand_assets/images/Banners/Home page/gorilla 1.jpg') center/cover;
-  }
-  33%, 58% {
-    background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
-                url('/images/uganda-hero.jpg') center/cover;
-  }
-  66%, 91% {
-    background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
-                url('/images/gorilla-trekking.jpg') center/cover;
-  }
 }
 
 .search-autocomplete {
