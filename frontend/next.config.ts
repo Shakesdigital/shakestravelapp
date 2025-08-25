@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Optimized for Vercel deployment - no static export
+  // Optimized for Netlify deployment
   
   // Environment variables for client-side
   env: {
@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Optimized image configuration for Vercel
+  // Optimized image configuration for Netlify
   images: {
     domains: ['localhost', 'www.shakestravel.com', 'shakestravel.com'],
     remotePatterns: [
@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'www.shakestravel.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.netlify.app',
       }
     ],
   },
@@ -48,9 +52,13 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   
-  // Performance optimizations for Vercel
+  // Performance optimizations for Netlify
   poweredByHeader: false,
   compress: true,
+  
+  // Netlify-specific optimizations
+  trailingSlash: false,
+  distDir: '.next',
 };
 
 export default nextConfig;
