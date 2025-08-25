@@ -164,7 +164,23 @@ body {
 
 .hero-carousel {
   background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
-              url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMCAwSDE5MjBWMTA4MEgwWiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXzFfMSkiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8xXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjE5MjAiIHkyPSIxMDgwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM0OTZmNjIiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmQ3YTVlIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==') center/cover;
+              url('/brand_assets/images/Banners/Home page/gorilla 1.jpg') center/cover;
+  animation: hero-background-cycle 15s ease-in-out infinite;
+}
+
+@keyframes hero-background-cycle {
+  0%, 25% {
+    background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
+                url('/brand_assets/images/Banners/Home page/gorilla 1.jpg') center/cover;
+  }
+  33%, 58% {
+    background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
+                url('/images/uganda-hero.jpg') center/cover;
+  }
+  66%, 91% {
+    background: linear-gradient(135deg, rgba(73, 111, 98, 0.8) 0%, rgba(73, 111, 98, 0.6) 100%),
+                url('/images/gorilla-trekking.jpg') center/cover;
+  }
 }
 
 .search-autocomplete {
