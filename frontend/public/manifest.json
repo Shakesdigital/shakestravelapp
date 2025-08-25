@@ -1,0 +1,26 @@
+{
+  "name": "Shake's Travel - Sustainable Uganda Adventures",
+  "short_name": "Shake's Travel",
+  "description": "Discover Uganda's wonders through sustainable adventures and eco-friendly accommodations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#195e48",
+  "theme_color": "#195e48",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

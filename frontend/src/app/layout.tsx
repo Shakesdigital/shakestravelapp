@@ -24,6 +24,15 @@ export const metadata: Metadata = {
   authors: [{ name: "Shake's Travel" }],
   creator: "Shake's Travel",
   publisher: "Shake's Travel",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/manifest.json',
   formatDetection: {
     email: false,
     address: false,
