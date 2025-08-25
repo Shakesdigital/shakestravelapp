@@ -29,7 +29,7 @@ const GreenPathsStructuredData: React.FC = () => {
       "@type": "Organization",
       "name": "Shake's Travel",
       "url": process.env.NEXT_PUBLIC_BASE_URL || 'https://shakestravel.com',
-      "logo": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://shakestravel.com'}/logo.png`,
+      "logo": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://shakestravel.com'}/brand_assets/images/logo/logo.png`,
       "sameAs": [
         "https://facebook.com/shakestravel",
         "https://instagram.com/shakestravel",

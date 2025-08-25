@@ -133,7 +133,7 @@ const TravelGuidePage: React.FC = () => {
       "name": "Shake's Travel",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://shakestravel.com/logo.png"
+        "url": "https://shakestravel.com/brand_assets/images/logo/logo.png"
       }
     },
     "mainEntity": [

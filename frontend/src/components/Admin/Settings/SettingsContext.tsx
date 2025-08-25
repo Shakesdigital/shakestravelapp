@@ -22,7 +22,7 @@ interface SettingsState {
 const defaultState: SettingsState = {
   general: {
     siteName: 'Shakes Travel',
-    logoUrl: '/logo.png',
+    logoUrl: '/brand_assets/images/logo/logo.png',
     contactEmail: 'contact@shakestravel.com',
     primaryColor: '#195e48',
     timezone: 'Africa/Kampala',

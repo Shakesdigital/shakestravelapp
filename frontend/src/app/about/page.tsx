@@ -144,7 +144,7 @@ const AboutPage: React.FC = () => {
     "name": "Shake's Travel",
     "description": "Uganda's premier eco-friendly adventure travel company",
     "url": "https://shakestravel.com/about",
-    "logo": "https://shakestravel.com/logo.png",
+    "logo": "https://shakestravel.com/brand_assets/images/logo/logo.png",
     "foundingDate": "2012",
     "founder": {
       "@type": "Person",

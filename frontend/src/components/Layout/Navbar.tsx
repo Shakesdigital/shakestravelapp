@@ -27,9 +27,9 @@ const Navbar: React.FC = () => {
                 <Image 
                   src="/brand_assets/images/logo/logo.png" 
                   alt="Shakes Travel Logo" 
-                  width={40} 
+                  width={120} 
                   height={40} 
-                  className="h-10 w-auto"
+                  className="h-10 w-auto max-w-[120px]"
                   priority
                 />
               </Link>

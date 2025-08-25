@@ -225,7 +225,7 @@ export default function Home() {
     "name": "Shake's Travel",
     "description": "Sustainable Uganda adventures and eco-friendly accommodations in the Pearl of Africa",
     "url": typeof window !== 'undefined' ? window.location.origin : '',
-    "logo": `${typeof window !== 'undefined' ? window.location.origin : ''}/images/logo.png`,
+    "logo": `${typeof window !== 'undefined' ? window.location.origin : ''}/brand_assets/images/logo/logo.png`,
     "image": `${typeof window !== 'undefined' ? window.location.origin : ''}/images/uganda-hero.jpg`,
     "telephone": "+256-XXX-XXXXXX",
     "email": "info@shakestravel.com",

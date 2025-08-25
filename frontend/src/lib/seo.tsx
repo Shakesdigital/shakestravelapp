@@ -97,7 +97,7 @@ export function generateStructuredData(type: string, data: any) {
     '@type': 'TravelAgency',
     name: seoConfig.siteName,
     url: seoConfig.siteUrl,
-    logo: `${seoConfig.siteUrl}/images/logo.png`,
+    logo: `${seoConfig.siteUrl}/brand_assets/images/logo/logo.png`,
     sameAs: [
       'https://twitter.com/ugandaexplorer',
       'https://facebook.com/ugandaexplorer',
