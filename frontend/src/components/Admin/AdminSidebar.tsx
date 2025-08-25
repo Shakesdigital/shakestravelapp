@@ -153,10 +153,10 @@ export default function AdminSidebar() {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Properly constrained */}
       <div
         data-tour="sidebar"
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg lg:shadow-none transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg lg:shadow-none transform transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col max-h-screen ${
           sidebarCollapsed ? '-translate-x-full' : 'translate-x-0'
         }`}
       >
@@ -183,8 +183,8 @@ export default function AdminSidebar() {
           </button>
         </div>
 
-        {/* Navigation - Clean organization */}
-        <nav className="flex-1 mt-6 px-4 pb-4 overflow-y-auto">
+        {/* Navigation - Clean organization with proper scrolling and padding */}
+        <nav className="flex-1 mt-6 px-3 pr-6 overflow-y-auto">
           {/* Quick Stats Banner - Better design */}
           <div className="mb-6 p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl text-white shadow-lg">
             <div className="text-sm font-semibold mb-2 opacity-90">Today's Overview</div>
@@ -200,7 +200,7 @@ export default function AdminSidebar() {
             </div>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-2 pb-4">
             {menuItems.map((item) => (
               <div key={item.id}>
                 {/* Main menu item */}
@@ -218,34 +218,34 @@ export default function AdminSidebar() {
                   <div className="flex items-center group">
                     <Link
                       href={item.href}
-                      className={`flex items-center flex-1 px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                      className={`flex items-center flex-1 px-3 py-2.5 mr-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                         isActiveRoute(item.href)
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 shadow-sm'
                           : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
-                      } ${hoveredItem === item.id ? 'transform scale-[1.02]' : ''}`}
+                      } ${hoveredItem === item.id ? 'transform scale-[1.01]' : ''}`}
                     >
-                      <span className="text-lg mr-3 transition-transform duration-200 group-hover:scale-110">{item.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium truncate">{item.label}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      <span className="text-base mr-3 flex-shrink-0 transition-transform duration-200 group-hover:scale-110">{item.icon}</span>
+                      <div className="flex-1 min-w-0 overflow-hidden pr-2">
+                        <div className="font-medium text-sm truncate leading-tight">{item.label}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 truncate leading-tight mt-0.5">
                           {item.description}
                         </div>
                       </div>
                       {item.badge && (
-                        <span className={`ml-2 px-2 py-1 text-xs font-bold text-white rounded-full ${item.badgeColor || 'bg-red-500'} animate-pulse`}>
+                        <span className={`ml-1 px-1.5 py-0.5 text-xs font-semibold text-white rounded-full flex-shrink-0 ${item.badgeColor || 'bg-red-500'}`}>
                           {item.badge}
                         </span>
                       )}
                     </Link>
                   
-                    {/* Submenu toggle */}
+                    {/* Submenu toggle - Better positioned */}
                     {item.submenu && (
                       <button
                         onClick={() => toggleSubmenu(item.id)}
-                        className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-200 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 rounded-md transition-all duration-200"
+                        className="p-1.5 mr-2 text-gray-500 hover:text-gray-900 hover:bg-gray-200 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 rounded-md transition-all duration-200 flex-shrink-0"
                         title={expandedMenu === item.id ? 'Collapse menu' : 'Expand menu'}
                       >
-                        <span className={`transform transition-transform duration-300 text-xs ${
+                        <span className={`transform transition-transform duration-300 text-xs block w-4 h-4 flex items-center justify-center ${
                           expandedMenu === item.id ? 'rotate-90' : ''
                         }`}>
                           ▶
@@ -264,27 +264,27 @@ export default function AdminSidebar() {
                   )}
                 </div>
 
-                {/* Submenu with animation */}
-                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  item.submenu && expandedMenu === item.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                {/* Submenu with animation and proper spacing */}
+                <div className={`overflow-hidden transition-all duration-300 ease-in-out mr-2 ${
+                  item.submenu && expandedMenu === item.id ? 'max-h-96 opacity-100 mb-2' : 'max-h-0 opacity-0'
                 }`}>
                   {item.submenu && (
-                    <div className="mt-2 ml-6 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+                    <div className="mt-2 ml-6 mr-4 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 pl-3">
                       {item.submenu.map((subItem, index) => (
                         <Link
                           key={subItem.href}
                           href={subItem.href}
-                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group ${
+                          className={`flex items-center px-2 py-2 text-sm rounded-md transition-all duration-200 group ${
                             pathname === subItem.href
                               ? 'bg-green-50 text-green-700 dark:bg-green-900/50 dark:text-green-300 shadow-sm'
                               : 'text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700/50'
                           }`}
                           style={{ animationDelay: `${index * 50}ms` }}
                         >
-                          <span className="text-base mr-3 transition-transform duration-200 group-hover:scale-110">{subItem.icon}</span>
-                          <span className="group-hover:translate-x-1 transition-transform duration-200">{subItem.label}</span>
+                          <span className="text-sm mr-2 flex-shrink-0 transition-transform duration-200 group-hover:scale-110">{subItem.icon}</span>
+                          <span className="group-hover:translate-x-0.5 transition-transform duration-200 truncate text-xs pr-2">{subItem.label}</span>
                           {pathname === subItem.href && (
-                            <div className="ml-auto w-1 h-1 bg-green-500 rounded-full animate-ping"></div>
+                            <div className="ml-auto w-1 h-1 bg-green-500 rounded-full animate-ping flex-shrink-0"></div>
                           )}
                         </Link>
                       ))}
@@ -296,34 +296,34 @@ export default function AdminSidebar() {
           </div>
         </nav>
 
-        {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
-          <div className="space-y-3">
+        {/* Footer - Contained within sidebar */}
+        <div className="flex-shrink-0 mt-auto p-4 mr-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30 rounded-t-lg">
+          <div className="space-y-2">
             {/* System Status */}
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-500 dark:text-gray-400">System Status</span>
-              <span className="flex items-center text-green-600 dark:text-green-400">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse"></div>
-                Operational
+            <div className="flex items-center justify-between text-xs px-1">
+              <span className="text-gray-500 dark:text-gray-400 truncate">Status</span>
+              <span className="flex items-center text-green-600 dark:text-green-400 flex-shrink-0">
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1 animate-pulse"></div>
+                <span className="text-xs">Live</span>
               </span>
             </div>
             
-            {/* Quick Actions */}
-            <div className="flex justify-between">
+            {/* Quick Actions - More compact */}
+            <div className="flex justify-center space-x-1 px-1">
               <button 
-                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
+                className="p-1 text-gray-500 hover:text-gray-700 hover:bg-gray-100/80 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700 rounded transition-all duration-200 text-sm"
                 title="Help & Support"
               >
                 ❓
               </button>
               <button 
-                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
+                className="p-1 text-gray-500 hover:text-gray-700 hover:bg-gray-100/80 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700 rounded transition-all duration-200 text-sm"
                 title="Settings"
               >
                 ⚙️
               </button>
               <button 
-                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
+                className="p-1 text-gray-500 hover:text-gray-700 hover:bg-gray-100/80 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700 rounded transition-all duration-200 text-sm"
                 title="Feedback"
               >
                 📝
@@ -331,8 +331,8 @@ export default function AdminSidebar() {
             </div>
             
             {/* Version Info */}
-            <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-              Admin Portal v2.1.0
+            <div className="text-xs text-gray-400 dark:text-gray-500 text-center truncate px-1">
+              v2.1.0
             </div>
           </div>
         </div>

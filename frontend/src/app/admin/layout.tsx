@@ -12,12 +12,12 @@ export default function AdminLayout({
 }) {
   return (
     <AdminProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Admin Sidebar */}
         <AdminSidebar />
         
         {/* Main Content Area */}
-        <div className="flex-1 lg:ml-64 flex flex-col">
+        <div className="lg:pl-64 min-h-screen flex flex-col">
           {/* Top Header - Fixed height and clean */}
           <AdminHeader />
           
