@@ -153,12 +153,13 @@ export default function AdminSidebar() {
         />
       )}
 
-      {/* Sidebar - Properly constrained */}
+      {/* Sidebar - Properly constrained below main navbar */}
       <div
         data-tour="sidebar"
-        className={`fixed top-0 bottom-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg lg:shadow-none transform transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col max-h-screen ${
+        className={`fixed top-20 bottom-0 left-0 z-30 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg lg:shadow-none transform transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col ${
           sidebarCollapsed ? '-translate-x-full' : 'translate-x-0'
         }`}
+        style={{ height: 'calc(100vh - 5rem)' }} /* Account for 20px (5rem) top spacing */
       >
         {/* Logo - Clean header */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30">
