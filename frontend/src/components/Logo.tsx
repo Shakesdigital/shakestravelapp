@@ -36,7 +36,7 @@ const Logo: React.FC<LogoProps> = ({
     <div className="relative flex items-center">
       {/* Try multiple logo sources for maximum compatibility */}
       <Image 
-        src="/shakes-travel-logo.png" 
+        src="/brand_assets/images/logo/SHAKES LOGO REDISNED (1) - Edited.png" 
         alt="Shakes Travel Logo" 
         width={width} 
         height={height} 
@@ -44,16 +44,24 @@ const Logo: React.FC<LogoProps> = ({
         priority={priority}
         unoptimized={true}
         onError={() => {
-          // Try alternative path
+          // Try alternative paths
           const img = document.createElement('img');
-          img.src = '/logo.png';
+          img.src = '/shakes-travel-logo.png';
           img.onload = () => {
             // If alternative works, update the source
             setImageError(false);
           };
           img.onerror = () => {
-            // If all images fail, show text logo
-            setImageError(true);
+            // Try another fallback
+            const img2 = document.createElement('img');
+            img2.src = '/logo.png';
+            img2.onload = () => {
+              setImageError(false);
+            };
+            img2.onerror = () => {
+              // If all images fail, show text logo
+              setImageError(true);
+            };
           };
         }}
         onLoadingComplete={() => {

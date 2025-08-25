@@ -48,7 +48,8 @@
       "WebFetch(domain:github.com)",
       "Bash(git remote set-url:*)",
       "WebFetch(domain:shakestravel.vercel.app)",
-      "Bash(copy:*)"
+      "Bash(copy:*)",
+      "WebFetch(domain:localhost)"
     ],
     "deny": [],
     "ask": [],
