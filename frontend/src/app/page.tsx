@@ -555,31 +555,31 @@ export default function Home() {
                           <article key={destination.name} className="flex-1 group min-w-0">
                             <Link 
                               href={getDestinationLink(destination.name)}
-                              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 block focus:ring-2 focus:ring-offset-2 flex flex-col h-56 sm:h-60 md:h-64"
+                              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-200 block focus:ring-2 focus:ring-offset-2 flex flex-col h-72 sm:h-60 md:h-64"
                               style={{ focusRingColor: primaryColor }}
                               aria-label={`Explore ${destination.name}: ${destination.description}`}
                             >
                               <div 
-                                className="h-24 sm:h-28 md:h-32 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl flex-shrink-0 group-hover:scale-110 transition-transform duration-200" 
+                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center text-4xl sm:text-3xl md:text-4xl flex-shrink-0 group-hover:scale-105 transition-transform duration-200" 
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
                                 {destination.image}
                               </div>
-                              <div className="p-2 sm:p-3 md:p-4 flex flex-col justify-between flex-1">
+                              <div className="p-3 sm:p-3 md:p-4 flex flex-col justify-between flex-1">
                                 <div>
-                                  <div className="flex items-center justify-between mb-1 sm:mb-2">
-                                    <h3 className="font-semibold text-xs sm:text-sm text-gray-900 flex-1 line-clamp-1">{destination.name}</h3>
+                                  <div className="flex items-center justify-between mb-2">
+                                    <h3 className="font-semibold text-sm sm:text-sm text-gray-900 flex-1 line-clamp-1">{destination.name}</h3>
                                     {hasDestinationPage(destination.name) && (
-                                      <span className="bg-[#195e48] text-white text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium ml-1 sm:ml-2 flex-shrink-0 hidden sm:inline">
+                                      <span className="bg-[#195e48] text-white text-xs px-2 py-1 rounded-full font-medium ml-2 flex-shrink-0 hidden sm:inline">
                                         ✨ Featured
                                       </span>
                                     )}
                                   </div>
-                                  <p className="text-gray-600 text-xs mb-2 sm:mb-3 line-clamp-2 leading-3 sm:leading-4">{destination.description}</p>
+                                  <p className="text-gray-600 text-xs sm:text-xs mb-3 line-clamp-2 leading-relaxed">{destination.description}</p>
                                 </div>
                                 <div className="flex justify-between items-center mt-auto">
-                                  <span className="text-xs font-medium" style={{ color: primaryColor }}>{destination.experiences} exp</span>
+                                  <span className="text-sm font-medium" style={{ color: primaryColor }}>{destination.experiences} experiences</span>
                                   <span 
                                     className="text-xs font-semibold transition-colors opacity-0 group-hover:opacity-100 hidden sm:inline"
                                     style={{ color: primaryColor }}

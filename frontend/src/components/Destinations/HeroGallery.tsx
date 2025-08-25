@@ -106,7 +106,7 @@ const HeroGallery: React.FC<HeroGalleryProps> = ({ destinationName, destinationS
               index === currentImageIndex ? 'opacity-100' : 'opacity-0'
             }`}
             style={{
-              background: 'linear-gradient(135deg, #496f62 0%, #2d7f5b 50%, #1a5945 100%)'
+              background: 'linear-gradient(135deg, #195e48 0%, #2d7f5b 50%, #1a5945 100%)'
             }}
           >
             <Image
