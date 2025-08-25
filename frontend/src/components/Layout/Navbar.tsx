@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
+import Logo from '@/components/Logo';
 
 const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -24,14 +25,7 @@ const Navbar: React.FC = () => {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0 flex items-center">
-                <Image 
-                  src="/brand_assets/images/logo/logo.png" 
-                  alt="Shakes Travel Logo" 
-                  width={120} 
-                  height={40} 
-                  className="h-10 w-auto max-w-[120px]"
-                  priority
-                />
+                <Logo />
               </Link>
             </div>
             

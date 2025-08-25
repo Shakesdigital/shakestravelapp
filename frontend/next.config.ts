@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
   
   // Optimized image configuration for Netlify
   images: {
-    domains: ['localhost', 'www.shakestravel.com', 'shakestravel.com'],
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: 'https',
@@ -43,6 +43,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '**.netlify.app',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       }
     ],
   },
