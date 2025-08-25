@@ -548,7 +548,7 @@ export default function Home() {
               >
                 {Array.from({ length: totalSlides }, (_, slideIndex) => (
                   <div key={slideIndex} className="w-full flex-shrink-0">
-                    <div className="flex gap-2 sm:gap-3 md:gap-4 justify-between">
+                    <div className="flex gap-4 sm:gap-3 md:gap-4 justify-between px-2 sm:px-0">
                       {ugandaDestinations
                         .slice(slideIndex * cardsPerSlide, (slideIndex + 1) * cardsPerSlide)
                         .map((destination, index) => (
@@ -597,25 +597,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Carousel Indicators */}
-            <div className="flex justify-center space-x-2 mt-6">
-              {Array.from({ length: totalSlides }, (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentDestinationIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-200 focus:ring-2 focus:ring-offset-2 ${
-                    index === currentDestinationIndex 
-                      ? 'opacity-100' 
-                      : 'bg-gray-300 opacity-60 hover:opacity-80'
-                  }`}
-                  style={{ 
-                    backgroundColor: index === currentDestinationIndex ? primaryColor : undefined,
-                    focusRingColor: primaryColor 
-                  }}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </section>
