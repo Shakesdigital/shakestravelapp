@@ -139,7 +139,8 @@ const shouldAddAuthHeader = (url: string): boolean => {
     '/payments',
     '/wishlist',
     '/trip-plans',
-    '/profile'
+    '/profile',
+    '/admin'
   ];
   
   return protectedPaths.some(path => url.includes(path));
@@ -253,5 +254,35 @@ export const api = {
   tripPlans: {
     getById: (id: string) => axiosInstance.get(`/trip-plans/${id}`),
     getPublic: (params?: any) => axiosInstance.get('/trip-plans/public', { params }),
+  },
+
+  // Admin operations
+  admin: {
+    // Dashboard
+    getStats: () => axiosInstance.get('/admin/dashboard/stats'),
+    getAnalytics: (period = '30d') => axiosInstance.get('/admin/analytics/overview', { params: { period } }),
+    
+    // Content Management
+    getContent: (params?: any) => axiosInstance.get('/admin/content', { params }),
+    
+    // User Management
+    getUsers: (params?: any) => axiosInstance.get('/admin/users', { params }),
+    updateUser: (id: string, data: any) => axiosInstance.put(`/admin/users/${id}`, data),
+    
+    // Booking Management
+    getBookings: (params?: any) => axiosInstance.get('/admin/bookings', { params }),
+    updateBooking: (id: string, data: any) => axiosInstance.put(`/admin/bookings/${id}`, data),
+    
+    // Trip Management
+    getTrips: (params?: any) => axiosInstance.get('/admin/trips', { params }),
+    updateTrip: (id: string, data: any) => axiosInstance.put(`/admin/trips/${id}`, data),
+    
+    // Accommodation Management
+    getAccommodations: (params?: any) => axiosInstance.get('/admin/accommodations', { params }),
+    updateAccommodation: (id: string, data: any) => axiosInstance.put(`/admin/accommodations/${id}`, data),
+    
+    // Review Management
+    getReviews: (params?: any) => axiosInstance.get('/admin/reviews', { params }),
+    updateReview: (id: string, data: any) => axiosInstance.put(`/admin/reviews/${id}`, data),
   },
 };

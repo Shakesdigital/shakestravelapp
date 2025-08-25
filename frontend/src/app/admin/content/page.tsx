@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
 import { AnimatedButton } from '@/components/Admin/UI/FeedbackComponents';
 import { HelpTooltip } from '@/components/Admin/UI/Tooltip';
 import BulkActions from '@/components/Admin/Content/BulkActions';
+import { api } from '@/lib/axios';
 
 interface ContentItem {
   id: string;
@@ -18,59 +20,7 @@ interface ContentItem {
   seoScore?: number;
 }
 
-const contentItems: ContentItem[] = [
-  {
-    id: '1',
-    title: 'Home Page',
-    type: 'page',
-    status: 'published',
-    author: 'Admin User',
-    lastModified: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    views: 1250,
-    seoScore: 85
-  },
-  {
-    id: '2',
-    title: 'Ultimate Gorilla Trekking Guide',
-    type: 'article',
-    status: 'published',
-    author: 'Travel Writer',
-    lastModified: new Date(Date.now() - 4 * 60 * 60 * 1000),
-    views: 856,
-    featured: true,
-    seoScore: 92
-  },
-  {
-    id: '3',
-    title: 'About Shakes Travel',
-    type: 'page',
-    status: 'published',
-    author: 'Admin User',
-    lastModified: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-    views: 432,
-    seoScore: 78
-  },
-  {
-    id: '4',
-    title: 'White Water Rafting Adventures',
-    type: 'article',
-    status: 'draft',
-    author: 'Adventure Writer',
-    lastModified: new Date(Date.now() - 30 * 60 * 1000),
-    views: 0,
-    seoScore: 45
-  },
-  {
-    id: '5',
-    title: 'Contact Us Page',
-    type: 'page',
-    status: 'published',
-    author: 'Admin User',
-    lastModified: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-    views: 189,
-    seoScore: 67
-  }
-];
+// Remove static data - will use API data instead
 
 export default function ContentManagement() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -79,12 +29,19 @@ export default function ContentManagement() {
   const [searchQuery, setSearchQuery] = useState('');
   const [view, setView] = useState<'grid' | 'list'>('list');
 
-  const filteredItems = contentItems.filter(item => {
-    const matchesType = filterType === 'all' || item.type === filterType;
-    const matchesStatus = filterStatus === 'all' || item.status === filterStatus;
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesType && matchesStatus && matchesSearch;
+  // Fetch content data from API
+  const { data: contentData, isLoading, error } = useQuery({
+    queryKey: ['admin-content', { type: filterType, status: filterStatus, search: searchQuery }],
+    queryFn: () => api.admin.getContent({ 
+      type: filterType === 'all' ? undefined : filterType,
+      status: filterStatus === 'all' ? undefined : filterStatus,
+      search: searchQuery || undefined 
+    }).then(res => res.data),
+    staleTime: 30000, // 30 seconds
   });
+
+  const contentItems: ContentItem[] = contentData?.data || [];
+  const filteredItems = contentItems;
 
   const handleSelectAll = () => {
     if (selectedItems.length === filteredItems.length) {
@@ -120,6 +77,24 @@ export default function ContentManagement() {
       default: return '📄';
     }
   };
+
+  if (error) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex">
+            <div className="text-red-400 text-xl mr-3">⚠️</div>
+            <div>
+              <h3 className="text-red-800 font-medium">Error Loading Content</h3>
+              <p className="text-red-600 text-sm mt-1">
+                Unable to load content management data. Please try refreshing the page.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -311,7 +286,29 @@ export default function ContentManagement() {
                 </tr>
               </thead>
               <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                {filteredItems.map((item) => (
+                {isLoading ? (
+                  // Loading skeleton
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <tr key={index} className="animate-pulse">
+                      <td className="px-6 py-4">
+                        <div className="h-4 w-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          <div className="h-6 w-6 bg-gray-200 dark:bg-gray-700 rounded mr-3"></div>
+                          <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4"><div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                      <td className="px-6 py-4"><div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                      <td className="px-6 py-4"><div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                      <td className="px-6 py-4"><div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                      <td className="px-6 py-4"><div className="h-4 w-12 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                      <td className="px-6 py-4"><div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                      <td className="px-6 py-4"><div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div></td>
+                    </tr>
+                  ))
+                ) : filteredItems.map((item) => (
                   <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                     <td className="px-6 py-4">
                       <input

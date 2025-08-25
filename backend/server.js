@@ -255,9 +255,17 @@ class ShakesTravelServer {
     this.app.use('/api/uploads', require('./src/routes/uploads'));
     this.app.use('/api/payments', require('./src/routes/payments'));
     
-    // Future route imports will go here
-    // this.app.use('/api/users', require('./src/routes/users'));
-    // this.app.use('/api/admin', require('./src/routes/admin'));
+    // User management routes
+    this.app.use('/api/users', require('./src/routes/users'));
+    
+    // Admin routes
+    this.app.use('/api/admin', require('./src/routes/admin'));
+    
+    // Search routes
+    this.app.use('/api/search', require('./src/routes/search'));
+    
+    // Trip plans routes (public)
+    this.app.use('/api/trip-plans', require('./src/routes/trip-plans'));
 
     logger.info('✅ Routes setup completed');
   }

@@ -345,8 +345,25 @@ const attachPermissions = catchAsync(async (req, res, next) => {
   next();
 });
 
+/**
+ * Admin role check middleware
+ */
+const isAdmin = catchAsync(async (req, res, next) => {
+  if (!req.user) {
+    throw new AuthenticationError('Authentication required');
+  }
+  
+  if (!['admin', 'superadmin'].includes(req.user.role)) {
+    businessLogger.security.unauthorizedAccess(req.ip, req.originalUrl, req.user.id);
+    throw new AuthorizationError('Admin privileges required');
+  }
+  
+  next();
+});
+
 module.exports = {
   authenticate,
+  auth: authenticate, // alias for consistency with frontend
   optionalAuth,
   authorize,
   authorizeRole,
@@ -357,5 +374,6 @@ module.exports = {
   authorizeListingManager,
   authRateLimit,
   logUserActivity,
-  attachPermissions
+  attachPermissions,
+  isAdmin
 };
