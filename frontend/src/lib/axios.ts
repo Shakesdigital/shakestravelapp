@@ -245,9 +245,11 @@ export const api = {
 
   // Search
   search: {
-    general: (params: any) => axiosInstance.get('/search', { params }),
+    general: (params: any) => axiosInstance.get('/search/general', { params }),
+    suggestions: (params: any) => axiosInstance.get('/search/suggestions', { params }),
     trips: (params: any) => axiosInstance.get('/search/trips', { params }),
     accommodations: (params: any) => axiosInstance.get('/search/accommodations', { params }),
+    all: (params: any) => axiosInstance.get('/search', { params }),
   },
 
   // Trip Plans (public)
