@@ -1,0 +1,20 @@
+{
+  "name": "shakes-travel-lambda",
+  "version": "1.0.0",
+  "description": "Serverless deployment configuration for Shakes Travel Backend",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "remove": "serverless remove",
+    "offline": "serverless offline start",
+    "logs": "serverless logs -f app"
+  },
+  "dependencies": {
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.0",
+    "serverless-dotenv-plugin": "^6.0.0"
+  }
+}

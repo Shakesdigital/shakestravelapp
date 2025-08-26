@@ -27,6 +27,10 @@ const corsOptions = {
       process.env.CORS_ORIGIN,
       'https://shakestravelapp.netlify.app',
       'https://shakestravel.vercel.app',
+      // AWS CloudFront distributions
+      'https://d1234567890abc.cloudfront.net',
+      'https://d0987654321cba.cloudfront.net',
+      // Development
       'http://localhost:3000',
       'http://localhost:3001'
     ].filter(Boolean);
