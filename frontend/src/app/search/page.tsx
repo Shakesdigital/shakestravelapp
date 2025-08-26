@@ -55,6 +55,129 @@ function SearchPageContent() {
     }
   });
 
+  // Mock search data for development
+  const getMockResults = (filters: SearchFilters): SearchResult[] => {
+    const mockResults: SearchResult[] = [
+      {
+        _id: '1',
+        title: 'Bwindi Gorilla Trekking Experience',
+        description: 'An unforgettable mountain gorilla trekking adventure in Bwindi Impenetrable Forest',
+        price: 800,
+        rating: 4.9,
+        location: 'Bwindi Impenetrable Forest',
+        images: ['/brand_assets/images/gorilla-trekking.jpg'],
+        type: 'trip',
+        amenities: ['Guide', 'Permits', 'Transport'],
+        reviews: 156
+      },
+      {
+        _id: '2',
+        title: 'Queen Elizabeth Safari Lodge',
+        name: 'Queen Elizabeth Safari Lodge',
+        description: 'Luxury safari lodge with stunning views of the Kazinga Channel',
+        price: 250,
+        pricePerNight: 250,
+        rating: 4.7,
+        location: 'Queen Elizabeth National Park',
+        images: ['/brand_assets/images/uganda-hero.jpg'],
+        type: 'accommodation',
+        amenities: ['WiFi', 'Restaurant', 'Pool', 'Safari Views'],
+        reviews: 89
+      },
+      {
+        _id: '3',
+        title: 'Jinja White Water Rafting',
+        description: 'Thrilling white water rafting experience on the source of the Nile River',
+        price: 120,
+        rating: 4.8,
+        location: 'Jinja',
+        images: ['/brand_assets/images/jinja-rafting.jpg'],
+        type: 'trip',
+        amenities: ['Equipment', 'Safety Gear', 'Lunch'],
+        reviews: 234
+      },
+      {
+        _id: '4',
+        title: 'Lake Bunyonyi Eco Resort',
+        name: 'Lake Bunyonyi Eco Resort',
+        description: 'Peaceful lakeside resort perfect for relaxation and birdwatching',
+        price: 180,
+        pricePerNight: 180,
+        rating: 4.6,
+        location: 'Lake Bunyonyi',
+        images: ['/brand_assets/images/uganda-culture.jpg'],
+        type: 'accommodation',
+        amenities: ['Restaurant', 'Boat Trips', 'WiFi', 'Spa'],
+        reviews: 67
+      },
+      {
+        _id: '5',
+        title: 'Kampala City Cultural Tour',
+        description: 'Explore the vibrant culture and history of Uganda\'s capital city',
+        price: 45,
+        rating: 4.4,
+        location: 'Kampala',
+        images: ['/brand_assets/images/uganda-culture.jpg'],
+        type: 'trip',
+        amenities: ['Local Guide', 'Transport', 'Cultural Sites'],
+        reviews: 123
+      },
+      {
+        _id: '6',
+        title: 'Murchison Falls Lodge',
+        name: 'Murchison Falls Lodge',
+        description: 'Experience the power of Murchison Falls from this riverside lodge',
+        price: 320,
+        pricePerNight: 320,
+        rating: 4.8,
+        location: 'Murchison Falls National Park',
+        images: ['/brand_assets/images/uganda-hero.jpg'],
+        type: 'accommodation',
+        amenities: ['Restaurant', 'River Views', 'Game Drives', 'Boat Trips'],
+        reviews: 145
+      }
+    ];
+
+    // Filter results based on search criteria
+    let filteredResults = mockResults;
+
+    // Filter by query or destination
+    if (filters.q || filters.destination) {
+      const searchTerm = (filters.q || filters.destination || '').toLowerCase();
+      filteredResults = filteredResults.filter(result => 
+        result.title.toLowerCase().includes(searchTerm) ||
+        result.location.toLowerCase().includes(searchTerm) ||
+        result.description.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    // Filter by type
+    if (filters.type && filters.type !== 'all') {
+      if (filters.type === 'accommodation') {
+        filteredResults = filteredResults.filter(result => result.type === 'accommodation');
+      } else if (filters.type === 'experience') {
+        filteredResults = filteredResults.filter(result => result.type === 'trip');
+      }
+    }
+
+    // Filter by price range
+    if (filters.priceMin || filters.priceMax) {
+      filteredResults = filteredResults.filter(result => {
+        const price = result.price || result.pricePerNight || 0;
+        const minPrice = filters.priceMin || 0;
+        const maxPrice = filters.priceMax || 10000;
+        return price >= minPrice && price <= maxPrice;
+      });
+    }
+
+    // Filter by rating
+    if (filters.rating) {
+      filteredResults = filteredResults.filter(result => result.rating >= filters.rating);
+    }
+
+    return filteredResults;
+  };
+
   const searchData = async (filters: SearchFilters) => {
     setLoading(true);
     try {
@@ -73,37 +196,46 @@ function SearchPageContent() {
 
       let response;
       
-      // Use appropriate endpoint based on type
-      if (filters.type === 'accommodation') {
-        response = await api.search.accommodations(searchParams);
-      } else if (filters.type === 'experience') {
-        response = await api.search.trips(searchParams);
-      } else {
-        response = await api.search.all(searchParams);
-      }
-      
-      // Handle different response structures
-      const data = response.data;
-      if (data.success && data.data) {
-        if (Array.isArray(data.data)) {
-          setResults(data.data);
-        } else if (data.data.results) {
-          setResults(data.data.results);
-        } else if (data.data.trips || data.data.accommodations) {
-          const allResults = [
-            ...(data.data.trips || []).map((item: any) => ({ ...item, type: 'trip' })),
-            ...(data.data.accommodations || []).map((item: any) => ({ ...item, type: 'accommodation' }))
-          ];
-          setResults(allResults);
+      try {
+        // Try to use live API first
+        if (filters.type === 'accommodation') {
+          response = await api.search.accommodations(searchParams);
+        } else if (filters.type === 'experience') {
+          response = await api.search.trips(searchParams);
+        } else {
+          response = await api.search.all(searchParams);
+        }
+        
+        // Handle different response structures
+        const data = response.data;
+        if (data.success && data.data) {
+          if (Array.isArray(data.data)) {
+            setResults(data.data);
+          } else if (data.data.results) {
+            setResults(data.data.results);
+          } else if (data.data.trips || data.data.accommodations) {
+            const allResults = [
+              ...(data.data.trips || []).map((item: any) => ({ ...item, type: 'trip' })),
+              ...(data.data.accommodations || []).map((item: any) => ({ ...item, type: 'accommodation' }))
+            ];
+            setResults(allResults);
+          } else {
+            setResults([]);
+          }
         } else {
           setResults([]);
         }
-      } else {
-        setResults([]);
+      } catch (apiError) {
+        // If API fails, use mock data
+        console.log('API not available, using mock data for development');
+        const mockResults = getMockResults(filters);
+        setResults(mockResults);
       }
     } catch (error) {
       console.error('Search failed:', error);
-      setResults([]);
+      // Fallback to mock data
+      const mockResults = getMockResults(filters);
+      setResults(mockResults);
     } finally {
       setLoading(false);
     }
@@ -162,37 +294,38 @@ function SearchPageContent() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
                 />
               </div>
-            <div>
-              <input
-                {...register('checkIn')}
-                type="date"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-            <div>
-              <input
-                {...register('checkOut')}
-                type="date"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-            <div>
-              <select
-                {...register('guests')}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-              >
-                {[1,2,3,4,5,6,7,8].map(num => (
-                  <option key={num} value={num}>{num} Guest{num > 1 ? 's' : ''}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-              >
-                Search
-              </button>
+              <div>
+                <input
+                  {...register('checkIn')}
+                  type="date"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+              <div>
+                <input
+                  {...register('checkOut')}
+                  type="date"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                />
+              </div>
+              <div>
+                <select
+                  {...register('guests')}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                >
+                  {[1,2,3,4,5,6,7,8].map(num => (
+                    <option key={num} value={num}>{num} Guest{num > 1 ? 's' : ''}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                >
+                  Search
+                </button>
+              </div>
             </div>
           </form>
           

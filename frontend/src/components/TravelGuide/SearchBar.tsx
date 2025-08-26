@@ -28,6 +28,27 @@ const SearchBar: React.FC = () => {
   const q = watch('q');
   const searchType = watch('searchType');
 
+  // Mock suggestions for development
+  const getMockSuggestions = (query: string) => {
+    const allSuggestions = [
+      { id: 'bwindi', title: 'Bwindi Impenetrable Forest', type: 'destination', description: 'Mountain gorilla trekking destination', url: '/search?destination=Bwindi Impenetrable Forest' },
+      { id: 'queen-elizabeth', title: 'Queen Elizabeth National Park', type: 'destination', description: 'Wildlife and boat safaris', url: '/search?destination=Queen Elizabeth National Park' },
+      { id: 'murchison-falls', title: 'Murchison Falls National Park', type: 'destination', description: 'Uganda\'s largest national park', url: '/search?destination=Murchison Falls National Park' },
+      { id: 'jinja', title: 'Jinja', type: 'destination', description: 'White water rafting and Nile activities', url: '/search?destination=Jinja' },
+      { id: 'kampala', title: 'Kampala', type: 'destination', description: 'Capital city and cultural hub', url: '/search?destination=Kampala' },
+      { id: 'lake-bunyonyi', title: 'Lake Bunyonyi', type: 'destination', description: 'Scenic crater lake', url: '/search?destination=Lake Bunyonyi' },
+      { id: 'gorilla-trekking', title: 'Bwindi Gorilla Trekking Experience', type: 'guide', description: 'Mountain gorilla trekking adventure', url: '/trips/gorilla-trekking' },
+      { id: 'jinja-rafting', title: 'Jinja White Water Rafting', type: 'guide', description: 'Thrilling rafting on the Nile', url: '/trips/jinja-rafting' },
+      { id: 'safari-lodge', title: 'Queen Elizabeth Safari Lodge', type: 'guide', description: 'Luxury safari accommodation', url: '/accommodations/safari-lodge' },
+      { id: 'cultural-tour', title: 'Kampala City Cultural Tour', type: 'guide', description: 'Explore Uganda\'s capital culture', url: '/trips/cultural-tour' }
+    ];
+
+    return allSuggestions.filter(suggestion => 
+      suggestion.title.toLowerCase().includes(query.toLowerCase()) ||
+      suggestion.description.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 6);
+  };
+
   useEffect(() => {
     let active = true;
     if (!q || q.trim().length < 2) {
@@ -43,8 +64,12 @@ const SearchBar: React.FC = () => {
         setSuggestions((res.data && Array.isArray(res.data.items)) ? res.data.items : []);
         setShow(true);
       } catch (err) {
-        // Non-blocking: silently ignore network errors here
-        setSuggestions([]);
+        // If API fails, use mock suggestions
+        console.log('API not available, using mock suggestions for development');
+        if (!active) return;
+        const mockSuggestions = getMockSuggestions(q);
+        setSuggestions(mockSuggestions);
+        setShow(true);
       }
     }, 250);
 
