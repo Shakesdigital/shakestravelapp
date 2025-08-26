@@ -24,14 +24,28 @@ const corsOptions = {
     const allowedOrigins = [
       process.env.FRONTEND_URL,
       process.env.ADMIN_URL,
+      process.env.CORS_ORIGIN,
+      'https://shakestravelapp.netlify.app',
+      'https://shakestravel.vercel.app',
       'http://localhost:3000',
       'http://localhost:3001'
     ].filter(Boolean);
+
+    // Parse CORS_ORIGIN if it contains multiple URLs
+    if (process.env.CORS_ORIGIN) {
+      const additionalOrigins = process.env.CORS_ORIGIN.split(',').map(url => url.trim());
+      allowedOrigins.push(...additionalOrigins);
+    }
 
     // Allow requests with no origin (mobile apps, Postman, etc.)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      logger.warn('CORS policy violation', { 
+        origin, 
+        allowedOrigins: allowedOrigins.filter(Boolean),
+        timestamp: new Date().toISOString()
+      });
       callback(new Error('Not allowed by CORS policy'));
     }
   },

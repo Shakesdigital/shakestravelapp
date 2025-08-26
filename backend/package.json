@@ -11,7 +11,9 @@
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "build": "npm ci --only=production",
+    "postinstall": "npm run seed"
   },
   "keywords": [
     "travel",
