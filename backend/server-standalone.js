@@ -16,7 +16,12 @@ const PORT = process.env.PORT || 5000;
 
 // Basic middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'http://localhost:3004', 'http://localhost:3005'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'X-Auth-Token', 'Cache-Control']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
-  withCredentials: false, // Disable credentials for now to avoid CORS issues
+  withCredentials: true, // Enable credentials for local development
 });
 
 // Token management
