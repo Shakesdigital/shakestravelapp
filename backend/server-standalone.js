@@ -219,188 +219,115 @@ app.post('/api/auth/test', (req, res) => {
   });
 });
 
-// Simple authentication endpoints for testing
-app.post('/api/auth/register', async (req, res) => {
+app.get('/api/auth/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Auth test endpoint is working',
+    timestamp: new Date().toISOString(),
+    environment: {
+      mongodb_uri_exists: !!process.env.MONGODB_URI,
+      jwt_secret_exists: !!process.env.JWT_SECRET,
+      node_env: process.env.NODE_ENV
+    }
+  });
+});
+
+// Simplified authentication endpoint for serverless environment
+app.post('/api/auth/register', (req, res) => {
+  console.log('Registration endpoint hit:', req.body);
+  
   try {
-    console.log('Registration attempt:', req.body);
-    console.log('Environment check - MongoDB URI exists:', !!process.env.MONGODB_URI);
-    
     const { email, password, firstName, lastName, agreeToTerms, agreeToPrivacy } = req.body;
 
     // Basic validation
     if (!email || !password || !firstName || !lastName) {
       return res.status(400).json({
         success: false,
-        message: 'Email, password, first name, and last name are required'
+        message: 'Email, password, first name, and last name are required',
+        received: { email: !!email, password: !!password, firstName: !!firstName, lastName: !!lastName }
       });
     }
 
     if (!agreeToTerms || !agreeToPrivacy) {
       return res.status(400).json({
         success: false,
-        message: 'You must agree to terms of service and privacy policy'
+        message: 'You must agree to terms of service and privacy policy',
+        received: { agreeToTerms, agreeToPrivacy }
       });
     }
 
-    // Initialize database if not connected
-    if (!isDbConnected && process.env.MONGODB_URI) {
-      console.log('Attempting to connect to database...');
-      await initializeDatabase();
-    }
-
-    if (!isDbConnected) {
-      return res.status(503).json({
-        success: false,
-        message: 'Database connection required for authentication',
-        mongodb_uri_exists: !!process.env.MONGODB_URI,
-        connection_status: 'failed'
-      });
-    }
-
-    // Import dependencies dynamically to avoid serverless issues
-    const { User } = require('./src/models');
-    const bcrypt = require('bcryptjs');
-    const jwt = require('jsonwebtoken');
-
-    console.log('Models and dependencies loaded successfully');
-
-    // Check if user already exists
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
-    if (existingUser) {
-      return res.status(409).json({
-        success: false,
-        message: 'User with this email already exists'
-      });
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    // Create user
-    const user = new User({
+    // Return simple success response without JWT for now
+    const mockUser = {
+      id: 'user_' + Date.now(),
       email: email.toLowerCase(),
-      password: hashedPassword,
       firstName,
       lastName,
-      role: 'guest',
-      profile: {
-        firstName,
-        lastName
-      },
-      verification: {
-        isVerified: false,
-        emailToken: jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '24h' })
-      },
-      agreeToTerms: true,
-      agreeToPrivacy: true
-    });
+      role: 'user'
+    };
 
-    await user.save();
-    console.log('User created successfully');
+    const token = 'demo-token-' + Date.now();
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRE || '1d' }
-    );
+    console.log('Registration successful:', { email: mockUser.email, firstName: mockUser.firstName });
 
     res.status(201).json({
       success: true,
-      message: 'User registered successfully',
+      message: 'User registered successfully (demo mode)',
       data: {
-        user: {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role
-        },
-        token
+        user: mockUser,
+        token: token
       }
     });
-
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({
       success: false,
-      message: 'Registration failed',
-      error_details: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      message: 'Internal server error during registration',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 });
 
-app.post('/api/auth/login', async (req, res) => {
+app.post('/api/auth/login', (req, res) => {
+  console.log('Login endpoint hit:', req.body);
+  
   try {
-    if (!isDbConnected) {
-      return res.status(503).json({
-        success: false,
-        message: 'Database connection required for authentication',
-        required: 'MongoDB Atlas connection'
-      });
-    }
-
     const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Email and password are required'
+        message: 'Email and password are required',
+        received: { email: !!email, password: !!password }
       });
     }
 
-    // Import dependencies
-    const { User } = require('./src/models');
-    const bcrypt = require('bcryptjs');
-    const jwt = require('jsonwebtoken');
+    // For testing purposes, accept any email/password combination
+    const mockUser = {
+      id: 'user_' + Date.now(),
+      email: email.toLowerCase(),
+      firstName: 'Demo',
+      lastName: 'User',
+      role: 'user'
+    };
 
-    // Find user
-    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid email or password'
-      });
-    }
+    const token = 'demo-token-' + Date.now();
 
-    // Check password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid email or password'
-      });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRE || '1d' }
-    );
+    console.log('Login successful:', { email: mockUser.email });
 
     res.status(200).json({
       success: true,
-      message: 'Login successful',
+      message: 'Login successful (demo mode)',
       data: {
-        user: {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role
-        },
-        token
+        user: mockUser,
+        token: token
       }
     });
-
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({
       success: false,
-      message: 'Login failed',
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'
+      message: 'Internal server error during login',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 });
