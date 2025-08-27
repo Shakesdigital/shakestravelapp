@@ -9,10 +9,10 @@ provider:
   timeout: 30
   environment:
     NODE_ENV: production
-    MONGODB_URI: ${env:MONGODB_URI}
-    JWT_SECRET: ${env:JWT_SECRET}
-    JWT_REFRESH_SECRET: ${env:JWT_REFRESH_SECRET}
-    CORS_ORIGIN: ${env:CORS_ORIGIN}
+    MONGODB_URI: mongodb+srv://shakertravel:ShakesTravel2024@shakestravelcluster.nrdj0.mongodb.net/shakestraveldb?retryWrites=true&w=majority
+    JWT_SECRET: ShakesTravel2024SuperSecureJWTSecretKeyForProductionDeployment
+    JWT_REFRESH_SECRET: ShakesTravel2024UltraSecureRefreshJWTSecretKeyForProductionDeployment
+    CORS_ORIGIN: https://shakestravelapp.netlify.app,https://d1234567890abc.cloudfront.net
     
   iamRoleStatements:
     - Effect: Allow
@@ -30,7 +30,7 @@ provider:
 
 functions:
   app:
-    handler: lambda/handler.handler
+    handler: handler.handler
     events:
       - http:
           path: /{proxy+}
@@ -68,7 +68,7 @@ custom:
     httpPort: 5000
     lambdaPort: 3002
   dotenv:
-    path: ../.env.aws
+    path: ./.env
 
 package:
   exclude:

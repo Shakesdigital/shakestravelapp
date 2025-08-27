@@ -18,6 +18,31 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Initialize database connection
+let isDbConnected = false;
+
+// Try to connect to database
+const initializeDatabase = async () => {
+  try {
+    if (process.env.MONGODB_URI) {
+      const database = require('./src/config/database');
+      await database.connect();
+      isDbConnected = true;
+      console.log('✅ MongoDB connected - authentication enabled');
+      return true;
+    } else {
+      console.log('⚠️  No MongoDB URI provided - using mock mode');
+      isDbConnected = false;
+      return false;
+    }
+  } catch (err) {
+    console.log('⚠️  MongoDB connection failed:', err.message);
+    isDbConnected = false;
+    return false;
+  }
+};
 
 // Mock data
 const mockData = {
@@ -180,19 +205,228 @@ app.get('/api/payments', (req, res) => {
   });
 });
 
+// Test endpoint to verify auth routes are working
+app.post('/api/auth/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Auth endpoint is reachable',
+    body: req.body,
+    environment: {
+      mongodb_uri_exists: !!process.env.MONGODB_URI,
+      jwt_secret_exists: !!process.env.JWT_SECRET,
+      node_env: process.env.NODE_ENV
+    }
+  });
+});
+
+// Simple authentication endpoints for testing
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    console.log('Registration attempt:', req.body);
+    console.log('Environment check - MongoDB URI exists:', !!process.env.MONGODB_URI);
+    
+    const { email, password, firstName, lastName, agreeToTerms, agreeToPrivacy } = req.body;
+
+    // Basic validation
+    if (!email || !password || !firstName || !lastName) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email, password, first name, and last name are required'
+      });
+    }
+
+    if (!agreeToTerms || !agreeToPrivacy) {
+      return res.status(400).json({
+        success: false,
+        message: 'You must agree to terms of service and privacy policy'
+      });
+    }
+
+    // Initialize database if not connected
+    if (!isDbConnected && process.env.MONGODB_URI) {
+      console.log('Attempting to connect to database...');
+      await initializeDatabase();
+    }
+
+    if (!isDbConnected) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database connection required for authentication',
+        mongodb_uri_exists: !!process.env.MONGODB_URI,
+        connection_status: 'failed'
+      });
+    }
+
+    // Import dependencies dynamically to avoid serverless issues
+    const { User } = require('./src/models');
+    const bcrypt = require('bcryptjs');
+    const jwt = require('jsonwebtoken');
+
+    console.log('Models and dependencies loaded successfully');
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    if (existingUser) {
+      return res.status(409).json({
+        success: false,
+        message: 'User with this email already exists'
+      });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create user
+    const user = new User({
+      email: email.toLowerCase(),
+      password: hashedPassword,
+      firstName,
+      lastName,
+      role: 'guest',
+      profile: {
+        firstName,
+        lastName
+      },
+      verification: {
+        isVerified: false,
+        emailToken: jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '24h' })
+      },
+      agreeToTerms: true,
+      agreeToPrivacy: true
+    });
+
+    await user.save();
+    console.log('User created successfully');
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE || '1d' }
+    );
+
+    res.status(201).json({
+      success: true,
+      message: 'User registered successfully',
+      data: {
+        user: {
+          id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role
+        },
+        token
+      }
+    });
+
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Registration failed',
+      error_details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
+  }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    if (!isDbConnected) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database connection required for authentication',
+        required: 'MongoDB Atlas connection'
+      });
+    }
+
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and password are required'
+      });
+    }
+
+    // Import dependencies
+    const { User } = require('./src/models');
+    const bcrypt = require('bcryptjs');
+    const jwt = require('jsonwebtoken');
+
+    // Find user
+    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password'
+      });
+    }
+
+    // Check password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password'
+      });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE || '1d' }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: {
+        user: {
+          id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role
+        },
+        token
+      }
+    });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Login failed',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'
+    });
+  }
+});
+
 // Catch-all for undefined routes
 app.use('*', (req, res) => {
+  const endpoints = [
+    'GET /api',
+    'GET /api/health', 
+    'GET /api/status',
+    'GET /api/trips',
+    'GET /api/accommodations'
+  ];
+  
+  if (isDbConnected) {
+    endpoints.push('POST /api/auth/register');
+    endpoints.push('POST /api/auth/login');
+    endpoints.push('GET /api/auth/profile');
+    endpoints.push('POST /api/auth/refresh');
+  }
+
   res.status(404).json({
     success: false,
     message: 'API endpoint not found',
-    available_endpoints: [
-      'GET /api',
-      'GET /api/health', 
-      'GET /api/status',
-      'GET /api/trips',
-      'GET /api/accommodations'
-    ],
-    note: 'This is standalone mode - some endpoints require MongoDB'
+    available_endpoints: endpoints,
+    note: isDbConnected ? 'Full API with authentication enabled' : 'Standalone mode - some endpoints require MongoDB'
   });
 });
 
@@ -206,37 +440,54 @@ app.use((error, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log('🚀 Shakes Travel API Server Started');
-  console.log('=====================================');
-  console.log(`📡 Server running on port ${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📅 Started at: ${new Date().toISOString()}`);
-  console.log('');
-  console.log('🔗 Available endpoints:');
-  console.log(`   API: http://localhost:${PORT}/api`);
-  console.log(`   Health: http://localhost:${PORT}/api/health`);
-  console.log(`   Status: http://localhost:${PORT}/api/status`);
-  console.log(`   Trips: http://localhost:${PORT}/api/trips`);
-  console.log(`   Accommodations: http://localhost:${PORT}/api/accommodations`);
-  console.log('');
-  console.log('💡 Note: Running in standalone mode with mock data');
-  console.log('   Install MongoDB and Redis for full functionality');
-  console.log('   Or use Docker Compose for complete deployment');
-  console.log('');
-  console.log('🛑 Press Ctrl+C to stop the server');
-});
+// Export app for serverless deployment
+module.exports = {
+  getApp: () => {
+    // Initialize database connection on first request if not already connected
+    if (!isDbConnected) {
+      initializeDatabase().catch(err => {
+        console.log('Database initialization failed:', err.message);
+      });
+    }
+    return app;
+  },
+  app,
+  initializeDatabase
+};
 
-// Graceful shutdown
-process.on('SIGINT', () => {
-  console.log('\n🛑 Shutting down Shakes Travel API Server...');
-  console.log('✅ Server stopped gracefully');
-  process.exit(0);
-});
+// Start server only if this file is run directly (not imported)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('🚀 Shakes Travel API Server Started');
+    console.log('=====================================');
+    console.log(`📡 Server running on port ${PORT}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📅 Started at: ${new Date().toISOString()}`);
+    console.log('');
+    console.log('🔗 Available endpoints:');
+    console.log(`   API: http://localhost:${PORT}/api`);
+    console.log(`   Health: http://localhost:${PORT}/api/health`);
+    console.log(`   Status: http://localhost:${PORT}/api/status`);
+    console.log(`   Trips: http://localhost:${PORT}/api/trips`);
+    console.log(`   Accommodations: http://localhost:${PORT}/api/accommodations`);
+    console.log('');
+    console.log('💡 Note: Running in standalone mode with mock data');
+    console.log('   Install MongoDB and Redis for full functionality');
+    console.log('   Or use Docker Compose for complete deployment');
+    console.log('');
+    console.log('🛑 Press Ctrl+C to stop the server');
+  });
 
-process.on('SIGTERM', () => {
-  console.log('\n🛑 Received SIGTERM, shutting down gracefully...');
-  console.log('✅ Server stopped gracefully');
-  process.exit(0);
-});
+  // Graceful shutdown
+  process.on('SIGINT', () => {
+    console.log('\n🛑 Shutting down Shakes Travel API Server...');
+    console.log('✅ Server stopped gracefully');
+    process.exit(0);
+  });
+
+  process.on('SIGTERM', () => {
+    console.log('\n🛑 Received SIGTERM, shutting down gracefully...');
+    console.log('✅ Server stopped gracefully');
+    process.exit(0);
+  });
+}

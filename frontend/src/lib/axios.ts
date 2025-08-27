@@ -163,7 +163,7 @@ export const api = {
   auth: {
     login: (credentials: { email: string; password: string }) =>
       axiosInstance.post('/auth/login', credentials),
-    register: (userData: { name: string; email: string; password: string; role?: string }) =>
+    register: (userData: { firstName: string; lastName: string; email: string; password: string; agreeToTerms?: boolean; agreeToPrivacy?: boolean }) =>
       axiosInstance.post('/auth/register', userData),
     logout: () => axiosInstance.post('/auth/logout'),
     refreshToken: () => axiosInstance.post('/auth/refresh'),

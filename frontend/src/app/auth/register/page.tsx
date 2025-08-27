@@ -7,12 +7,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface RegisterFormData {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
-  role: 'user' | 'host';
   agreeToTerms: boolean;
+  agreeToPrivacy: boolean;
   subscribeNewsletter: boolean;
 }
 
@@ -24,12 +25,13 @@ export default function RegisterPage() {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>({
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmPassword: '',
-      role: 'user',
       agreeToTerms: false,
+      agreeToPrivacy: false,
       subscribeNewsletter: false
     }
   });
@@ -52,8 +54,14 @@ export default function RegisterPage() {
       return;
     }
 
+    if (!data.agreeToPrivacy) {
+      setError('You must agree to the privacy policy');
+      setLoading(false);
+      return;
+    }
+
     try {
-      await registerUser(data.name, data.email, data.password, data.role);
+      await registerUser(data.firstName, data.lastName, data.email, data.password, data.agreeToTerms, data.agreeToPrivacy);
       
       // Redirect to profile or onboarding
       router.push('/profile');
@@ -88,28 +96,55 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <div className="mt-1">
-                <input
-                  {...register('name', {
-                    required: 'Full name is required',
-                    minLength: {
-                      value: 2,
-                      message: 'Name must be at least 2 characters'
-                    }
-                  })}
-                  id="name"
-                  type="text"
-                  autoComplete="name"
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
-                  placeholder="Enter your full name"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-                )}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                  First Name
+                </label>
+                <div className="mt-1">
+                  <input
+                    {...register('firstName', {
+                      required: 'First name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'First name must be at least 2 characters'
+                      }
+                    })}
+                    id="firstName"
+                    type="text"
+                    autoComplete="given-name"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+                    placeholder="First name"
+                  />
+                  {errors.firstName && (
+                    <p className="mt-1 text-sm text-red-600">{errors.firstName.message}</p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                  Last Name
+                </label>
+                <div className="mt-1">
+                  <input
+                    {...register('lastName', {
+                      required: 'Last name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'Last name must be at least 2 characters'
+                      }
+                    })}
+                    id="lastName"
+                    type="text"
+                    autoComplete="family-name"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+                    placeholder="Last name"
+                  />
+                  {errors.lastName && (
+                    <p className="mt-1 text-sm text-red-600">{errors.lastName.message}</p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -235,15 +270,31 @@ export default function RegisterPage() {
                   I agree to the{' '}
                   <Link href="/terms" className="text-green-600 hover:text-green-500">
                     Terms and Conditions
-                  </Link>{' '}
-                  and{' '}
-                  <Link href="/privacy" className="text-green-600 hover:text-green-500">
-                    Privacy Policy
                   </Link>
                 </label>
               </div>
               {errors.agreeToTerms && (
                 <p className="text-sm text-red-600">{errors.agreeToTerms.message}</p>
+              )}
+
+              <div className="flex items-center">
+                <input
+                  {...register('agreeToPrivacy', {
+                    required: 'You must agree to the privacy policy'
+                  })}
+                  id="agreeToPrivacy"
+                  type="checkbox"
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+                <label htmlFor="agreeToPrivacy" className="ml-2 block text-sm text-gray-900">
+                  I agree to the{' '}
+                  <Link href="/privacy" className="text-green-600 hover:text-green-500">
+                    Privacy Policy
+                  </Link>
+                </label>
+              </div>
+              {errors.agreeToPrivacy && (
+                <p className="text-sm text-red-600">{errors.agreeToPrivacy.message}</p>
               )}
 
               <div className="flex items-center">

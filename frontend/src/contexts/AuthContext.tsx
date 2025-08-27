@@ -8,15 +8,17 @@ import { showToast } from '@/lib/toast';
 interface User {
   id: string;
   email: string;
-  name: string;
-  role: 'user' | 'host' | 'admin';
+  firstName: string;
+  lastName: string;
+  name?: string;
+  role: 'guest' | 'user' | 'host' | 'admin';
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string, role?: string) => Promise<void>;
+  register: (firstName: string, lastName: string, email: string, password: string, agreeToTerms?: boolean, agreeToPrivacy?: boolean) => Promise<void>;
   logout: () => void;
   loading: boolean;
 }
@@ -32,13 +34,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const savedToken = getAuthToken();
     if (savedToken) {
       try {
-        const decoded = jwtDecode<{exp: number; id: string; email: string; name: string; role: 'user' | 'host' | 'admin'}>(savedToken);
+        const decoded = jwtDecode<{exp: number; userId: string; email: string; role: 'guest' | 'user' | 'host' | 'admin'}>(savedToken);
         if (decoded.exp * 1000 > Date.now()) {
           setToken(savedToken);
           setUser({
-            id: decoded.id,
+            id: decoded.userId,
             email: decoded.email,
-            name: decoded.name,
+            firstName: '',
+            lastName: '',
             role: decoded.role
           });
         } else {
@@ -54,27 +57,42 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = async (email: string, password: string) => {
     try {
       const response = await api.auth.login({ email, password });
-      const { token: newToken, user: userData } = response.data;
+      const { data } = response.data;
+      const { token: newToken, user: userData } = data;
       
       setToken(newToken);
-      setUser(userData);
+      setUser({
+        ...userData,
+        name: `${userData.firstName} ${userData.lastName}`
+      });
       setAuthToken(newToken);
-      showToast.success(`Welcome back, ${userData.name}!`);
+      showToast.success(`Welcome back, ${userData.firstName}!`);
     } catch (error: any) {
       // Error handled by axios interceptor, just re-throw
       throw error;
     }
   };
 
-  const register = async (name: string, email: string, password: string, role: string = 'user') => {
+  const register = async (firstName: string, lastName: string, email: string, password: string, agreeToTerms: boolean = true, agreeToPrivacy: boolean = true) => {
     try {
-      const response = await api.auth.register({ name, email, password, role });
-      const { token: newToken, user: userData } = response.data;
+      const response = await api.auth.register({ 
+        firstName, 
+        lastName, 
+        email, 
+        password, 
+        agreeToTerms, 
+        agreeToPrivacy 
+      });
+      const { data } = response.data;
+      const { token: newToken, user: userData } = data;
       
       setToken(newToken);
-      setUser(userData);
+      setUser({
+        ...userData,
+        name: `${userData.firstName} ${userData.lastName}`
+      });
       setAuthToken(newToken);
-  showToast.success(`Welcome to Shakes Travel, ${userData.name}!`);
+      showToast.success(`Welcome to Shakes Travel, ${userData.firstName}!`);
     } catch (error: any) {
       // Error handled by axios interceptor, just re-throw
       throw error;

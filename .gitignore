@@ -137,3 +137,8 @@ laravel-app/storage/logs/*
 !laravel-app/storage/logs/.gitignore
 laravel-app/bootstrap/cache/*
 !laravel-app/bootstrap/cache/.gitignore
+# Local Netlify folder
+.netlify
+
+# Large binary files
+AWSCLIV2.exe

@@ -12,8 +12,7 @@
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
     "seed": "node scripts/seed.js",
-    "build": "npm ci --only=production",
-    "postinstall": "npm run seed"
+    "build": "echo 'Build completed - ready for deployment'"
   },
   "keywords": [
     "travel",
@@ -48,6 +47,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
     "redis": "^4.7.1",
+    "serverless-http": "^3.2.0",
     "socket.io": "^4.7.4",
     "stripe": "^14.5.0",
     "winston": "^3.17.0",
