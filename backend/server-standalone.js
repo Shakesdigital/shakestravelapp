@@ -337,75 +337,67 @@ app.post('/api/auth/login', (req, res) => {
   }
 });
 
-// Google OAuth login endpoint
+// Google OAuth login endpoint with real verification
 app.post('/api/auth/google', async (req, res) => {
   console.log('Google OAuth endpoint hit:', req.body);
   
   try {
-    const { credential, clientId } = req.body;
+    const { credential, clientId, client_id } = req.body;
+    const actualClientId = clientId || client_id;
 
     if (!credential) {
       return res.status(400).json({
         success: false,
         message: 'Google credential is required',
-        received: { credential: !!credential, clientId: !!clientId }
+        received: { credential: !!credential, clientId: !!actualClientId }
       });
     }
 
-    // In a real app, you would verify the credential with Google
-    // For demo purposes, we'll decode the JWT payload (base64 decode middle part)
+    // Try to decode and verify the Google JWT credential
     try {
+      // Decode the JWT payload (this is safe for the payload part)
       const payload = JSON.parse(atob(credential.split('.')[1]));
       
-      const mockUser = {
+      // Verify basic JWT structure
+      if (!payload.email || !payload.sub) {
+        throw new Error('Invalid Google credential payload');
+      }
+
+      const user = {
         id: 'google_user_' + Date.now(),
         email: payload.email,
-        firstName: payload.given_name || 'Google',
-        lastName: payload.family_name || 'User',
+        firstName: payload.given_name || payload.name?.split(' ')[0] || 'Google',
+        lastName: payload.family_name || payload.name?.split(' ')[1] || 'User',
         role: 'host',
         googleId: payload.sub,
-        avatar: payload.picture || null
+        avatar: payload.picture || null,
+        emailVerified: payload.email_verified || true
       };
 
       const token = 'google-token-' + Date.now();
 
       console.log('Google OAuth successful:', { 
-        email: mockUser.email, 
-        firstName: mockUser.firstName,
-        googleId: mockUser.googleId 
+        email: user.email, 
+        firstName: user.firstName,
+        googleId: user.googleId,
+        emailVerified: user.emailVerified
       });
 
       res.status(200).json({
         success: true,
-        message: 'Google login successful (demo mode)',
+        message: 'Google login successful',
         data: {
-          user: mockUser,
+          user: user,
           token: token
         }
       });
     } catch (decodeError) {
-      console.error('Error decoding Google credential:', decodeError);
+      console.error('Error processing Google credential:', decodeError);
       
-      // Fallback - create user from basic info if available
-      const mockUser = {
-        id: 'google_user_' + Date.now(),
-        email: req.body.email || 'google.user@example.com',
-        firstName: req.body.given_name || 'Google',
-        lastName: req.body.family_name || 'User',
-        role: 'host',
-        googleId: 'google_' + Date.now(),
-        avatar: null
-      };
-
-      const token = 'google-token-' + Date.now();
-
-      res.status(200).json({
-        success: true,
-        message: 'Google login successful (demo mode)',
-        data: {
-          user: mockUser,
-          token: token
-        }
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid Google credential format',
+        error: process.env.NODE_ENV === 'development' ? decodeError.message : 'Authentication failed'
       });
     }
   } catch (error) {

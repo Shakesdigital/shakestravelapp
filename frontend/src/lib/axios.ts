@@ -1,15 +1,19 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
-// Create axios instance
+// Create axios instance with improved configuration
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 30000,
+  timeout: 15000, // Reduced timeout
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
   withCredentials: true, // Enable credentials for local development
+  // Retry configuration
+  validateStatus: function (status) {
+    return status < 500; // Resolve only if the status code is less than 500
+  },
 });
 
 // Token management
@@ -122,13 +126,24 @@ axiosInstance.interceptors.response.use(
       }
     } else if (request) {
       // Request made but no response received
-      console.error('Network error:', error);
+      console.error('Network error details:', {
+        message: error.message,
+        code: error.code,
+        config: {
+          url: error.config?.url,
+          method: error.config?.method,
+          baseURL: error.config?.baseURL
+        }
+      });
+      
       if (error.message?.includes('timeout')) {
-        toast.error('Request timeout. Please try again.');
-      } else if (error.message?.includes('Network Error')) {
-        toast.error('Network error. Please check your connection and try again.');
+        toast.error('Connection timeout. Please check if the server is running and try again.');
+      } else if (error.message?.includes('Network Error') || error.code === 'ECONNREFUSED') {
+        toast.error('Cannot connect to server. Please ensure the backend server is running on http://localhost:5000');
+      } else if (error.code === 'ENOTFOUND') {
+        toast.error('Server not found. Please check the server URL configuration.');
       } else {
-        toast.error('Unable to connect to server. Please try again.');
+        toast.error(`Connection failed: ${error.message}. Please check your network connection.`);
       }
     } else {
       // Something else happened

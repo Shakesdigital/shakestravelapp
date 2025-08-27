@@ -71,12 +71,13 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({
   }, []);
 
   const handleCredentialResponse = async (response: any) => {
+    console.log('Google credential response:', response);
     try {
       if (!response.credential) {
         throw new Error('No credential received from Google');
       }
 
-      await googleLogin(response.credential, response.clientId);
+      await googleLogin(response.credential, response.client_id);
       onSuccess?.();
     } catch (error) {
       console.error('Google Sign-In Error:', error);
