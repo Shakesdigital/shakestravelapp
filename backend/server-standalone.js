@@ -262,7 +262,7 @@ app.post('/api/auth/register', (req, res) => {
       email: email.toLowerCase(),
       firstName,
       lastName,
-      role: 'user'
+      role: 'host'  // Set role to 'host' so users can access host dashboard
     };
 
     const token = 'demo-token-' + Date.now();
@@ -307,7 +307,7 @@ app.post('/api/auth/login', (req, res) => {
       email: email.toLowerCase(),
       firstName: 'Demo',
       lastName: 'User',
-      role: 'user'
+      role: 'host'  // Set role to 'host' so users can access host dashboard
     };
 
     const token = 'demo-token-' + Date.now();
