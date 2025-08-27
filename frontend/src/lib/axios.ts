@@ -7,7 +7,9 @@ const axiosInstance = axios.create({
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
+  withCredentials: false, // Disable credentials for now to avoid CORS issues
 });
 
 // Token management
@@ -120,9 +122,17 @@ axiosInstance.interceptors.response.use(
       }
     } else if (request) {
       // Request made but no response received
-      toast.error('Network error. Please check your connection and try again.');
+      console.error('Network error:', error);
+      if (error.message?.includes('timeout')) {
+        toast.error('Request timeout. Please try again.');
+      } else if (error.message?.includes('Network Error')) {
+        toast.error('Network error. Please check your connection and try again.');
+      } else {
+        toast.error('Unable to connect to server. Please try again.');
+      }
     } else {
       // Something else happened
+      console.error('Axios configuration error:', error);
       toast.error('An unexpected error occurred');
     }
     

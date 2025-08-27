@@ -342,9 +342,12 @@ app.use('*', (req, res) => {
     'GET /api/accommodations'
   ];
   
+  // Auth endpoints are always available in demo mode
+  endpoints.push('GET /api/auth/test');
+  endpoints.push('POST /api/auth/register');
+  endpoints.push('POST /api/auth/login');
+  
   if (isDbConnected) {
-    endpoints.push('POST /api/auth/register');
-    endpoints.push('POST /api/auth/login');
     endpoints.push('GET /api/auth/profile');
     endpoints.push('POST /api/auth/refresh');
   }
