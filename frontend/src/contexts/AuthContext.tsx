@@ -19,6 +19,7 @@ interface AuthContextType {
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
   register: (firstName: string, lastName: string, email: string, password: string, agreeToTerms?: boolean, agreeToPrivacy?: boolean) => Promise<void>;
+  googleLogin: (credential: string, clientId?: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
 }
@@ -99,6 +100,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+  const googleLogin = async (credential: string, clientId?: string) => {
+    try {
+      const response = await api.auth.googleLogin({ credential, clientId });
+      const { data } = response.data;
+      const { token: newToken, user: userData } = data;
+      
+      setToken(newToken);
+      setUser({
+        ...userData,
+        name: `${userData.firstName} ${userData.lastName}`
+      });
+      setAuthToken(newToken);
+      showToast.success(`Welcome to Shakes Travel, ${userData.firstName}!`);
+    } catch (error: any) {
+      // Error handled by axios interceptor, just re-throw
+      throw error;
+    }
+  };
+
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -112,6 +132,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       token,
       login,
       register,
+      googleLogin,
       logout,
       loading
     }}>

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 interface RegisterFormData {
   firstName: string;

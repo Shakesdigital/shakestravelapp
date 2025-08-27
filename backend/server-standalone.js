@@ -337,6 +337,87 @@ app.post('/api/auth/login', (req, res) => {
   }
 });
 
+// Google OAuth login endpoint
+app.post('/api/auth/google', async (req, res) => {
+  console.log('Google OAuth endpoint hit:', req.body);
+  
+  try {
+    const { credential, clientId } = req.body;
+
+    if (!credential) {
+      return res.status(400).json({
+        success: false,
+        message: 'Google credential is required',
+        received: { credential: !!credential, clientId: !!clientId }
+      });
+    }
+
+    // In a real app, you would verify the credential with Google
+    // For demo purposes, we'll decode the JWT payload (base64 decode middle part)
+    try {
+      const payload = JSON.parse(atob(credential.split('.')[1]));
+      
+      const mockUser = {
+        id: 'google_user_' + Date.now(),
+        email: payload.email,
+        firstName: payload.given_name || 'Google',
+        lastName: payload.family_name || 'User',
+        role: 'host',
+        googleId: payload.sub,
+        avatar: payload.picture || null
+      };
+
+      const token = 'google-token-' + Date.now();
+
+      console.log('Google OAuth successful:', { 
+        email: mockUser.email, 
+        firstName: mockUser.firstName,
+        googleId: mockUser.googleId 
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Google login successful (demo mode)',
+        data: {
+          user: mockUser,
+          token: token
+        }
+      });
+    } catch (decodeError) {
+      console.error('Error decoding Google credential:', decodeError);
+      
+      // Fallback - create user from basic info if available
+      const mockUser = {
+        id: 'google_user_' + Date.now(),
+        email: req.body.email || 'google.user@example.com',
+        firstName: req.body.given_name || 'Google',
+        lastName: req.body.family_name || 'User',
+        role: 'host',
+        googleId: 'google_' + Date.now(),
+        avatar: null
+      };
+
+      const token = 'google-token-' + Date.now();
+
+      res.status(200).json({
+        success: true,
+        message: 'Google login successful (demo mode)',
+        data: {
+          user: mockUser,
+          token: token
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Google OAuth error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error during Google authentication',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
 // Catch-all for undefined routes
 app.use('*', (req, res) => {
   const endpoints = [
@@ -351,6 +432,7 @@ app.use('*', (req, res) => {
   endpoints.push('GET /api/auth/test');
   endpoints.push('POST /api/auth/register');
   endpoints.push('POST /api/auth/login');
+  endpoints.push('POST /api/auth/google');
   
   if (isDbConnected) {
     endpoints.push('GET /api/auth/profile');

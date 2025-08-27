@@ -175,6 +175,8 @@ export const api = {
       axiosInstance.post('/auth/login', credentials),
     register: (userData: { firstName: string; lastName: string; email: string; password: string; agreeToTerms?: boolean; agreeToPrivacy?: boolean }) =>
       axiosInstance.post('/auth/register', userData),
+    googleLogin: (googleData: { credential: string; clientId?: string }) =>
+      axiosInstance.post('/auth/google', googleData),
     logout: () => axiosInstance.post('/auth/logout'),
     refreshToken: () => axiosInstance.post('/auth/refresh'),
     forgotPassword: (email: string) => axiosInstance.post('/auth/forgot-password', { email }),
