@@ -9,6 +9,10 @@
   NEXT_TELEMETRY_DISABLED = "1"
   NEXT_PUBLIC_API_URL = "https://shakes-travel-backend.netlify.app/api"
 
+# Netlify Identity configuration
+[identity]
+  settings = true
+
 # Automatic deployments configuration
 [context.production]
   command = "npm run build"
@@ -36,6 +40,22 @@
   to = "https://shakes-travel-backend.netlify.app/api/:splat"
   status = 200
   force = true
+
+# Netlify Identity redirects
+[[redirects]]
+  from = "/.netlify/identity/callback"
+  to = "/.netlify/identity/callback"
+  status = 200
+
+[[redirects]]
+  from = "/auth/netlify-login"
+  to = "/auth/netlify-login"
+  status = 200
+
+[[redirects]]
+  from = "/auth/netlify-register"
+  to = "/auth/netlify-register"
+  status = 200
 
 [[redirects]]
   from = "/*"
