@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNetlifyIdentity } from '@/contexts/NetlifyIdentityContext';
 import { useRouter, usePathname } from 'next/navigation';
 
 interface AuthGuardProps {
@@ -18,14 +19,19 @@ export default function AuthGuard({
   redirectTo = '/auth/login'
 }: AuthGuardProps) {
   const { user, loading } = useAuth();
+  const { user: netlifyUser, loading: netlifyLoading } = useNetlifyIdentity();
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (loading) return; // Wait for auth to load
+  // User is authenticated if either auth system has a user
+  const isAuthenticated = user || netlifyUser;
+  const isLoading = loading || netlifyLoading;
 
-    // If authentication is required but user is not logged in
-    if (requireAuth && !user) {
+  useEffect(() => {
+    if (isLoading) return; // Wait for both auth systems to load
+
+    // If authentication is required but user is not logged in via either system
+    if (requireAuth && !isAuthenticated) {
       const returnUrl = encodeURIComponent(pathname);
       router.push(`${redirectTo}?returnUrl=${returnUrl}`);
       return;
@@ -38,14 +44,14 @@ export default function AuthGuard({
     }
 
     // If user is logged in but trying to access auth pages
-    if (!requireAuth && user && (pathname.startsWith('/auth/'))) {
+    if (!requireAuth && isAuthenticated && (pathname.startsWith('/auth/'))) {
       router.push('/profile');
       return;
     }
-  }, [user, loading, requireAuth, requireRole, router, pathname, redirectTo]);
+  }, [isAuthenticated, isLoading, requireAuth, requireRole, router, pathname, redirectTo, user]);
 
   // Show loading spinner while checking authentication
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
@@ -57,7 +63,7 @@ export default function AuthGuard({
   }
 
   // If auth is required but user is not authenticated, show nothing (redirect will happen)
-  if (requireAuth && !user) {
+  if (requireAuth && !isAuthenticated) {
     return null;
   }
 
@@ -67,7 +73,7 @@ export default function AuthGuard({
   }
 
   // If user is authenticated but trying to access auth pages, show nothing (redirect will happen)
-  if (!requireAuth && user && pathname.startsWith('/auth/')) {
+  if (!requireAuth && isAuthenticated && pathname.startsWith('/auth/')) {
     return null;
   }
 

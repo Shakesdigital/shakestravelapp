@@ -51,11 +51,19 @@ function ProfilePageContent() {
   const [reviews, setReviews] = useState<UserReview[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // Determine current user data from either auth system
+  const currentUser = user || {
+    name: netlifyUser?.user_metadata?.full_name || netlifyUser?.email?.split('@')[0] || 'User',
+    email: netlifyUser?.email || '',
+    role: netlifyUser?.user_metadata?.role || 'user',
+    createdAt: netlifyUser?.created_at || new Date().toISOString()
+  };
+
   useEffect(() => {
-    if (user) {
+    if (user || netlifyUser) {
       fetchUserData();
     }
-  }, [user]);
+  }, [user, netlifyUser]);
 
   const fetchUserData = async () => {
     setLoading(true);
@@ -97,7 +105,7 @@ function ProfilePageContent() {
     }
   };
 
-  if (!user) return null;
+  if (!user && !netlifyUser) return null;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -107,21 +115,26 @@ function ProfilePageContent() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                {user.name.charAt(0).toUpperCase()}
+                {currentUser.name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
-                <p className="text-gray-600">{user.email}</p>
+                <h1 className="text-2xl font-bold text-gray-900">{currentUser.name}</h1>
+                <p className="text-gray-600">{currentUser.email}</p>
+                {netlifyUser && (
+                  <p className="text-sm text-blue-600 mb-1">
+                    ✓ Google Account: {netlifyUser.user_metadata?.provider || 'Google'}
+                  </p>
+                )}
                 <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-                  user.role === 'host' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
+                  currentUser.role === 'host' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
                 }`}>
-                  {user.role === 'host' ? 'Host/Guide' : 'Traveler'}
+                  {currentUser.role === 'host' ? 'Host/Guide' : 'Traveler'}
                 </span>
               </div>
             </div>
             
             <div className="flex space-x-3">
-              {user.role === 'host' && (
+              {currentUser.role === 'host' && (
                 <Link
                   href="/host/dashboard"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
@@ -191,7 +204,7 @@ function ProfilePageContent() {
                   <div className="bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg p-6 text-white">
                     <h3 className="text-lg font-semibold mb-2">Member Since</h3>
                     <p className="text-lg font-medium">
-                      {new Date(user.createdAt || Date.now()).getFullYear()}
+                      {new Date(currentUser.createdAt || Date.now()).getFullYear()}
                     </p>
                   </div>
                 </div>
@@ -414,7 +427,7 @@ function ProfilePageContent() {
                         <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                         <input
                           type="text"
-                          value={user.name}
+                          value={currentUser.name}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                           readOnly
                         />
@@ -423,11 +436,19 @@ function ProfilePageContent() {
                         <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                         <input
                           type="email"
-                          value={user.email}
+                          value={currentUser.email}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                           readOnly
                         />
                       </div>
+                      {netlifyUser && (
+                        <div className="col-span-2">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Authentication Method</label>
+                          <div className="px-3 py-2 border border-gray-300 rounded-md bg-blue-50 text-blue-700">
+                            Google OAuth via Netlify Identity
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
