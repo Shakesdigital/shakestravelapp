@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://shakestravelapp.netlify.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://shakestravel.netlify.app'),
   alternates: {
     canonical: '/',
   },

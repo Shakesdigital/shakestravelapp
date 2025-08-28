@@ -124,10 +124,10 @@ function logout() {
 
 ### Step 4: Site Configuration
 1. Add your domain to **Site information**:
-   - Site URL: `https://shakestravelapp.netlify.app`
+   - Site URL: `https://shakestravel.netlify.app`
 2. Configure **Redirect URLs**:
-   - Success: `https://shakestravelapp.netlify.app/profile`
-   - Error: `https://shakestravelapp.netlify.app/auth/login?error=auth_failed`
+   - Success: `https://shakestravel.netlify.app/profile`
+   - Error: `https://shakestravel.netlify.app/auth/login?error=auth_failed`
 
 ### Step 5: Google Cloud Console Setup
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
@@ -135,16 +135,16 @@ function logout() {
 3. Enable **Google+ API** and **Google Identity API**
 4. Go to **Credentials** > **OAuth 2.0 Client IDs**
 5. Add authorized domains:
-   - `https://shakestravelapp.netlify.app`
+   - `https://shakestravel.netlify.app`
    - `https://*.netlify.app` (for Netlify Identity)
 6. Add redirect URIs:
-   - `https://shakestravelapp.netlify.app/.netlify/identity/callback`
+   - `https://shakestravel.netlify.app/.netlify/identity/callback`
 
 ### Step 6: Environment Variables
 Ensure these are set in your Netlify site:
 ```
 NEXT_PUBLIC_API_URL=https://shakes-travel-backend.netlify.app/api
-NEXT_PUBLIC_BASE_URL=https://shakestravelapp.netlify.app
+NEXT_PUBLIC_BASE_URL=https://shakestravel.netlify.app
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=245137294350-5puc3dv8l6e4t3qmvhb2r7vfn0oq5krj.apps.googleusercontent.com
 ```
 
