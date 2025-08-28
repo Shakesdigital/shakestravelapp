@@ -16,6 +16,11 @@ const axiosInstance = axios.create({
   },
 });
 
+// Debug: Log the API URL being used
+if (process.env.NODE_ENV === 'development') {
+  console.log('🔗 API Base URL:', process.env.NEXT_PUBLIC_API_URL);
+}
+
 // Token management
 const getAuthToken = (): string | null => {
   if (typeof window !== 'undefined') {
@@ -139,7 +144,8 @@ axiosInstance.interceptors.response.use(
       if (error.message?.includes('timeout')) {
         toast.error('Connection timeout. Please check if the server is running and try again.');
       } else if (error.message?.includes('Network Error') || error.code === 'ECONNREFUSED') {
-        toast.error('Cannot connect to server. Please ensure the backend server is running on http://localhost:5000');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'API server';
+        toast.error(`Cannot connect to server. Please check if ${apiUrl} is accessible.`);
       } else if (error.code === 'ENOTFOUND') {
         toast.error('Server not found. Please check the server URL configuration.');
       } else {
