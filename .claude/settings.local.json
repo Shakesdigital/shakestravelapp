@@ -67,7 +67,9 @@
       "Bash(timeout 10 curl -X GET \"https://shakes-travel-backend.netlify.app/api/auth/test\" -H \"Content-Type: application/json\" -v)",
       "Bash(timeout 15 curl -X GET \"https://shakestravelapp.netlify.app/api/health\" -H \"Accept: application/json\")",
       "Bash(timeout:*)",
-      "WebFetch(domain:shakestravelapp.netlify.app)"
+      "WebFetch(domain:shakestravelapp.netlify.app)",
+      "Bash(start http://localhost:3000)",
+      "Bash(start:*)"
     ],
     "deny": [],
     "ask": [],
