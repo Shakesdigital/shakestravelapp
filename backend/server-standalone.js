@@ -28,22 +28,37 @@ app.use(express.urlencoded({ extended: true }));
 // Initialize database connection
 let isDbConnected = false;
 
-// Try to connect to database
+// Try to connect to database (Netlify Blobs or MongoDB)
 const initializeDatabase = async () => {
   try {
-    if (process.env.MONGODB_URI) {
+    // Check if we're in Netlify environment or have Netlify Blobs available
+    if (process.env.NETLIFY || process.env.CONTEXT) {
+      console.log('🔵 Netlify environment detected - initializing Netlify Blobs...');
+      const { netlifyDB } = require('./src/config/netlify-db');
+      const connected = await netlifyDB.connect();
+      if (connected) {
+        isDbConnected = true;
+        console.log('✅ Netlify Blobs connected - full functionality enabled');
+        return true;
+      } else {
+        console.log('⚠️  Netlify Blobs connection failed - using mock mode');
+        isDbConnected = false;
+        return false;
+      }
+    } else if (process.env.MONGODB_URI) {
+      console.log('🍃 MongoDB URI provided - attempting MongoDB connection...');
       const database = require('./src/config/database');
       await database.connect();
       isDbConnected = true;
       console.log('✅ MongoDB connected - authentication enabled');
       return true;
     } else {
-      console.log('⚠️  No MongoDB URI provided - using mock mode');
+      console.log('⚠️  No database configuration found - using mock mode');
       isDbConnected = false;
       return false;
     }
   } catch (err) {
-    console.log('⚠️  MongoDB connection failed:', err.message);
+    console.log('⚠️  Database connection failed:', err.message);
     isDbConnected = false;
     return false;
   }
@@ -94,8 +109,10 @@ app.get('/api/health', (req, res) => {
     version: '1.0.0',
     message: 'Shakes Travel API is running in standalone mode',
     database: {
-      status: 'mock',
-      message: 'Using mock data - install MongoDB for full functionality'
+      status: isDbConnected ? 'connected' : 'mock',
+      message: isDbConnected ? 
+        'Database connected - full functionality enabled' : 
+        'Using mock data - database not available'
     },
     features: {
       'rate-limiting': 'enabled',
@@ -154,14 +171,38 @@ app.get('/api', (req, res) => {
   });
 });
 
-// Mock API endpoints
-app.get('/api/trips', (req, res) => {
-  res.json({
-    success: true,
-    data: mockData.trips,
-    total: mockData.trips.length,
-    note: 'Mock data - install MongoDB for real data'
-  });
+// Trips endpoint - uses real data if database is connected
+app.get('/api/trips', async (req, res) => {
+  try {
+    if (isDbConnected) {
+      const Trip = require('./src/models/netlify/Trip');
+      const trips = await Trip.findAll();
+      return res.json({
+        success: true,
+        data: trips,
+        total: trips.length,
+        source: 'database'
+      });
+    } else {
+      // Fallback to mock data
+      return res.json({
+        success: true,
+        data: mockData.trips,
+        total: mockData.trips.length,
+        source: 'mock',
+        note: 'Database not connected - using mock data'
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching trips:', error);
+    return res.json({
+      success: true,
+      data: mockData.trips,
+      total: mockData.trips.length,
+      source: 'mock',
+      note: 'Database error - using mock data'
+    });
+  }
 });
 
 app.get('/api/accommodations', (req, res) => {
@@ -173,13 +214,63 @@ app.get('/api/accommodations', (req, res) => {
   });
 });
 
-app.get('/api/bookings', (req, res) => {
-  res.json({
-    success: false,
-    message: 'MongoDB required for bookings functionality',
-    mock_available: false,
-    setup_instructions: 'Install MongoDB and run the full server'
-  });
+// Bookings endpoint - uses real data if database is connected
+app.get('/api/bookings', async (req, res) => {
+  try {
+    if (isDbConnected) {
+      const Booking = require('./src/models/netlify/Booking');
+      const bookings = await Booking.findAll();
+      return res.json({
+        success: true,
+        data: bookings,
+        total: bookings.length,
+        source: 'database'
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: 'Database required for bookings functionality',
+        mock_available: false,
+        setup_instructions: 'Connect to database for full functionality'
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    return res.json({
+      success: false,
+      message: 'Database error',
+      error: error.message
+    });
+  }
+});
+
+// POST endpoint for creating trips
+app.post('/api/trips', async (req, res) => {
+  try {
+    if (isDbConnected) {
+      const Trip = require('./src/models/netlify/Trip');
+      const tripData = req.body;
+      const trip = await Trip.create(tripData);
+      return res.status(201).json({
+        success: true,
+        data: trip,
+        message: 'Trip created successfully'
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: 'Database required for creating trips',
+        note: 'Connect to database for full functionality'
+      });
+    }
+  } catch (error) {
+    console.error('Error creating trip:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error creating trip',
+      error: error.message
+    });
+  }
 });
 
 app.get('/api/reviews', (req, res) => {
@@ -237,8 +328,8 @@ app.get('/api/auth/test', (req, res) => {
   });
 });
 
-// Simplified authentication endpoint for serverless environment
-app.post('/api/auth/register', (req, res) => {
+// Registration endpoint - uses real database if connected
+app.post('/api/auth/register', async (req, res) => {
   console.log('Registration endpoint hit:', req.body);
   
   try {
@@ -261,18 +352,60 @@ app.post('/api/auth/register', (req, res) => {
       });
     }
 
-    // Return simple success response without JWT for now
+    if (isDbConnected) {
+      try {
+        const User = require('./src/models/netlify/User');
+        
+        // Check if user already exists
+        const existingUser = await User.findByEmail(email.toLowerCase());
+        if (existingUser) {
+          return res.status(409).json({
+            success: false,
+            message: 'User with this email already exists'
+          });
+        }
+
+        // Create new user
+        const userData = {
+          email: email.toLowerCase(),
+          password,
+          firstName,
+          lastName,
+          role: 'host',
+          isVerified: true
+        };
+
+        const user = await User.create(userData);
+        const token = user.generateAuthToken();
+
+        console.log('Registration successful (database):', { email: user.email, firstName: user.firstName });
+
+        return res.status(201).json({
+          success: true,
+          message: 'User registered successfully',
+          data: {
+            user: user.toJSON(),
+            token: token
+          }
+        });
+      } catch (dbError) {
+        console.error('Database registration error:', dbError);
+        // Fall back to demo mode if database fails
+      }
+    }
+
+    // Fallback to demo mode if database not connected or fails
     const mockUser = {
       id: 'user_' + Date.now(),
       email: email.toLowerCase(),
       firstName,
       lastName,
-      role: 'host'  // Set role to 'host' so users can access host dashboard
+      role: 'host'
     };
 
     const token = 'demo-token-' + Date.now();
 
-    console.log('Registration successful:', { email: mockUser.email, firstName: mockUser.firstName });
+    console.log('Registration successful (demo mode):', { email: mockUser.email, firstName: mockUser.firstName });
 
     res.status(201).json({
       success: true,

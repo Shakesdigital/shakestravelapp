@@ -61,7 +61,13 @@
       "Bash(npx --package=serverless@3.38.0 serverless deploy)",
       "Bash(.AWSCLIV2.exe /VERYSILENT /NORESTART)",
       "Bash(where aws)",
-      "Bash(netlify:*)"
+      "Bash(netlify:*)",
+      "Bash(git restore:*)",
+      "WebFetch(domain:shakes-travel-backend.netlify.app)",
+      "Bash(timeout 10 curl -X GET \"https://shakes-travel-backend.netlify.app/api/auth/test\" -H \"Content-Type: application/json\" -v)",
+      "Bash(timeout 15 curl -X GET \"https://shakestravelapp.netlify.app/api/health\" -H \"Accept: application/json\")",
+      "Bash(timeout:*)",
+      "WebFetch(domain:shakestravelapp.netlify.app)"
     ],
     "deny": [],
     "ask": [],
