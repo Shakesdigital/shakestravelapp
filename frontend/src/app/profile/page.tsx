@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNetlifyIdentity } from '@/contexts/NetlifyIdentityContext';
 import AuthGuard from '@/components/AuthGuard';
 import Link from 'next/link';
 import axios from 'axios';
@@ -44,6 +45,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function ProfilePageContent() {
   const { user, logout } = useAuth();
+  const { user: netlifyUser, logout: netlifyLogout } = useNetlifyIdentity();
   const [activeTab, setActiveTab] = useState<'overview' | 'bookings' | 'reviews' | 'settings'>('overview');
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [reviews, setReviews] = useState<UserReview[]>([]);
@@ -128,7 +130,16 @@ function ProfilePageContent() {
                 </Link>
               )}
               <button
-                onClick={logout}
+                onClick={() => {
+                  // Logout from both authentication systems
+                  if (netlifyUser) {
+                    netlifyLogout();
+                  }
+                  if (user) {
+                    logout();
+                  }
+                  window.location.href = '/';
+                }}
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Logout
