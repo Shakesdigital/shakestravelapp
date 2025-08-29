@@ -12,6 +12,24 @@
 # Netlify Identity configuration
 [identity]
   settings = true
+  # Enable external providers
+  [identity.providers]
+    # Google OAuth
+    google = true
+    # Email/password registration
+    email = true
+  [identity.external_providers]
+    google = true
+  # Registration settings  
+  [identity.registration]
+    # Allow open registration
+    open = true
+  # Email template settings
+  [identity.emails]
+    # Welcome email
+    welcome = true
+    # Email confirmation
+    confirmation = true
 
 # Automatic deployments configuration
 [context.production]

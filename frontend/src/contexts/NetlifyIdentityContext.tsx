@@ -40,7 +40,7 @@ export const NetlifyIdentityProvider: React.FC<{ children: ReactNode }> = ({ chi
     // Initialize Netlify Identity
     netlifyIdentity.init({
       logo: false, // Don't show Netlify branding
-      APIUrl: `${window.location.origin}/.netlify/identity`,
+      APIUrl: 'https://main--shakestravel.netlify.app/.netlify/identity',
     });
 
     // Check if user is already logged in
