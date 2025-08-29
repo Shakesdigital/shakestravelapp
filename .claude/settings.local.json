@@ -69,7 +69,10 @@
       "Bash(timeout:*)",
       "WebFetch(domain:shakestravelapp.netlify.app)",
       "Bash(start http://localhost:3000)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "WebFetch(domain:shakestravel.com)",
+      "WebFetch(domain:app.netlify.com)",
+      "WebFetch(domain:main--shakestravel.netlify.app)"
     ],
     "deny": [],
     "ask": [],
