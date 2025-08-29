@@ -72,13 +72,12 @@ export default function RegisterPage() {
     }
 
     try {
-      await registerUser(data.firstName, data.lastName, data.email, data.password, data.agreeToTerms, data.agreeToPrivacy);
+      // Use Netlify Identity for registration instead of custom API
+      netlifySignup();
       
-      // Redirect to profile or onboarding
-      router.push('/profile');
+      // Note: Netlify signup will trigger the redirect via useEffect when successful
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };

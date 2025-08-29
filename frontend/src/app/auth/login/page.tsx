@@ -46,18 +46,12 @@ export default function LoginPage() {
     setError('');
 
     try {
-      await login(data.email, data.password);
+      // Use Netlify Identity for login instead of custom API
+      netlifyLogin();
       
-      // Redirect based on user role or return to previous page
-      const returnUrl = new URLSearchParams(window.location.search).get('returnUrl');
-      if (returnUrl) {
-        router.push(returnUrl);
-      } else {
-        router.push('/profile');
-      }
+      // Note: Netlify login will trigger the redirect via useEffect when successful
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check your credentials.');
-    } finally {
       setLoading(false);
     }
   };
