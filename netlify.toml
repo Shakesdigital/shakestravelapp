@@ -43,11 +43,6 @@
 
 # Netlify Identity redirects
 [[redirects]]
-  from = "/.netlify/identity/callback"
-  to = "/.netlify/identity/callback"
-  status = 200
-
-[[redirects]]
   from = "/auth/netlify-login"
   to = "/auth/netlify-login"
   status = 200
