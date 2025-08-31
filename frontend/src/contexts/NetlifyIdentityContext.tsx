@@ -38,6 +38,7 @@ export const NetlifyIdentityProvider: React.FC<{ children: ReactNode }> = ({ chi
 
   useEffect(() => {
     // Initialize Netlify Identity
+    // Use the working Netlify URL since custom domain has SSL issues
     netlifyIdentity.init({
       logo: false, // Don't show Netlify branding
       APIUrl: 'https://main--shakestravel.netlify.app/.netlify/identity',
