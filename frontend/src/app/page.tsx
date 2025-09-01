@@ -44,26 +44,26 @@ export default function Home() {
   };
 
   const ugandaDestinations = [
-    { name: 'Kampala', description: 'Uganda\'s vibrant capital city', image: '🏙️', experiences: 12 },
-    { name: 'Bwindi Impenetrable Forest', description: 'Home to mountain gorillas', image: '🦍', experiences: 8 },
-    { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise', image: '🦁', experiences: 15 },
-    { name: 'Lake Victoria', description: 'Africa\'s largest freshwater lake', image: '🌊', experiences: 8 },
-    { name: 'Murchison Falls', description: 'World\'s most powerful waterfall', image: '💦', experiences: 10 },
-    { name: 'Jinja', description: 'Adventure capital of East Africa', image: '🚣‍♂️', experiences: 18 },
-    { name: 'Lake Bunyonyi', description: 'Switzerland of Africa', image: '🏔️', experiences: 5 },
-    { name: 'Sipi Falls', description: 'Three-tier waterfall system', image: '🏔️', experiences: 7 },
-    { name: 'Mt Elgon', description: 'Ancient volcanic mountain', image: '⛰️', experiences: 9 },
-    { name: 'Mt Rwenzori', description: 'Mountains of the Moon', image: '🏔️', experiences: 6 },
-    { name: 'Fort Portal', description: 'Gateway to crater lakes', image: '🌿', experiences: 11 },
-    { name: 'Kibale National Park', description: 'Primate capital of the world', image: '🐒', experiences: 8 },
-    { name: 'Kidepo Valley National Park', description: 'Remote wilderness paradise', image: '🦓', experiences: 7 },
-    { name: 'Ssese Islands', description: 'Tropical island paradise', image: '🏖️', experiences: 6 },
-    { name: 'Ngamba Island', description: 'Chimpanzee sanctuary island', image: '🌴', experiences: 2 },
-    { name: 'Banda Island', description: 'Secluded island retreat', image: '🏝️', experiences: 3 },
-    { name: 'Bulago Island', description: 'Private luxury island', image: '🏭️', experiences: 2 },
-    { name: 'Lake Mburo National Park', description: 'Compact savanna park', image: '🦓', experiences: 5 },
-    { name: 'Semuliki National Park', description: 'Lowland tropical rainforest', image: '🦅', experiences: 4 },
-    { name: 'Pian Upe Wildlife Reserve', description: 'Uganda\'s largest game reserve', image: '🦓', experiences: 3 }
+    { name: 'Kampala', description: 'Uganda\'s vibrant capital city' },
+    { name: 'Bwindi Impenetrable Forest', description: 'Home to mountain gorillas' },
+    { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise' },
+    { name: 'Lake Victoria', description: 'Africa\'s largest freshwater lake' },
+    { name: 'Murchison Falls', description: 'World\'s most powerful waterfall' },
+    { name: 'Jinja', description: 'Adventure capital of East Africa' },
+    { name: 'Lake Bunyonyi', description: 'Switzerland of Africa' },
+    { name: 'Sipi Falls', description: 'Three-tier waterfall system' },
+    { name: 'Mt Elgon', description: 'Ancient volcanic mountain' },
+    { name: 'Mt Rwenzori', description: 'Mountains of the Moon' },
+    { name: 'Fort Portal', description: 'Gateway to crater lakes' },
+    { name: 'Kibale National Park', description: 'Primate capital of the world' },
+    { name: 'Kidepo Valley National Park', description: 'Remote wilderness paradise' },
+    { name: 'Ssese Islands', description: 'Tropical island paradise' },
+    { name: 'Ngamba Island', description: 'Chimpanzee sanctuary island' },
+    { name: 'Banda Island', description: 'Secluded island retreat' },
+    { name: 'Bulago Island', description: 'Private luxury island' },
+    { name: 'Lake Mburo National Park', description: 'Compact savanna park' },
+    { name: 'Semuliki National Park', description: 'Lowland tropical rainforest' },
+    { name: 'Pian Upe Wildlife Reserve', description: 'Uganda\'s largest game reserve' }
   ];
 
   const featuredExperiences = [
@@ -560,28 +560,29 @@ export default function Home() {
                               aria-label={`Explore ${destination.name}: ${destination.description}`}
                             >
                               <div 
-                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center text-4xl sm:text-3xl md:text-4xl flex-shrink-0 group-hover:scale-105 transition-transform duration-200" 
+                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200" 
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
-                                {destination.image}
+                                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                                  <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
+                                </div>
                               </div>
                               <div className="p-3 sm:p-3 md:p-4 flex flex-col justify-between flex-1">
                                 <div>
                                   <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-semibold text-sm sm:text-sm text-gray-900 flex-1 line-clamp-1">{destination.name}</h3>
+                                    <h3 className="font-semibold text-base sm:text-sm text-gray-900 flex-1 leading-tight">{destination.name}</h3>
                                     {hasDestinationPage(destination.name) && (
                                       <span className="bg-[#195e48] text-white text-xs px-2 py-1 rounded-full font-medium ml-2 flex-shrink-0 hidden sm:inline">
-                                        ✨ Featured
+                                        Featured
                                       </span>
                                     )}
                                   </div>
                                   <p className="text-gray-600 text-xs sm:text-xs mb-3 line-clamp-2 leading-relaxed">{destination.description}</p>
                                 </div>
-                                <div className="flex justify-between items-center mt-auto">
-                                  <span className="text-sm font-medium" style={{ color: primaryColor }}>{destination.experiences} experiences</span>
+                                <div className="flex justify-end items-center mt-auto">
                                   <span 
-                                    className="text-xs font-semibold transition-colors opacity-0 group-hover:opacity-100 hidden sm:inline"
+                                    className="text-xs font-semibold transition-colors opacity-0 group-hover:opacity-100"
                                     style={{ color: primaryColor }}
                                   >
                                     {hasDestinationPage(destination.name) ? 'Visit →' : 'Explore →'}

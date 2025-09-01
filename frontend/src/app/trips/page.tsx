@@ -158,26 +158,26 @@ export default function ExperiencesPage() {
   ];
 
   const ugandaDestinations = [
-    { name: 'Bwindi Forest', count: 5, image: '🦍', description: 'Mountain gorilla trekking paradise' },
-    { name: 'Queen Elizabeth Park', count: 4, image: '🦁', description: 'Uganda\'s most visited safari park' },
-    { name: 'Murchison Falls', count: 3, image: '💦', description: 'World\'s most powerful waterfall' },
-    { name: 'Jinja', count: 6, image: '🚣‍♂️', description: 'Adventure capital of East Africa' },
-    { name: 'Lake Bunyonyi', count: 2, image: '🏔️', description: 'Switzerland of Africa' },
-    { name: 'Mount Elgon', count: 4, image: '⛰️', description: 'Ancient volcanic mountain' },
-    { name: 'Kibale Forest', count: 3, image: '🐒', description: 'Primate capital of the world' },
-    { name: 'Lake Victoria', count: 8, image: '🌊', description: 'Africa\'s largest freshwater lake' },
-    { name: 'Ssese Islands', count: 6, image: '🏖️', description: 'Tropical island paradise' },
-    { name: 'Ngamba Island', count: 2, image: '🌴', description: 'Chimpanzee sanctuary island' },
-    { name: 'Banda Island', count: 3, image: '🏕️', description: 'Secluded island retreat' },
-    { name: 'Bulago Island', count: 2, image: '🏝️', description: 'Private luxury island' },
-    { name: 'Rwenzori Mountains', count: 4, image: '🏔️', description: 'Mountains of the Moon' },
-    { name: 'Lake Mburo Park', count: 3, image: '🦓', description: 'Compact savanna park' },
-    { name: 'Kidepo Valley', count: 2, image: '🦓', description: 'Remote wilderness paradise' },
-    { name: 'Sipi Falls', count: 3, image: '🏔️', description: 'Three-tier waterfall system' },
-    { name: 'Fort Portal', count: 4, image: '🌿', description: 'Gateway to crater lakes' },
-    { name: 'Semuliki Park', count: 2, image: '🦅', description: 'Lowland tropical rainforest' },
-    { name: 'Mount Moroto', count: 1, image: '⛰️', description: 'Sacred Karamojong mountain' },
-    { name: 'Pian Upe Reserve', count: 1, image: '🦓', description: 'Uganda\'s largest game reserve' }
+    { name: 'Bwindi Forest', description: 'Mountain gorilla trekking paradise' },
+    { name: 'Queen Elizabeth Park', description: 'Uganda\'s most visited safari park' },
+    { name: 'Murchison Falls', description: 'World\'s most powerful waterfall' },
+    { name: 'Jinja', description: 'Adventure capital of East Africa' },
+    { name: 'Lake Bunyonyi', description: 'Switzerland of Africa' },
+    { name: 'Mount Elgon', description: 'Ancient volcanic mountain' },
+    { name: 'Kibale Forest', description: 'Primate capital of the world' },
+    { name: 'Lake Victoria', description: 'Africa\'s largest freshwater lake' },
+    { name: 'Ssese Islands', description: 'Tropical island paradise' },
+    { name: 'Ngamba Island', description: 'Chimpanzee sanctuary island' },
+    { name: 'Banda Island', description: 'Secluded island retreat' },
+    { name: 'Bulago Island', description: 'Private luxury island' },
+    { name: 'Rwenzori Mountains', description: 'Mountains of the Moon' },
+    { name: 'Lake Mburo Park', description: 'Compact savanna park' },
+    { name: 'Kidepo Valley', description: 'Remote wilderness paradise' },
+    { name: 'Sipi Falls', description: 'Three-tier waterfall system' },
+    { name: 'Fort Portal', description: 'Gateway to crater lakes' },
+    { name: 'Semuliki Park', description: 'Lowland tropical rainforest' },
+    { name: 'Mount Moroto', description: 'Sacred Karamojong mountain' },
+    { name: 'Pian Upe Reserve', description: 'Uganda\'s largest game reserve' }
   ];
 
   const heroImages = [
@@ -588,21 +588,22 @@ export default function ExperiencesPage() {
                     style={{ focusRingColor: primaryColor }}
                   >
                     <div 
-                      className="h-24 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-200"
+                      className="h-24 flex items-center justify-center group-hover:scale-110 transition-transform duration-200"
                       style={{ backgroundColor: `${primaryColor}10` }}
                       aria-hidden="true"
                     >
-                      {destination.image}
+                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                        <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
+                      </div>
                     </div>
                     <div className="p-3 text-center">
                       <div className="flex items-center justify-center mb-1">
-                        <h3 className="font-semibold text-xs mb-1 line-clamp-1">{destination.name}</h3>
+                        <h3 className="font-semibold text-sm mb-1 leading-tight">{destination.name}</h3>
                         {hasDestinationPage(destination.name) && (
-                          <span className="ml-1 text-xs">✨</span>
+                          <span className="ml-1 text-xs text-[#195e48]">Featured</span>
                         )}
                       </div>
-                      <p className="text-xs text-gray-500 mb-1 line-clamp-2 h-8 leading-4">{destination.description}</p>
-                      <p className="text-xs font-medium" style={{ color: primaryColor }}>{destination.count} experiences</p>
+                      <p className="text-xs text-gray-500 leading-4 line-clamp-3">{destination.description}</p>
                     </div>
                   </Link>
                 ))}
