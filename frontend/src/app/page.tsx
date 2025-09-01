@@ -560,13 +560,21 @@ export default function Home() {
                               aria-label={`Explore ${destination.name}: ${destination.description}`}
                             >
                               <div 
-                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200" 
+                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200 overflow-hidden" 
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
-                                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                  <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
-                                </div>
+                                {destination.name === 'Kampala' ? (
+                                  <img 
+                                    src="/brand_assets/images/destinations/Kampala/Kampala Edited.jpg"
+                                    alt={`${destination.name} destination`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                                    <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
+                                  </div>
+                                )}
                               </div>
                               <div className="p-3 sm:p-3 md:p-4 flex flex-col justify-between flex-1">
                                 <div>

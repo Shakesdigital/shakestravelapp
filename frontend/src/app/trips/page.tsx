@@ -588,13 +588,21 @@ export default function ExperiencesPage() {
                     style={{ focusRingColor: primaryColor }}
                   >
                     <div 
-                      className="h-24 flex items-center justify-center group-hover:scale-110 transition-transform duration-200"
+                      className="h-24 flex items-center justify-center group-hover:scale-110 transition-transform duration-200 overflow-hidden"
                       style={{ backgroundColor: `${primaryColor}10` }}
                       aria-hidden="true"
                     >
-                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                        <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
-                      </div>
+                      {destination.name === 'Kampala' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Kampala/Kampala Edited.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                          <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
+                        </div>
+                      )}
                     </div>
                     <div className="p-3 text-center">
                       <div className="mb-1">
