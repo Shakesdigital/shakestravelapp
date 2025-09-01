@@ -589,7 +589,7 @@ export default function ExperiencesPage() {
                     style={{ focusRingColor: primaryColor }}
                   >
                     <div 
-                      className="h-24 flex items-center justify-center group-hover:scale-110 transition-transform duration-200 overflow-hidden"
+                      className="h-40 sm:h-28 md:h-32 flex items-center justify-center group-hover:scale-110 transition-transform duration-200 overflow-hidden"
                       style={{ backgroundColor: `${primaryColor}10` }}
                       aria-hidden="true"
                     >
