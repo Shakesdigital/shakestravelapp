@@ -570,22 +570,17 @@ export default function Home() {
                               </div>
                               <div className="p-3 sm:p-3 md:p-4 flex flex-col justify-between flex-1">
                                 <div>
-                                  <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-semibold text-base sm:text-sm text-gray-900 flex-1 leading-tight">{destination.name}</h3>
-                                    {hasDestinationPage(destination.name) && (
-                                      <span className="bg-[#195e48] text-white text-xs px-2 py-1 rounded-full font-medium ml-2 flex-shrink-0 hidden sm:inline">
-                                        Featured
-                                      </span>
-                                    )}
+                                  <div className="mb-2">
+                                    <h3 className="font-semibold text-base sm:text-sm text-gray-900 leading-tight">{destination.name}</h3>
                                   </div>
                                   <p className="text-gray-600 text-xs sm:text-xs mb-3 line-clamp-2 leading-relaxed">{destination.description}</p>
                                 </div>
                                 <div className="flex justify-end items-center mt-auto">
                                   <span 
-                                    className="text-xs font-semibold transition-colors opacity-0 group-hover:opacity-100"
+                                    className="text-xs font-semibold transition-colors"
                                     style={{ color: primaryColor }}
                                   >
-                                    {hasDestinationPage(destination.name) ? 'Visit →' : 'Explore →'}
+                                    Explore →
                                   </span>
                                 </div>
                               </div>

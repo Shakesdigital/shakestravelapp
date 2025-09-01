@@ -597,13 +597,18 @@ export default function ExperiencesPage() {
                       </div>
                     </div>
                     <div className="p-3 text-center">
-                      <div className="flex items-center justify-center mb-1">
+                      <div className="mb-1">
                         <h3 className="font-semibold text-sm mb-1 leading-tight">{destination.name}</h3>
-                        {hasDestinationPage(destination.name) && (
-                          <span className="ml-1 text-xs text-[#195e48]">Featured</span>
-                        )}
                       </div>
-                      <p className="text-xs text-gray-500 leading-4 line-clamp-3">{destination.description}</p>
+                      <p className="text-xs text-gray-500 leading-4 line-clamp-2 mb-2">{destination.description}</p>
+                      <div className="flex justify-center">
+                        <span 
+                          className="text-xs font-semibold"
+                          style={{ color: primaryColor }}
+                        >
+                          Explore →
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 ))}

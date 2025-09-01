@@ -503,13 +503,18 @@ export default function AccommodationsPage() {
                     {destination.image}
                   </div>
                   <div className="p-4 text-center">
-                    <div className="flex items-center justify-center mb-1">
-                      <h3 className="font-semibold text-sm">{destination.name}</h3>
-                      {hasDestinationPage(destination.name) && (
-                        <span className="ml-2 text-xs">✨</span>
-                      )}
+                    <div className="mb-1">
+                      <h3 className="font-semibold text-sm mb-1">{destination.name}</h3>
                     </div>
-                    <p className="text-xs text-gray-500">{destination.count} properties</p>
+                    <p className="text-xs text-gray-500 mb-2">{destination.count} properties</p>
+                    <div className="flex justify-center">
+                      <span 
+                        className="text-xs font-semibold"
+                        style={{ color: primaryColor }}
+                      >
+                        Explore →
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}
