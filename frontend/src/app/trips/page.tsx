@@ -158,6 +158,7 @@ export default function ExperiencesPage() {
   ];
 
   const ugandaDestinations = [
+    { name: 'Kampala', description: 'Uganda\'s vibrant capital city' },
     { name: 'Bwindi Forest', description: 'Mountain gorilla trekking paradise' },
     { name: 'Queen Elizabeth Park', description: 'Uganda\'s most visited safari park' },
     { name: 'Murchison Falls', description: 'World\'s most powerful waterfall' },
@@ -598,7 +599,7 @@ export default function ExperiencesPage() {
                           alt={`${destination.name} destination`}
                           className="w-full h-full object-cover"
                         />
-                      ) : destination.name === 'Bwindi Impenetrable Forest' ? (
+                      ) : (destination.name === 'Bwindi Impenetrable Forest' || destination.name === 'Bwindi Forest') ? (
                         <img 
                           src="/brand_assets/images/destinations/Bwindi/Bwindi Edited.jpg"
                           alt={`${destination.name} destination`}
