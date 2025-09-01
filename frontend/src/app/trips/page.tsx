@@ -598,6 +598,12 @@ export default function ExperiencesPage() {
                           alt={`${destination.name} destination`}
                           className="w-full h-full object-cover"
                         />
+                      ) : destination.name === 'Bwindi Impenetrable Forest' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Bwindi/Bwindi Edited.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                           <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
