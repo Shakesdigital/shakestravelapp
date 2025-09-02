@@ -605,6 +605,84 @@ export default function ExperiencesPage() {
                           alt={`${destination.name} destination`}
                           className="w-full h-full object-cover"
                         />
+                      ) : (destination.name === 'Queen Elizabeth Park' || destination.name === 'Queen Elizabeth National Park') ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Queen Elizabeth National Park/Queen Elizabeth NP 2 Edited.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Murchison Falls' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Murchison Falls/Murchison Falls 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Jinja' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Jinja/Jinja Bridge 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Sipi Falls' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Sipi Falls/Sipi 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (destination.name === 'Mount Elgon' || destination.name === 'Mt Elgon') ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Mt Elgon/Elgon 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (destination.name === 'Rwenzori Mountains' || destination.name === 'Mt Rwenzori') ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Mt Rwenzori/Mt Rwenzori 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Fort Portal' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/FortPortal/Fortportal 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (destination.name === 'Kibale Forest' || destination.name === 'Kibale National Park') ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Kibale/Kibale Forest 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (destination.name === 'Kidepo Valley' || destination.name === 'Kidepo Valley National Park') ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Kidepo National Park/Kidepo Valley National Park 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Bulago Island' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Bulago Island/Bulago Island 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Lake Mburo Park' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/L Mburo National Park/Zebras in the wild 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Semuliki Park' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Semuliki Valley  National Park/Semuliki National Park 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : destination.name === 'Pian Upe Reserve' ? (
+                        <img 
+                          src="/brand_assets/images/destinations/Pianupe Wildlife Reserve/nubian-giraffes in Pian upe 1.jpg"
+                          alt={`${destination.name} destination`}
+                          className="w-full h-full object-cover"
+                        />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                           <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
