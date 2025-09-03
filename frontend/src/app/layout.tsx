@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shake's Travel - Sustainable Uganda Adventures | Eco-Friendly Travel",
-  description: "Discover Uganda's wonders through sustainable adventures, eco-friendly accommodations, and meaningful cultural connections. Join our green travel mission in the Pearl of Africa.",
-  keywords: "Uganda travel, eco-friendly tourism, sustainable travel, gorilla trekking, safari adventures, cultural tours, green travel, Uganda accommodations",
+  title: "Shake's Travel - Sustainable East Africa Adventures | Eco-Friendly Travel",
+  description: "Discover East Africa's wonders through sustainable adventures across Uganda, Kenya, Tanzania, and Rwanda. Experience eco-friendly accommodations and meaningful cultural connections.",
+  keywords: "East Africa travel, Uganda Kenya Tanzania Rwanda, eco-friendly tourism, sustainable travel, gorilla trekking, safari adventures, cultural tours, green travel, East Africa accommodations",
   authors: [{ name: "Shake's Travel" }],
   creator: "Shake's Travel",
   publisher: "Shake's Travel",
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Shake's Travel - Sustainable Uganda Adventures",
-    description: "Experience Uganda's wonders through eco-friendly adventures and meaningful cultural connections. Book sustainable travel experiences in the Pearl of Africa.",
+    title: "Shake's Travel - Sustainable East Africa Adventures",
+    description: "Experience East Africa's wonders through eco-friendly adventures and meaningful cultural connections across Uganda, Kenya, Tanzania, and Rwanda.",
     url: '/',
     siteName: "Shake's Travel",
     images: [
@@ -61,8 +61,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Shake's Travel - Sustainable Uganda Adventures",
-    description: "Discover eco-friendly travel experiences in Uganda. Book sustainable adventures in the Pearl of Africa.",
+    title: "Shake's Travel - Sustainable East Africa Adventures",
+    description: "Discover eco-friendly travel experiences across East Africa. Book sustainable adventures in Uganda, Kenya, Tanzania, and Rwanda."
     images: ['/images/uganda-hero.jpg'],
     creator: '@shakestravel',
   },

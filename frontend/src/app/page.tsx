@@ -7,6 +7,7 @@ import { getDestinationLink, hasDestinationPage } from '@/lib/destinations';
 
 interface SearchForm {
   destination: string;
+  country: 'uganda' | 'kenya' | 'tanzania' | 'rwanda' | 'all';
   checkIn: string;
   checkOut: string;
   guests: number;
@@ -17,6 +18,7 @@ export default function Home() {
   const { register, handleSubmit, watch } = useForm<SearchForm>({
     defaultValues: {
       destination: '',
+      country: 'all',
       checkIn: '',
       checkOut: '',
       guests: 2,
@@ -27,13 +29,16 @@ export default function Home() {
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentDestinationIndex, setCurrentDestinationIndex] = useState(0);
+  const [activeCountryTab, setActiveCountryTab] = useState<'uganda' | 'kenya' | 'tanzania' | 'rwanda'>('uganda');
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const watchDestination = watch('destination');
+  const watchCountry = watch('country');
 
   const onSearch = (data: SearchForm) => {
     const queryParams = new URLSearchParams({
       destination: data.destination,
+      country: data.country,
       checkIn: data.checkIn,
       checkOut: data.checkOut,
       guests: data.guests.toString(),
@@ -43,28 +48,44 @@ export default function Home() {
     window.location.href = `/search?${queryParams.toString()}`;
   };
 
-  const ugandaDestinations = [
-    { name: 'Kampala', description: 'Uganda\'s vibrant capital city' },
-    { name: 'Bwindi Impenetrable Forest', description: 'Home to mountain gorillas' },
-    { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise' },
-    { name: 'Lake Victoria', description: 'Africa\'s largest freshwater lake' },
-    { name: 'Murchison Falls', description: 'World\'s most powerful waterfall' },
-    { name: 'Jinja', description: 'Adventure capital of East Africa' },
-    { name: 'Lake Bunyonyi', description: 'Switzerland of Africa' },
-    { name: 'Sipi Falls', description: 'Three-tier waterfall system' },
-    { name: 'Mt Elgon', description: 'Ancient volcanic mountain' },
-    { name: 'Mt Rwenzori', description: 'Mountains of the Moon' },
-    { name: 'Fort Portal', description: 'Gateway to crater lakes' },
-    { name: 'Kibale National Park', description: 'Primate capital of the world' },
-    { name: 'Kidepo Valley National Park', description: 'Remote wilderness paradise' },
-    { name: 'Ssese Islands', description: 'Tropical island paradise' },
-    { name: 'Ngamba Island', description: 'Chimpanzee sanctuary island' },
-    { name: 'Banda Island', description: 'Secluded island retreat' },
-    { name: 'Bulago Island', description: 'Private luxury island' },
-    { name: 'Lake Mburo National Park', description: 'Compact savanna park' },
-    { name: 'Semuliki National Park', description: 'Lowland tropical rainforest' },
-    { name: 'Pian Upe Wildlife Reserve', description: 'Uganda\'s largest game reserve' }
-  ];
+  const destinations = {
+    uganda: [
+      { name: 'Kampala', description: 'Uganda\'s vibrant capital city', country: 'Uganda' },
+      { name: 'Bwindi Impenetrable Forest', description: 'Home to mountain gorillas', country: 'Uganda' },
+      { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise', country: 'Uganda' },
+      { name: 'Murchison Falls', description: 'World\'s most powerful waterfall', country: 'Uganda' },
+      { name: 'Lake Bunyonyi', description: 'Switzerland of Africa', country: 'Uganda' }
+    ],
+    kenya: [
+      { name: 'Maasai Mara', description: 'Home to the Great Migration', country: 'Kenya' },
+      { name: 'Amboseli National Park', description: 'Elephants with Kilimanjaro backdrop', country: 'Kenya' },
+      { name: 'Lake Nakuru', description: 'Pink flamingo paradise', country: 'Kenya' },
+      { name: 'Samburu National Reserve', description: 'Unique northern wildlife', country: 'Kenya' },
+      { name: 'Diani Beach', description: 'White sand tropical coastline', country: 'Kenya' }
+    ],
+    tanzania: [
+      { name: 'Serengeti National Park', description: 'Endless plains of wildlife', country: 'Tanzania' },
+      { name: 'Ngorongoro Crater', description: 'World\'s largest volcanic caldera', country: 'Tanzania' },
+      { name: 'Mount Kilimanjaro', description: 'Africa\'s highest peak', country: 'Tanzania' },
+      { name: 'Zanzibar', description: 'Spice island paradise', country: 'Tanzania' },
+      { name: 'Tarangire National Park', description: 'Land of giants and baobabs', country: 'Tanzania' }
+    ],
+    rwanda: [
+      { name: 'Volcanoes National Park', description: 'Mountain gorilla sanctuary', country: 'Rwanda' },
+      { name: 'Nyungwe Forest', description: 'Pristine rainforest canopy', country: 'Rwanda' },
+      { name: 'Lake Kivu', description: 'Great Rift Valley jewel', country: 'Rwanda' },
+      { name: 'Akagera National Park', description: 'Big Five savanna experience', country: 'Rwanda' },
+      { name: 'Kigali', description: 'Clean, modern capital city', country: 'Rwanda' }
+    ]
+  };
+
+  const getAllDestinations = () => {
+    return [...destinations.uganda, ...destinations.kenya, ...destinations.tanzania, ...destinations.rwanda];
+  };
+
+  const getActiveDestinations = () => {
+    return destinations[activeCountryTab];
+  };
 
   const featuredExperiences = [
     {
@@ -179,22 +200,32 @@ export default function Home() {
 
   const travelGuideTeases = [
     {
-      title: 'Best Time to Visit Uganda',
-      preview: 'Discover the optimal seasons for wildlife viewing and adventure activities...',
-      readTime: '5 min read',
-      image: '📅'
+      title: 'Best Time to Visit East Africa',
+      preview: 'Discover optimal seasons for wildlife migrations, gorilla trekking, and adventures across Uganda, Kenya, Tanzania, and Rwanda...',
+      readTime: '7 min read',
+      image: '📅',
+      region: 'All Countries'
+    },
+    {
+      title: 'Great Migration Guide',
+      preview: 'Follow the world\'s greatest wildlife spectacle from Serengeti to Maasai Mara and plan your perfect migration safari...',
+      readTime: '10 min read',
+      image: '🦁',
+      region: 'Kenya & Tanzania'
     },
     {
       title: 'Gorilla Trekking Guide',
-      preview: 'Everything you need to know for an unforgettable gorilla encounter...',
+      preview: 'Complete guide to mountain gorilla encounters in Bwindi and Volcanoes National Parks...',
       readTime: '8 min read',
-      image: '🦍'
+      image: '🦍',
+      region: 'Uganda & Rwanda'
     },
     {
-      title: 'Cultural Etiquette in Uganda',
-      preview: 'Respectful travel tips for meaningful cultural exchanges...',
-      readTime: '4 min read',
-      image: '🤝'
+      title: 'Cultural Etiquette in East Africa',
+      preview: 'Respectful travel tips for meaningful cultural exchanges across diverse East African communities...',
+      readTime: '6 min read',
+      image: '🤝',
+      region: 'All Countries'
     }
   ];
 
@@ -215,7 +246,8 @@ export default function Home() {
   };
 
   const [cardsPerSlide, setCardsPerSlide] = useState(getCardsPerSlide());
-  const totalSlides = Math.ceil(ugandaDestinations.length / cardsPerSlide);
+  const activeDestinations = getActiveDestinations();
+  const totalSlides = Math.ceil(activeDestinations.length / cardsPerSlide);
 
   // Update cards per slide on window resize
   React.useEffect(() => {
@@ -341,10 +373,10 @@ export default function Home() {
         <div className="relative z-10 text-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <header>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-              Discover Uganda's Wonders
+              Discover East Africa's Wonders
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
-              Experience the Pearl of Africa through carefully planned adventures designed to meet your travel goals while conserving the environment, featuring eco-friendly accommodations and meaningful cultural connections
+              Experience the heart of Africa through carefully planned adventures across Uganda, Kenya, Tanzania, and Rwanda - featuring eco-friendly accommodations and meaningful cultural connections
             </p>
           </header>
           
@@ -355,9 +387,40 @@ export default function Home() {
             aria-label="Search for Uganda travel experiences"
           >
             <form onSubmit={handleSubmit(onSearch)} className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+              {/* Country Selection Tabs */}
+              <div className="md:col-span-4 mb-6">
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {[
+                    { key: 'uganda', label: '🇺🇬 Uganda', flag: '🇺🇬' },
+                    { key: 'kenya', label: '🇰🇪 Kenya', flag: '🇰🇪' },
+                    { key: 'tanzania', label: '🇹🇿 Tanzania', flag: '🇹🇿' },
+                    { key: 'rwanda', label: '🇷🇼 Rwanda', flag: '🇷🇼' }
+                  ].map((country) => (
+                    <button
+                      key={country.key}
+                      type="button"
+                      onClick={() => {
+                        setActiveCountryTab(country.key as any);
+                        register('country').onChange({ target: { value: country.key } });
+                      }}
+                      className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                        activeCountryTab === country.key
+                          ? 'text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                      style={{
+                        backgroundColor: activeCountryTab === country.key ? primaryColor : undefined
+                      }}
+                    >
+                      {country.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className="md:col-span-2 search-autocomplete">
                 <label htmlFor="destination-search" className="block text-sm font-semibold mb-2 text-gray-700">
-                  Where in Uganda?
+                  Where in East Africa?
                 </label>
                 <input
                   {...register('destination', { required: true })}
@@ -371,6 +434,7 @@ export default function Home() {
                   aria-describedby="destination-help"
                   autoComplete="off"
                 />
+                <input type="hidden" {...register('country')} />
                 <div id="destination-help" className="sr-only">
                   Type to search for destinations in Uganda. Autocomplete suggestions will appear below.
                 </div>
@@ -488,25 +552,52 @@ export default function Home() {
               style={{ backgroundColor: primaryColor }}
               onMouseEnter={(e) => e.target.style.backgroundColor = '#164439'}
               onMouseLeave={(e) => e.target.style.backgroundColor = primaryColor}
-              aria-label="Search for Uganda travel experiences"
+              aria-label="Search for East Africa travel experiences"
             >
-              🔍 Search Uganda Adventures
+              🔍 Search East Africa Adventures
             </button>
           </div>
         </div>
       </section>
 
-      {/* Uganda Destinations Showcase */}
+      {/* East Africa Destinations Showcase */}
       <section id="destinations" className="py-20 bg-gray-50" aria-labelledby="destinations-heading">
         <div className="content-section">
           <header className="text-center mb-16">
             <h2 id="destinations-heading" className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Explore Uganda's Treasures
+              Explore East Africa's Treasures
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From misty mountains to tropical islands, discover the diverse landscapes that make Uganda truly special
+              From misty mountain gorillas to endless savannas, discover the diverse landscapes across Uganda, Kenya, Tanzania, and Rwanda
             </p>
           </header>
+          
+          {/* Country Navigation for Destinations */}
+          <div className="flex justify-center mb-12">
+            <div className="bg-white rounded-xl p-2 shadow-md">
+              {[
+                { key: 'uganda', label: '🇺🇬 Uganda' },
+                { key: 'kenya', label: '🇰🇪 Kenya' },
+                { key: 'tanzania', label: '🇹🇿 Tanzania' },
+                { key: 'rwanda', label: '🇷🇼 Rwanda' }
+              ].map((country) => (
+                <button
+                  key={country.key}
+                  onClick={() => setActiveCountryTab(country.key as any)}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all mx-1 ${
+                    activeCountryTab === country.key
+                      ? 'text-white'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                  style={{
+                    backgroundColor: activeCountryTab === country.key ? primaryColor : undefined
+                  }}
+                >
+                  {country.label}
+                </button>
+              ))}
+            </div>
+          </div>
           
           {/* Destinations Carousel - 5 Cards Per Slide */}
           <div className="relative max-w-7xl mx-auto">
@@ -549,7 +640,7 @@ export default function Home() {
                 {Array.from({ length: totalSlides }, (_, slideIndex) => (
                   <div key={slideIndex} className="w-full flex-shrink-0">
                     <div className="flex gap-4 sm:gap-3 md:gap-4 justify-between px-2 sm:px-0">
-                      {ugandaDestinations
+                      {activeDestinations
                         .slice(slideIndex * cardsPerSlide, (slideIndex + 1) * cardsPerSlide)
                         .map((destination, index) => (
                           <article key={destination.name} className="flex-1 group min-w-0">
@@ -564,6 +655,7 @@ export default function Home() {
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
+                                {/* Uganda destinations with existing images */}
                                 {destination.name === 'Kampala' ? (
                                   <img 
                                     src="/brand_assets/images/destinations/Kampala/Kampala Edited.jpg"
@@ -588,54 +680,76 @@ export default function Home() {
                                     alt={`${destination.name} destination`}
                                     className="w-full h-full object-cover"
                                   />
-                                ) : destination.name === 'Jinja' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Jinja/Jinja Bridge 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Sipi Falls' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Sipi Falls/Sipi 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Mt Elgon' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Mt Elgon/Elgon 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Mt Rwenzori' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Mt Rwenzori/Mt Rwenzori 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Fort Portal' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/FortPortal/Fortportal 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Kibale National Park' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Kibale/Kibale Forest 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Kidepo Valley National Park' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Kidepo National Park/Kidepo Valley National Park 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : destination.name === 'Bulago Island' ? (
-                                  <img 
-                                    src="/brand_assets/images/destinations/Bulago Island/Bulago Island 1.jpg"
-                                    alt={`${destination.name} destination`}
-                                    className="w-full h-full object-cover"
-                                  />
+                                ) : destination.name === 'Lake Bunyonyi' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-green-200 flex items-center justify-center">
+                                    <span className="text-4xl">🌊</span>
+                                  </div>
+                                ) : 
+                                /* Kenya destinations */
+                                destination.name === 'Maasai Mara' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-orange-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦁</span>
+                                  </div>
+                                ) : destination.name === 'Amboseli National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-blue-200 flex items-center justify-center">
+                                    <span className="text-4xl">🐘</span>
+                                  </div>
+                                ) : destination.name === 'Lake Nakuru' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-pink-100 to-purple-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦩</span>
+                                  </div>
+                                ) : destination.name === 'Samburu National Reserve' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-red-100 to-yellow-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦓</span>
+                                  </div>
+                                ) : destination.name === 'Diani Beach' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-cyan-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏖️</span>
+                                  </div>
+                                ) : 
+                                /* Tanzania destinations */
+                                destination.name === 'Serengeti National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-100 to-yellow-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦁</span>
+                                  </div>
+                                ) : destination.name === 'Ngorongoro Crater' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-brown-100 to-green-200 flex items-center justify-center">
+                                    <span className="text-4xl">🌋</span>
+                                  </div>
+                                ) : destination.name === 'Mount Kilimanjaro' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-white to-blue-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏔️</span>
+                                  </div>
+                                ) : destination.name === 'Zanzibar' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-turquoise-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏝️</span>
+                                  </div>
+                                ) : destination.name === 'Tarangire National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-orange-100 to-red-200 flex items-center justify-center">
+                                    <span className="text-4xl">🌳</span>
+                                  </div>
+                                ) : 
+                                /* Rwanda destinations */
+                                destination.name === 'Volcanoes National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-100 to-gray-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦍</span>
+                                  </div>
+                                ) : destination.name === 'Nyungwe Forest' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center">
+                                    <span className="text-4xl">🌲</span>
+                                  </div>
+                                ) : destination.name === 'Lake Kivu' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-green-200 flex items-center justify-center">
+                                    <span className="text-4xl">🌊</span>
+                                  </div>
+                                ) : destination.name === 'Akagera National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-orange-200 flex items-center justify-center">
+                                    <span className="text-4xl">🐅</span>
+                                  </div>
+                                ) : destination.name === 'Kigali' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-100 to-blue-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏝️</span>
+                                  </div>
                                 ) : (
                                   <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                                     <span className="text-gray-500 text-xs font-medium">Photo Coming Soon</span>
@@ -838,7 +952,7 @@ export default function Home() {
                 Travel Insights
               </h2>
               <p className="text-xl text-gray-600">
-                Expert tips and guides for your perfect Uganda adventure
+                Expert tips and guides for your perfect East Africa adventure
               </p>
             </div>
             <Link 
@@ -850,7 +964,7 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {travelGuideTeases.map((guide, index) => (
               <Link
                 key={index}
@@ -864,6 +978,9 @@ export default function Home() {
                   <div className="flex items-center justify-between mb-3">
                     <span className="px-3 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700">
                       {guide.readTime}
+                    </span>
+                    <span className="px-2 py-1 text-xs font-medium rounded" style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}>
+                      {guide.region}
                     </span>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{guide.title}</h3>
@@ -879,10 +996,10 @@ export default function Home() {
       <section className="py-20 text-white" style={{ backgroundColor: primaryColor }}>
         <div className="w-full px-4 sm:px-6 lg:px-8 text-center max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready for Your Uganda Adventure?
+            Ready for Your East Africa Adventure?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of travelers discovering sustainable adventures in the Pearl of Africa
+            Join thousands of travelers discovering sustainable adventures across Uganda, Kenya, Tanzania, and Rwanda
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 

@@ -2,19 +2,19 @@ import React from 'react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'About Us | Sustainable Uganda Adventures | Shake\'s Travel',
-  description: 'Learn about Shake\'s Travel - Uganda\'s premier eco-friendly adventure travel company. Discover our mission, team, and commitment to sustainable tourism in the Pearl of Africa.',
-  keywords: 'about Shakes Travel, Uganda travel company, sustainable tourism, eco-friendly adventures, team, mission, values',
+  title: 'About Us | Sustainable East Africa Adventures | Shake\'s Travel',
+  description: 'Learn about Shake\'s Travel - East Africa\'s premier eco-friendly adventure travel company. Discover our mission, team, and commitment to sustainable tourism across Uganda, Kenya, Tanzania, and Rwanda.',
+  keywords: 'about Shakes Travel, East Africa travel company, Uganda Kenya Tanzania Rwanda, sustainable tourism, eco-friendly adventures, team, mission, values',
   openGraph: {
-    title: 'About Shake\'s Travel | Sustainable Uganda Adventures',
-    description: 'Uganda\'s premier eco-friendly adventure travel company committed to sustainable tourism and conservation.',
+    title: 'About Shake\'s Travel | Sustainable East Africa Adventures',
+    description: 'East Africa\'s premier eco-friendly adventure travel company committed to sustainable tourism and conservation across Uganda, Kenya, Tanzania, and Rwanda.',
     images: ['/images/team-uganda.jpg'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Shake\'s Travel | Sustainable Uganda Adventures',
-    description: 'Uganda\'s premier eco-friendly adventure travel company',
+    title: 'About Shake\'s Travel | Sustainable East Africa Adventures',
+    description: 'East Africa\'s premier eco-friendly adventure travel company',
     images: ['/images/team-uganda.jpg'],
   },
 };
@@ -27,37 +27,61 @@ const AboutPage: React.FC = () => {
       id: 1,
       name: 'Sarah Nakato',
       role: 'Founder & CEO',
-      bio: 'Born and raised in Kampala, Sarah founded Shake\'s Travel with a vision to showcase Uganda\'s natural beauty while supporting local communities.',
+      bio: 'Born and raised in Kampala, Sarah founded Shake\'s Travel with a vision to showcase East Africa\'s natural beauty while supporting local communities across all four countries.',
       image: '👩🏿‍💼',
-      expertise: ['Sustainable Tourism', 'Community Development', 'Conservation'],
-      experience: '12+ years'
+      expertise: ['Sustainable Tourism', 'Regional Development', 'Conservation'],
+      experience: '12+ years',
+      region: 'Uganda'
     },
     {
       id: 2,
       name: 'James Okello',
       role: 'Head Guide & Wildlife Expert',
-      bio: 'With over 15 years guiding experience, James specializes in gorilla trekking and wildlife safaris across Uganda\'s national parks.',
+      bio: 'With over 15 years guiding experience across East Africa, James specializes in gorilla trekking, safari expeditions, and cross-border wildlife experiences.',
       image: '👨🏿‍🌾',
-      expertise: ['Gorilla Trekking', 'Wildlife Photography', 'Park Navigation'],
-      experience: '15+ years'
+      expertise: ['Gorilla Trekking', 'Safari Leadership', 'Regional Navigation'],
+      experience: '15+ years',
+      region: 'Uganda/Rwanda'
     },
     {
       id: 3,
-      name: 'Mary Atim',
-      role: 'Community Relations Manager',
-      bio: 'Mary bridges the gap between travelers and local communities, ensuring authentic cultural experiences that benefit everyone.',
-      image: '👩🏿‍🤝‍👨🏿',
-      expertise: ['Cultural Tours', 'Community Projects', 'Local Partnerships'],
-      experience: '8+ years'
+      name: 'Amara Kiprotich',
+      role: 'Kenya Operations Manager',
+      bio: 'Based in Nairobi, Amara coordinates our Kenya experiences, from Maasai Mara safaris to coastal adventures, ensuring authentic Kenyan hospitality.',
+      image: '👩🏿‍💼',
+      expertise: ['Safari Operations', 'Cultural Experiences', 'Coastal Tourism'],
+      experience: '10+ years',
+      region: 'Kenya'
     },
     {
       id: 4,
+      name: 'Zawadi Mwalimu',
+      role: 'Tanzania Regional Director',
+      bio: 'Leading our Tanzania operations from Arusha, Zawadi brings expertise in Kilimanjaro climbs, Serengeti expeditions, and Zanzibar cultural tours.',
+      image: '👨🏿‍🎆',
+      expertise: ['Mountain Climbing', 'Safari Logistics', 'Island Tourism'],
+      experience: '12+ years',
+      region: 'Tanzania'
+    },
+    {
+      id: 5,
+      name: 'Marie Uwimana',
+      role: 'Rwanda Conservation Specialist',
+      bio: 'Based in Kigali, Marie focuses on Rwanda\'s conservation tourism, gorilla trekking programs, and sustainable community initiatives.',
+      image: '👩🏿‍🔬',
+      expertise: ['Gorilla Conservation', 'Community Tourism', 'Sustainable Practices'],
+      experience: '8+ years',
+      region: 'Rwanda'
+    },
+    {
+      id: 6,
       name: 'David Musisi',
-      role: 'Conservation Officer',
-      bio: 'Environmental scientist passionate about Uganda\'s ecosystems, David leads our tree planting and conservation initiatives.',
+      role: 'Regional Conservation Officer',
+      bio: 'Environmental scientist passionate about East Africa\'s ecosystems, David leads our region-wide tree planting and conservation initiatives.',
       image: '👨🏿‍🔬',
-      expertise: ['Environmental Science', 'Reforestation', 'Ecosystem Management'],
-      experience: '10+ years'
+      expertise: ['Environmental Science', 'Regional Reforestation', 'Cross-Border Conservation'],
+      experience: '10+ years',
+      region: 'East Africa'
     }
   ];
 
@@ -65,32 +89,32 @@ const AboutPage: React.FC = () => {
     {
       icon: '🌱',
       title: 'Environmental Stewardship',
-      description: 'We\'re committed to preserving Uganda\'s natural beauty for future generations through sustainable practices and conservation initiatives.'
+      description: 'We\'re committed to preserving East Africa\'s natural beauty for future generations through sustainable practices and regional conservation initiatives.'
     },
     {
       icon: '🤝',
       title: 'Community Empowerment',
-      description: 'Every tour directly benefits local communities through employment, fair wages, and community development projects.'
+      description: 'Every tour directly benefits local communities across Uganda, Kenya, Tanzania, and Rwanda through employment, fair wages, and development projects.'
     },
     {
       icon: '🦍',
       title: 'Wildlife Conservation',
-      description: 'We support wildlife protection through responsible tourism, contributing to conservation funds and habitat preservation.'
+      description: 'We support cross-border wildlife protection through responsible tourism, contributing to regional conservation funds and habitat preservation.'
     },
     {
       icon: '✨',
       title: 'Authentic Experiences',
-      description: 'We create genuine connections between travelers and Uganda\'s people, culture, and landscapes for meaningful memories.'
+      description: 'We create genuine connections between travelers and East Africa\'s diverse peoples, cultures, and landscapes for meaningful memories.'
     },
     {
       icon: '🛡️',
       title: 'Safety & Quality',
-      description: 'Your safety is our priority. We maintain the highest standards in equipment, guides, and emergency preparedness.'
+      description: 'Your safety is our priority across all four countries. We maintain the highest standards in equipment, guides, and emergency preparedness.'
     },
     {
       icon: '💚',
       title: 'Ethical Tourism',
-      description: 'We believe in responsible travel that respects local customs, supports economies, and minimizes environmental impact.'
+      description: 'We believe in responsible travel that respects local customs, supports regional economies, and minimizes environmental impact across East Africa.'
     }
   ];
 
@@ -208,12 +232,12 @@ const AboutPage: React.FC = () => {
           
           <div className="relative z-10 text-center w-full content-section">
             <div className="mb-8">
-              <div className="text-8xl mb-4" aria-hidden="true">🇺🇬</div>
+              <div className="text-6xl mb-4" aria-hidden="true">🇺🇬 🇰🇪 🇹🇿 🇷🇼</div>
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
                 About Shake's Travel
               </h1>
               <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-                Uganda's premier eco-friendly adventure travel company, committed to sustainable tourism and conservation since 2012
+                East Africa's premier eco-friendly adventure travel company, committed to sustainable tourism and conservation across Uganda, Kenya, Tanzania, and Rwanda since 2012
               </p>
             </div>
             
@@ -249,13 +273,13 @@ const AboutPage: React.FC = () => {
                 </h2>
                 <div className="prose prose-lg text-gray-600 space-y-6">
                   <p>
-                    Founded in 2012 by Sarah Nakato, a passionate conservationist and Uganda native, Shake's Travel began with a simple yet powerful vision: to share Uganda's incredible natural beauty while ensuring its preservation for future generations.
+                    Founded in 2012 by Sarah Nakato, a passionate conservationist and Uganda native, Shake's Travel began with a simple yet powerful vision: to share East Africa's incredible natural beauty while ensuring its preservation for future generations across all four countries.
                   </p>
                   <p>
-                    Growing up in Kampala, Sarah witnessed firsthand the challenges facing Uganda's wildlife and communities. She recognized that sustainable tourism could be a powerful force for positive change, creating economic opportunities while funding conservation efforts.
+                    Growing up in Kampala, Sarah witnessed firsthand the challenges facing East Africa's wildlife and communities. She recognized that sustainable tourism could be a powerful force for positive change, creating economic opportunities while funding conservation efforts across borders.
                   </p>
                   <p>
-                    What started as small group tours to Bwindi Impenetrable Forest has grown into Uganda's leading eco-friendly adventure travel company, but our core mission remains unchanged: authentic experiences that benefit travelers, communities, and the environment.
+                    What started as small group tours to Bwindi Impenetrable Forest has grown into East Africa's leading eco-friendly adventure travel company, with operations spanning Uganda, Kenya, Tanzania, and Rwanda. Our core mission remains unchanged: authentic experiences that benefit travelers, communities, and the environment across the region.
                   </p>
                 </div>
                 <Link 
@@ -302,7 +326,7 @@ const AboutPage: React.FC = () => {
                 Our Mission
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                To create transformative travel experiences that celebrate Uganda's natural wonders while actively contributing to conservation and community development
+                To create transformative travel experiences that celebrate East Africa's natural wonders while actively contributing to conservation and community development across Uganda, Kenya, Tanzania, and Rwanda
               </p>
             </div>
 
@@ -311,7 +335,7 @@ const AboutPage: React.FC = () => {
                 <div className="text-6xl mb-6">🌍</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Sustainable Tourism</h3>
                 <p className="text-gray-600">
-                  We operate with minimal environmental impact, using eco-friendly practices and supporting local conservation initiatives in every aspect of our business.
+                  We operate with minimal environmental impact across East Africa, using eco-friendly practices and supporting regional conservation initiatives in every aspect of our business.
                 </p>
               </div>
               
@@ -319,7 +343,7 @@ const AboutPage: React.FC = () => {
                 <div className="text-6xl mb-6">🤝</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Community Partnership</h3>
                 <p className="text-gray-600">
-                  We work directly with local communities, ensuring fair employment, cultural respect, and that tourism benefits reach those who need it most.
+                  We work directly with local communities across all four East African countries, ensuring fair employment, cultural respect, and that tourism benefits reach those who need it most.
                 </p>
               </div>
               
@@ -327,7 +351,7 @@ const AboutPage: React.FC = () => {
                 <div className="text-6xl mb-6">💚</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Conservation Impact</h3>
                 <p className="text-gray-600">
-                  Through our tree planting programs and wildlife conservation partnerships, we actively contribute to preserving Uganda's biodiversity.
+                  Through our regional tree planting programs and cross-border wildlife conservation partnerships, we actively contribute to preserving East Africa's rich biodiversity.
                 </p>
               </div>
             </div>
@@ -342,11 +366,11 @@ const AboutPage: React.FC = () => {
                 Meet Our Team
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our passionate team of Uganda natives and conservation experts who make every adventure unforgettable
+                Our passionate team of East African natives and conservation experts from across Uganda, Kenya, Tanzania, and Rwanda who make every adventure unforgettable
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {teamMembers.map((member) => (
                 <article key={member.id} className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover-effect">
                   <div 
@@ -376,9 +400,13 @@ const AboutPage: React.FC = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-sm mb-2">
                       <span className="text-gray-500">Experience</span>
                       <span className="font-semibold" style={{ color: primaryColor }}>{member.experience}</span>
+                    </div>
+                    
+                    <div className="text-xs text-gray-500">
+                      <span className="font-medium">Region: </span>{member.region}
                     </div>
                   </div>
                 </article>
@@ -481,10 +509,10 @@ const AboutPage: React.FC = () => {
         <section className="py-20 text-white" style={{ backgroundColor: primaryColor }}>
           <div className="content-section text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Explore Uganda?
+              Ready to Explore East Africa?
             </h2>
             <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
-              Join us for an unforgettable adventure that makes a positive impact on Uganda's communities and environment
+              Join us for an unforgettable adventure that makes a positive impact on East Africa's communities and environment across Uganda, Kenya, Tanzania, and Rwanda
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
