@@ -15,86 +15,171 @@ export default function UgandaPage() {
   const destinations = [
     {
       id: 1,
-      name: 'Bwindi Impenetrable Forest',
+      name: 'Bwindi Impenetrable National Park',
       image: '/images/destinations/bwindi.jpg',
-      description: 'Home to endangered mountain gorillas and incredible biodiversity',
+      description: 'UNESCO World Heritage Site, home to over 500 mountain gorillas (half the world\'s population), 23 habituated gorilla families, ancient 25,000-year-old forest, 350+ bird species, 310 butterfly species.',
       location: 'Southwestern Uganda',
-      highlights: ['Mountain Gorillas', 'Biodiversity', 'Bird Watching']
+      highlights: ['500+ Mountain Gorillas', '23 Habituated Families', '350+ Bird Species'],
+      cta: 'Book Now'
     },
     {
       id: 2,
       name: 'Queen Elizabeth National Park',
       image: '/images/destinations/queen-elizabeth.jpg',
-      description: 'Uganda\'s most popular safari destination with diverse wildlife',
+      description: 'Tree-climbing lions in Ishasha sector, Kazinga Channel with the world\'s highest hippo concentration, 95+ mammal species, 600+ bird species, volcanic crater lakes.',
       location: 'Western Uganda',
-      highlights: ['Tree-climbing Lions', 'Boat Safari', 'Crater Lakes']
+      highlights: ['Tree-climbing Lions', 'Highest Hippo Concentration', '600+ Bird Species'],
+      cta: 'Explore Safaris'
     },
     {
       id: 3,
       name: 'Murchison Falls National Park',
       image: '/images/destinations/murchison-falls.jpg',
-      description: 'Spectacular waterfall where the Nile squeezes through a narrow gorge',
+      description: 'World\'s most powerful waterfall (Victoria Nile through 7m gorge), Uganda\'s largest park, 76+ mammal species, 451+ bird species.',
       location: 'Northwestern Uganda',
-      highlights: ['Murchison Falls', 'Big Game', 'River Nile']
+      highlights: ['World\'s Most Powerful Waterfall', 'Uganda\'s Largest Park', '451+ Bird Species'],
+      cta: 'Book Safari'
     },
     {
       id: 4,
-      name: 'Lake Bunyonyi',
-      image: '/images/destinations/lake-bunyonyi.jpg',
-      description: 'Uganda\'s deepest lake surrounded by terraced hills',
-      location: 'Southwestern Uganda',
-      highlights: ['Island Hopping', 'Canoeing', 'Scenic Views']
+      name: 'Kidepo Valley National Park',
+      image: '/images/destinations/kidepo.jpg',
+      description: 'Most remote park, 475+ bird species, 77+ mammal species (cheetahs, ostriches), Karamojong cultural encounters.',
+      location: 'Northeastern Uganda',
+      highlights: ['Most Remote Park', 'Cheetahs & Ostriches', 'Karamojong Culture'],
+      cta: 'Discover More'
     },
     {
       id: 5,
-      name: 'Kibale National Park',
+      name: 'Kibale Forest National Park',
       image: '/images/destinations/kibale.jpg',
-      description: 'Primate capital of the world with 13 primate species',
+      description: 'World\'s highest primate concentration (1,450 chimpanzees), 13 primate species, 375+ bird species, "Primate Capital."',
       location: 'Western Uganda',
-      highlights: ['Chimpanzee Tracking', 'Primate Diversity', 'Forest Walks']
+      highlights: ['Primate Capital', '1,450 Chimpanzees', '13 Primate Species'],
+      cta: 'Book Trek'
+    },
+    {
+      id: 6,
+      name: 'Rwenzori Mountains National Park',
+      image: '/images/destinations/rwenzori.jpg',
+      description: 'Africa\'s third-highest peak (Margherita Peak, 5,109m), equatorial snow, UNESCO site, unique alpine flora.',
+      location: 'Western Uganda',
+      highlights: ['Africa\'s 3rd Highest Peak', 'Equatorial Snow', 'UNESCO Site'],
+      cta: 'Plan Trek'
+    },
+    {
+      id: 7,
+      name: 'Mount Elgon National Park',
+      image: '/images/destinations/mount-elgon.jpg',
+      description: '4,321m Wagagai peak, world\'s largest volcanic caldera, Sipi Falls, Kitum Cave.',
+      location: 'Eastern Uganda',
+      highlights: ['Largest Volcanic Caldera', 'Sipi Falls', 'Kitum Cave'],
+      cta: 'Explore Now'
+    },
+    {
+      id: 8,
+      name: 'Lake Bunyonyi',
+      image: '/images/destinations/lake-bunyonyi.jpg',
+      description: 'Africa\'s second-deepest lake, 29 islands, bilharzia- and crocodile-free swimming, 200+ bird species.',
+      location: 'Southwestern Uganda',
+      highlights: ['29 Islands', 'Safe Swimming', '200+ Bird Species'],
+      cta: 'Book Stay'
+    },
+    {
+      id: 9,
+      name: 'Lake Victoria (Ssese Islands)',
+      image: '/images/destinations/ssese-islands.jpg',
+      description: 'World\'s second-largest freshwater lake, 84 tropical islands, pristine beaches, fishing culture.',
+      location: 'Central Uganda',
+      highlights: ['84 Tropical Islands', 'Pristine Beaches', 'Fishing Culture'],
+      cta: 'Discover Islands'
+    },
+    {
+      id: 10,
+      name: 'Source of the Nile (Jinja)',
+      image: '/images/destinations/jinja.jpg',
+      description: 'Beginning of the world\'s longest river, adventure sports hub.',
+      location: 'Eastern Uganda',
+      highlights: ['World\'s Longest River', 'Adventure Sports', 'Historical Significance'],
+      cta: 'Book Adventure'
+    },
+    {
+      id: 11,
+      name: 'Sempaya Hot Springs (Semuliki)',
+      image: '/images/destinations/sempaya-springs.jpg',
+      description: '103°C boiling springs, 2m geysers, tropical lowland forest.',
+      location: 'Western Uganda',
+      highlights: ['103°C Boiling Springs', '2m Geysers', 'Tropical Forest'],
+      cta: 'Visit Now'
     }
   ];
 
   const experiences = [
     {
       id: 1,
-      title: 'Mountain Gorilla Trekking',
-      duration: '4 days',
-      price: '$1,599',
+      title: 'Gorilla Trekking (Bwindi)',
+      duration: '1 day',
+      price: '$800',
       rating: 4.9,
       image: '/images/experiences/gorilla-trekking.jpg',
       location: 'Bwindi Forest',
-      description: 'Trek through dense forest to encounter endangered mountain gorillas in their natural habitat.'
+      description: '98% success rate, encounter habituated gorilla families in ancient forest.',
+      cta: 'Book Permit'
     },
     {
       id: 2,
-      title: 'Big Five Safari Adventure',
-      duration: '6 days',
-      price: '$1,899',
+      title: 'Chimpanzee Tracking (Kibale)',
+      duration: '1 day',
+      price: '$250',
       rating: 4.8,
-      image: '/images/experiences/uganda-safari.jpg',
-      location: 'Multiple Parks',
-      description: 'Complete safari experience across Uganda\'s premier wildlife destinations.'
+      image: '/images/experiences/chimpanzee-tracking.jpg',
+      location: 'Kibale Forest',
+      description: 'World\'s highest primate density, 98% encounter success.',
+      cta: 'Book Trek'
     },
     {
       id: 3,
-      title: 'Chimpanzee Tracking',
-      duration: '3 days',
-      price: '$899',
+      title: 'White-Water Rafting (Jinja)',
+      duration: '1 day',
+      price: '$125',
       rating: 4.7,
-      image: '/images/experiences/chimpanzee-tracking.jpg',
-      location: 'Kibale Forest',
-      description: 'Track our closest relatives in their natural forest habitat with expert guides.'
+      image: '/images/experiences/white-water-rafting.jpg',
+      location: 'Source of the Nile',
+      description: 'Thrilling rapids at the Source of the Nile.',
+      cta: 'Book Adventure'
     },
     {
       id: 4,
-      title: 'Cultural & Wildlife Combo',
-      duration: '5 days',
-      price: '$1,299',
+      title: 'Game Drives (Queen Elizabeth)',
+      duration: '2-3 days',
+      price: '$350',
+      rating: 4.8,
+      image: '/images/experiences/queen-elizabeth-safari.jpg',
+      location: 'Queen Elizabeth NP',
+      description: 'See tree-climbing lions, Big Five, Kazinga Channel cruises.',
+      cta: 'Book Safari'
+    },
+    {
+      id: 5,
+      title: 'Mountain Hiking (Rwenzori)',
+      duration: '7-10 days',
+      price: '$1,200',
       rating: 4.6,
-      image: '/images/experiences/cultural-uganda.jpg',
-      location: 'Various Locations',
-      description: 'Experience Uganda\'s rich culture combined with incredible wildlife encounters.'
+      image: '/images/experiences/rwenzori-hiking.jpg',
+      location: 'Rwenzori Mountains',
+      description: 'Climb Africa\'s third-highest peak with equatorial glaciers.',
+      cta: 'Plan Trek'
+    },
+    {
+      id: 6,
+      title: 'Cultural Visits (Kidepo)',
+      duration: '2 days',
+      price: '$200',
+      rating: 4.5,
+      image: '/images/experiences/karamojong-culture.jpg',
+      location: 'Kidepo Valley',
+      description: 'Meet Karamojong pastoralists for authentic cultural experiences.',
+      cta: 'Explore Culture'
     }
   ];
 
@@ -102,104 +187,152 @@ export default function UgandaPage() {
     {
       id: 1,
       name: 'Sanctuary Gorilla Forest Camp',
-      type: 'Luxury Tented Camp',
-      price: '$890/night',
+      type: 'Luxury',
+      price: '$500-2,000/night',
       rating: 4.9,
-      image: '/images/accommodations/gorilla-forest-camp.jpg',
-      location: 'Bwindi Forest',
-      amenities: ['Gorilla Permits', 'Forest Views', 'Spa', 'Gourmet Dining']
+      image: '/images/accommodations/sanctuary-gorilla-forest.jpg',
+      location: 'Bwindi',
+      amenities: ['Intimate Forest Setting', 'Eco-friendly', 'Premium Service', 'Gorilla Trekking'],
+      description: 'Intimate forest setting, eco-friendly, premium service.',
+      cta: 'Book Now'
     },
     {
       id: 2,
-      name: 'Paraa Safari Lodge',
-      type: 'Safari Lodge',
-      price: '$520/night',
-      rating: 4.8,
-      image: '/images/accommodations/paraa-lodge.jpg',
-      location: 'Murchison Falls',
-      amenities: ['River Views', 'Game Drives', 'Boat Safaris', 'Pool']
+      name: 'Buhoma Lodge',
+      type: 'Mid-Range',
+      price: '$150-500/night',
+      rating: 4.7,
+      image: '/images/accommodations/buhoma-lodge.jpg',
+      location: 'Bwindi',
+      amenities: ['Close to Trekking Start', 'Stunning Views', 'Cozy Chalets', 'Restaurant'],
+      description: 'Close to trekking start, stunning views, cozy chalets.',
+      cta: 'Book Now'
     },
     {
       id: 3,
-      name: 'Bird Nest Resort',
-      type: 'Lake Resort',
-      price: '$340/night',
-      rating: 4.6,
-      image: '/images/accommodations/bird-nest.jpg',
-      location: 'Lake Bunyonyi',
-      amenities: ['Lake Views', 'Island Hopping', 'Canoeing', 'Cultural Tours']
+      name: 'Bwindi Guest House',
+      type: 'Budget',
+      price: '$20-150/night',
+      rating: 4.4,
+      image: '/images/accommodations/bwindi-guest-house.jpg',
+      location: 'Bwindi',
+      amenities: ['Community-run', 'Affordable', 'Near Park Entrance', 'Local Experience'],
+      description: 'Community-run, affordable, near park entrance.',
+      cta: 'Book Now'
     },
     {
       id: 4,
-      name: 'Primate Lodge Kibale',
-      type: 'Forest Lodge',
-      price: '$280/night',
-      rating: 4.5,
-      image: '/images/accommodations/primate-lodge.jpg',
-      location: 'Kibale Forest',
-      amenities: ['Forest Setting', 'Chimpanzee Tracking', 'Nature Walks', 'Bird Watching']
+      name: 'Mweya Safari Lodge',
+      type: 'Luxury',
+      price: '$500-2,000/night',
+      rating: 4.8,
+      image: '/images/accommodations/mweya-safari-lodge.jpg',
+      location: 'Queen Elizabeth NP',
+      amenities: ['Kazinga Channel Views', 'Upscale', 'Pool', 'Game Drives'],
+      description: 'Kazinga Channel views, upscale, pool.',
+      cta: 'Book Now'
+    },
+    {
+      id: 5,
+      name: 'Ishasha Wilderness Camp',
+      type: 'Mid-Range',
+      price: '$150-500/night',
+      rating: 4.6,
+      image: '/images/accommodations/ishasha-wilderness.jpg',
+      location: 'Queen Elizabeth NP',
+      amenities: ['Riverside', 'Eco-friendly', 'Near Lions', 'Tented Camp'],
+      description: 'Riverside, eco-friendly, near lions.',
+      cta: 'Book Now'
+    },
+    {
+      id: 6,
+      name: 'Pumba Safari Cottages',
+      type: 'Budget',
+      price: '$20-150/night',
+      rating: 4.3,
+      image: '/images/accommodations/pumba-safari.jpg',
+      location: 'Queen Elizabeth NP',
+      amenities: ['Scenic', 'Community-focused', 'Affordable', 'Local Guides'],
+      description: 'Scenic, community-focused, affordable.',
+      cta: 'Book Now'
     }
   ];
 
   const insights = [
     {
       id: 1,
-      title: 'Best Time to Visit Uganda',
-      category: 'Planning',
-      readTime: '5 min read',
-      image: '/images/insights/uganda-seasons.jpg',
-      excerpt: 'Discover the optimal timing for gorilla trekking, wildlife viewing, and exploring Uganda\'s diverse attractions.'
+      title: 'Uganda Visa & Entry Requirements',
+      category: 'Travel Tips',
+      readTime: '4 min read',
+      image: '/images/insights/uganda-visa.jpg',
+      excerpt: 'e-Visa or visa on arrival ($50); East Africa Tourist Visa ($100) covers Uganda, Kenya, Rwanda.'
     },
     {
       id: 2,
-      title: 'Gorilla Trekking Permits Guide',
-      category: 'Wildlife',
-      readTime: '4 min read',
-      image: '/images/insights/gorilla-permits.jpg',
-      excerpt: 'Everything you need to know about securing gorilla permits and preparing for your trek in Bwindi Forest.'
+      title: 'Health & Vaccination Guide for Uganda',
+      category: 'Health',
+      readTime: '5 min read',
+      image: '/images/insights/uganda-health.jpg',
+      excerpt: 'Yellow fever vaccination required, malaria prophylaxis recommended except high altitudes (>2,500m).'
     },
     {
       id: 3,
-      title: 'Uganda Safari Packing List',
-      category: 'Travel Tips',
+      title: 'Gorilla & Chimpanzee Permits Guide',
+      category: 'Wildlife',
       readTime: '6 min read',
-      image: '/images/insights/uganda-packing.jpg',
-      excerpt: 'Essential items to pack for your Uganda adventure, from gorilla trekking gear to safari essentials.'
+      image: '/images/insights/uganda-permits.jpg',
+      excerpt: 'Gorilla permits ($800), book 6-12 months ahead; chimpanzee permits ($250).'
     },
     {
       id: 4,
-      title: 'Ugandan Culture & Traditions',
-      category: 'Culture',
-      readTime: '7 min read',
-      image: '/images/insights/uganda-culture.jpg',
-      excerpt: 'Explore Uganda\'s rich cultural heritage, traditional customs, and diverse ethnic communities.'
+      title: 'Sustainable Travel in Uganda',
+      category: 'Sustainability',
+      readTime: '5 min read',
+      image: '/images/insights/sustainable-uganda.jpg',
+      excerpt: 'Choose community lodges like Bwindi Guest House to support locals; practice Leave No Trace.'
+    },
+    {
+      id: 5,
+      title: 'Uganda Safari Packing Essentials',
+      category: 'Packing',
+      readTime: '4 min read',
+      image: '/images/insights/uganda-packing.jpg',
+      excerpt: 'Light hiking gear, insect repellent, binoculars for birding.'
+    },
+    {
+      id: 6,
+      title: 'Best Time to Visit Uganda',
+      category: 'Planning',
+      readTime: '3 min read',
+      image: '/images/insights/uganda-seasons.jpg',
+      excerpt: 'June-October, December-February (dry seasons for trekking and safaris).'
     }
   ];
 
   const faqs = [
     {
-      question: 'Do I need a visa to visit Uganda?',
-      answer: 'Most visitors need a visa to enter Uganda. You can apply for an eVisa online before travel or get a visa on arrival. The East Africa Tourist Visa allows entry to Uganda, Kenya, and Rwanda for $100.'
-    },
-    {
-      question: 'How much does a gorilla trekking permit cost?',
-      answer: 'A gorilla trekking permit in Uganda costs $800 for foreign non-residents, $700 for foreign residents, and UGX 300,000 for East African citizens. Permits include park entrance and guide services.'
+      question: 'How do I book gorilla permits?',
+      answer: 'Permits cost $800, book 6-12 months ahead via Uganda Wildlife Authority or trusted operators. We recommend booking through reputable tour operators who can secure permits and coordinate your entire trip.'
     },
     {
       question: 'What is the best time for gorilla trekking?',
-      answer: 'Gorilla trekking is possible year-round, but the dry seasons (June-August and December-February) offer easier trekking conditions. The wet seasons may have fewer crowds but more challenging trails.'
+      answer: 'Dry seasons (June-October, December-February) offer easier hiking conditions with less mud and clearer forest paths. However, gorilla trekking is possible year-round as the gorillas don\'t migrate.'
     },
     {
-      question: 'Is Uganda safe for tourists?',
-      answer: 'Uganda is generally safe for tourists, especially in popular destinations and with reputable tour operators. Follow standard travel precautions and stay informed about current conditions.'
+      question: 'Is Uganda safe for solo travelers?',
+      answer: 'Yes, Uganda is generally safe for solo travelers, especially when using reputable operators and staying in established accommodations. Always follow park guides\' instructions and inform others of your itinerary.'
+    },
+    {
+      question: 'What should I pack for Uganda safaris?',
+      answer: 'Pack neutral-colored clothing (khaki, brown, green), sturdy hiking boots, sunscreen, insect repellent, binoculars, camera with extra batteries, and a rain jacket. Avoid bright colors and camouflage patterns.'
+    },
+    {
+      question: 'How to prepare for high-altitude treks in Rwenzori?',
+      answer: 'Prepare with gradual acclimatization, stay well-hydrated, maintain physical fitness, and ensure you have comprehensive travel insurance with high-altitude evacuation coverage. Consider spending a few days at moderate altitude before the trek.'
     },
     {
       question: 'What vaccinations do I need for Uganda?',
-      answer: 'Yellow fever vaccination is required if arriving from a yellow fever endemic area. Recommended vaccinations include hepatitis A&B, typhoid, meningitis, and malaria prophylaxis.'
-    },
-    {
-      question: 'What currency is used in Uganda?',
-      answer: 'The Ugandan Shilling (UGX) is the official currency. US dollars are widely accepted for tourist services. Credit cards are accepted in major hotels and lodges, but carry cash for local purchases.'
+      answer: 'Yellow fever vaccination is mandatory if arriving from yellow fever endemic areas. Recommended vaccinations include hepatitis A&B, typhoid, meningitis, and malaria prophylaxis (except for high altitudes above 2,500m).'
     }
   ];
 
@@ -247,14 +380,21 @@ export default function UgandaPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "TouristDestination",
-            "name": "Uganda",
-            "description": "Experience Uganda's incredible wildlife, from mountain gorillas in Bwindi to the Big Five in Queen Elizabeth National Park. Discover the Pearl of Africa with authentic adventures and eco-friendly accommodations.",
+            "name": "Uganda - The Pearl of Africa",
+            "description": "Discover Uganda gorilla trekking in Bwindi, Murchison Falls safari adventures, and Source of the Nile experiences. Home to 500+ mountain gorillas, world's most powerful waterfall, and diverse wildlife.",
             "url": "https://shakestravelapp.com/destinations/uganda",
+            "keywords": "Uganda gorilla trekking, Murchison Falls safari, Source of the Nile adventure, Bwindi Impenetrable Forest, Queen Elizabeth National Park, Uganda wildlife safari",
             "touristType": ["Eco Tourist", "Adventure Tourist", "Wildlife Tourist", "Cultural Tourist"],
             "geo": {
               "@type": "GeoCoordinates",
               "addressCountry": "Uganda"
-            }
+            },
+            "hasMap": "https://www.google.com/maps/place/Uganda",
+            "image": [
+              "/images/destinations/bwindi.jpg",
+              "/images/destinations/murchison-falls.jpg",
+              "/images/destinations/queen-elizabeth.jpg"
+            ]
           })
         }}
       />
@@ -264,8 +404,8 @@ export default function UgandaPage() {
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="/images/destinations/uganda-hero.jpg"
-              alt="Uganda landscape with mountain gorillas"
+              src="/images/destinations/uganda-gorillas-hero.jpg"
+              alt="Mountain gorillas in Bwindi Impenetrable National Park, Uganda"
               fill
               className="object-cover"
               priority
@@ -275,37 +415,37 @@ export default function UgandaPage() {
           
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Discover Uganda's <span className="text-[#fec76f]">Treasures</span>
+              Discover Uganda: The <span className="text-[#fec76f]">Pearl of Africa</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 leading-relaxed">
-              Trek with mountain gorillas, explore pristine wilderness, and experience the Pearl of Africa's natural wonders
+              Embark on life-changing gorilla treks, thrilling safaris, and cultural adventures in Uganda's diverse landscapes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="#destinations"
                 className="bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-4 rounded-lg text-lg font-medium transition-all duration-300 transform hover:scale-105"
               >
-                Explore Destinations
+                Book Your Uganda Adventure Now
               </Link>
               <Link
                 href="#experiences"
                 className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all duration-300"
               >
-                View Experiences
+                Explore Destinations
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Top Destinations */}
+        {/* Tourist Travel and Adventure Destinations */}
         <section id="destinations" className="py-20 bg-gray-50">
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Uganda's Premier Destinations
+                Tourist Travel and Adventure Destinations
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From mountain gorillas to savanna wildlife, discover Uganda's most spectacular natural attractions
+                From mountain gorillas to powerful waterfalls, discover Uganda's most spectacular wildlife and adventure destinations
               </p>
             </div>
 
@@ -350,12 +490,9 @@ export default function UgandaPage() {
                               ))}
                             </div>
                           </div>
-                          <Link
-                            href={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '')}`}
-                            className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
-                          >
-                            Explore Destination
-                          </Link>
+                          <button className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300">
+                            {destination.cta}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -395,29 +532,32 @@ export default function UgandaPage() {
           </div>
         </section>
 
-        {/* Country Introduction */}
+        {/* Brief Introduction About Uganda */}
         <section className="py-20 bg-white">
           <div className="content-section">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  Why Choose Uganda?
+                  Brief Introduction About Uganda
                 </h2>
                 <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                   <p>
-                    Uganda, known as the "Pearl of Africa," offers one of the world's most authentic and unspoiled safari experiences. Home to nearly half of the world's remaining mountain gorillas, Uganda provides intimate wildlife encounters that few destinations can match.
+                    <strong>Overview:</strong> Known as the Pearl of Africa, Uganda offers premier gorilla trekking, vast savannas, and rich cultural experiences. This East African gem combines incredible wildlife encounters with diverse landscapes and warm, welcoming people.
                   </p>
                   <p>
-                    Beyond gorillas, Uganda boasts incredible biodiversity with over 1,000 bird species, the Big Five, and 13 primate species including our closest relatives, chimpanzees. From the dramatic Murchison Falls to the crater lakes of Queen Elizabeth National Park, Uganda's landscapes are breathtakingly diverse.
+                    <strong>Key Highlights:</strong> Home to 500+ mountain gorillas (half the world's population), the world's most powerful waterfall at Murchison Falls, and Africa's largest national park. Uganda hosts 13 primate species, over 1,000 bird species, and the source of the world's longest river.
                   </p>
                   <p>
-                    Uganda's commitment to conservation and community-based tourism ensures your visit directly supports wildlife protection and local communities. Experience authentic African culture while contributing to sustainable development and conservation efforts.
+                    <strong>Best Time to Visit:</strong> June-October and December-February (dry seasons) offer the best conditions for trekking and safaris with easier trail access and optimal wildlife viewing opportunities.
+                  </p>
+                  <p>
+                    <strong>Quick Fact:</strong> Uganda hosts Africa's largest national park (Murchison Falls) and is the only country where you can trek both mountain gorillas and chimpanzees in their natural habitat.
                   </p>
                 </div>
                 <div className="mt-8 grid grid-cols-2 gap-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-[#195e48]">10</div>
-                    <div className="text-gray-600">National Parks</div>
+                    <div className="text-3xl font-bold text-[#195e48]">500+</div>
+                    <div className="text-gray-600">Mountain Gorillas</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-[#195e48]">1,000+</div>
@@ -427,8 +567,8 @@ export default function UgandaPage() {
               </div>
               <div className="relative h-96 lg:h-[600px] rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/destinations/uganda-wildlife.jpg"
-                  alt="Uganda wildlife and landscapes"
+                  src="/images/destinations/uganda-landscape-overview.jpg"
+                  alt="Uganda diverse landscapes and wildlife"
                   fill
                   className="object-cover"
                 />
@@ -442,7 +582,7 @@ export default function UgandaPage() {
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Unforgettable Uganda Adventures
+                Top Adventure Experiences
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Embark on life-changing adventures that showcase Uganda's incredible natural beauty and wildlife
@@ -491,7 +631,7 @@ export default function UgandaPage() {
                               {experience.price}
                             </div>
                             <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
-                              Book Now
+                              {experience.cta}
                             </button>
                           </div>
                         </div>
@@ -523,21 +663,21 @@ export default function UgandaPage() {
                 href="/experiences"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Experiences
+                View All Uganda Experiences
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Featured Accommodations */}
+        {/* Featured Accommodation Stays */}
         <section className="py-20 bg-white">
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Premium Uganda Accommodations
+                Featured Accommodation Stays
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Stay in Uganda's finest lodges and camps, carefully selected for their exceptional service and locations
+                Stay in Uganda's finest lodges and camps, from luxury forest camps to community-run eco-lodges
               </p>
             </div>
 
@@ -575,6 +715,9 @@ export default function UgandaPage() {
                           <h3 className="text-xl font-bold text-gray-900 mb-3">
                             {accommodation.name}
                           </h3>
+                          <p className="text-gray-600 mb-3 text-sm">
+                            {accommodation.description}
+                          </p>
                           <div className="space-y-3 mb-4">
                             <div className="flex flex-wrap gap-1">
                               {accommodation.amenities.slice(0, 2).map((amenity, index) => (
@@ -593,11 +736,11 @@ export default function UgandaPage() {
                             </div>
                           </div>
                           <div className="flex items-center justify-between">
-                            <div className="text-2xl font-bold text-[#195e48]">
+                            <div className="text-lg font-bold text-[#195e48]">
                               {accommodation.price}
                             </div>
                             <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
-                              Book Now
+                              {accommodation.cta}
                             </button>
                           </div>
                         </div>
@@ -629,7 +772,7 @@ export default function UgandaPage() {
                 href="/accommodations"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Accommodations
+                View All Uganda Accommodations
               </Link>
             </div>
           </div>
@@ -640,7 +783,7 @@ export default function UgandaPage() {
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Uganda Travel Insights
+                Travel Insights
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Essential information to help you plan your perfect Uganda adventure
@@ -710,18 +853,18 @@ export default function UgandaPage() {
                 href="/travel-guides"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Travel Guides
+                View All Uganda Travel Guides
               </Link>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* Frequently Asked Questions */}
         <section className="py-20 bg-white">
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Uganda Travel FAQs
+                Frequently Asked Questions
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Get answers to the most common questions about traveling to Uganda
