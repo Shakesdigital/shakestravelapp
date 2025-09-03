@@ -15,191 +15,333 @@ export default function KenyaPage() {
   const destinations = [
     {
       id: 1,
-      name: 'Maasai Mara National Reserve',
-      image: '/images/destinations/masai-mara.jpg',
-      description: 'Home to the Great Migration and abundant wildlife',
-      location: 'Narok County',
-      highlights: ['Great Migration', 'Big Five', 'Maasai Culture']
+      name: 'Mount Kenya National Park',
+      image: '/images/destinations/mount-kenya.jpg',
+      description: 'Africa\'s second-highest mountain (5,199m), UNESCO site, Big Five, 11 endemic plants, 250+ bird species.',
+      location: 'Central Kenya',
+      highlights: ['Africa\'s 2nd Highest Mountain', 'UNESCO World Heritage', '250+ Bird Species'],
+      cta: 'Book Trek'
     },
     {
       id: 2,
-      name: 'Amboseli National Park',
-      image: '/images/destinations/amboseli.jpg',
-      description: 'Stunning views of Mount Kilimanjaro and elephant herds',
-      location: 'Kajiado County',
-      highlights: ['Mount Kilimanjaro Views', 'Elephant Herds', 'Birdwatching']
+      name: 'Nairobi National Park',
+      image: '/images/destinations/nairobi-national-park.jpg',
+      description: 'World\'s only wildlife park in a capital city, black rhino sanctuary, 400+ bird species, city skyline backdrop.',
+      location: 'Nairobi',
+      highlights: ['World\'s Only Capital City Park', 'Black Rhino Sanctuary', '400+ Bird Species'],
+      cta: 'Book Safari'
     },
     {
       id: 3,
-      name: 'Samburu National Reserve',
-      image: '/images/destinations/samburu.jpg',
-      description: 'Unique wildlife and rugged semi-arid landscape',
-      location: 'Samburu County',
-      highlights: ['Special Five', 'Cultural Encounters', 'River Wildlife']
+      name: 'Hell\'s Gate National Park',
+      image: '/images/destinations/hells-gate.jpg',
+      description: 'Dramatic gorges, geothermal features, buffalo herds, no major predators for walking safaris.',
+      location: 'Great Rift Valley',
+      highlights: ['Walking Safaris', 'Dramatic Gorges', 'Geothermal Features'],
+      cta: 'Explore Now'
     },
     {
       id: 4,
-      name: 'Lake Nakuru National Park',
-      image: '/images/destinations/lake-nakuru.jpg',
-      description: 'Famous for flamingos and rhino sanctuary',
-      location: 'Nakuru County',
-      highlights: ['Flamingo Flocks', 'Rhino Sanctuary', 'Baboon Cliff']
+      name: 'Diani Beach',
+      image: '/images/destinations/diani-beach.jpg',
+      description: '17km pristine white sand beach, coral reefs, colobus monkeys, voted Africa\'s best beach.',
+      location: 'Kwale County',
+      highlights: ['Africa\'s Best Beach', '17km White Sand', 'Coral Reefs'],
+      cta: 'Book Stay'
     },
     {
       id: 5,
-      name: 'Diani Beach',
-      image: '/images/destinations/diani-beach.jpg',
-      description: 'Pristine white sand beaches and coral reefs',
-      location: 'Kwale County',
-      highlights: ['White Sand Beaches', 'Water Sports', 'Coral Reefs']
+      name: 'Lamu Old Town',
+      image: '/images/destinations/lamu.jpg',
+      description: 'UNESCO site, 700-year-old Swahili settlement, car-free, 12km Shela beach.',
+      location: 'Lamu Archipelago',
+      highlights: ['700-year-old Settlement', 'Car-free Island', 'UNESCO World Heritage'],
+      cta: 'Discover Culture'
+    },
+    {
+      id: 6,
+      name: 'Watamu Marine National Park',
+      image: '/images/destinations/watamu.jpg',
+      description: 'World-class coral reefs, sea turtle sanctuary, top diving sites.',
+      location: 'Kilifi County',
+      highlights: ['World-class Coral Reefs', 'Sea Turtle Sanctuary', 'Top Diving Sites'],
+      cta: 'Book Dive'
+    },
+    {
+      id: 7,
+      name: 'Masai Mara National Reserve',
+      image: '/images/destinations/masai-mara.jpg',
+      description: 'Great Migration (July-October), Big Five, highest predator density, 450+ bird species.',
+      location: 'Narok County',
+      highlights: ['Great Migration', 'Highest Predator Density', '450+ Bird Species'],
+      cta: 'Book Safari'
+    },
+    {
+      id: 8,
+      name: 'Lake Nakuru National Park',
+      image: '/images/destinations/lake-nakuru.jpg',
+      description: 'Rhino sanctuary, flamingo populations, 450+ bird species, soda lake.',
+      location: 'Nakuru County',
+      highlights: ['Rhino Sanctuary', 'Flamingo Populations', '450+ Bird Species'],
+      cta: 'Explore Now'
+    },
+    {
+      id: 9,
+      name: 'Samburu National Reserve',
+      image: '/images/destinations/samburu.jpg',
+      description: 'Special Five (Grevy\'s zebra, reticulated giraffe, Somali ostrich, beisa oryx, gerenuk), Ewaso Nyiro River.',
+      location: 'Samburu County',
+      highlights: ['Special Five Species', 'Ewaso Nyiro River', 'Unique Wildlife'],
+      cta: 'Book Safari'
+    },
+    {
+      id: 10,
+      name: 'Lake Turkana National Parks',
+      image: '/images/destinations/lake-turkana.jpg',
+      description: 'World\'s largest desert lake, UNESCO site, Koobi Fora fossil sites, "Cradle of Mankind."',
+      location: 'Northern Kenya',
+      highlights: ['World\'s Largest Desert Lake', 'Cradle of Mankind', 'UNESCO World Heritage'],
+      cta: 'Discover More'
+    },
+    {
+      id: 11,
+      name: 'Tsavo East/West National Parks',
+      image: '/images/destinations/tsavo.jpg',
+      description: 'Kenya\'s largest park system, red elephants, Mzima Springs with underwater hippo viewing.',
+      location: 'Southeastern Kenya',
+      highlights: ['Kenya\'s Largest Park System', 'Red Elephants', 'Underwater Hippo Viewing'],
+      cta: 'Book Safari'
+    },
+    {
+      id: 12,
+      name: 'Amboseli National Park',
+      image: '/images/destinations/amboseli.jpg',
+      description: 'Spectacular Kilimanjaro views, large elephant herds, Masai culture.',
+      location: 'Kajiado County',
+      highlights: ['Kilimanjaro Views', 'Large Elephant Herds', 'Masai Culture'],
+      cta: 'Book Now'
     }
   ];
 
   const experiences = [
     {
       id: 1,
-      title: 'Great Migration Safari',
-      duration: '7 days',
-      price: '$1,899',
+      title: 'Game Drives (Masai Mara)',
+      duration: '3-4 days',
+      price: '$450',
       rating: 4.9,
-      image: '/images/experiences/great-migration.jpg',
-      location: 'Maasai Mara',
-      description: 'Witness the greatest wildlife spectacle on earth with millions of wildebeest crossing the Mara River.'
+      image: '/images/experiences/masai-mara-migration.jpg',
+      location: 'Masai Mara',
+      description: 'Witness 1.3M wildebeest in the Great Migration (July-October).',
+      cta: 'Book Safari'
     },
     {
       id: 2,
-      title: 'Mount Kenya Climbing',
-      duration: '5 days',
-      price: '$1,299',
-      rating: 4.8,
-      image: '/images/experiences/mount-kenya.jpg',
-      location: 'Central Kenya',
-      description: 'Challenge yourself with Africa\'s second-highest peak and stunning alpine scenery.'
+      title: 'Hot Air Balloon Safaris (Masai Mara)',
+      duration: '1 day',
+      price: '$480',
+      rating: 4.9,
+      image: '/images/experiences/hot-air-balloon.jpg',
+      location: 'Masai Mara',
+      description: 'Aerial views of wildlife spectacles.',
+      cta: 'Book Now'
     },
     {
       id: 3,
-      title: 'Coastal Safari & Beach',
-      duration: '6 days',
-      price: '$1,599',
-      rating: 4.9,
-      image: '/images/experiences/coastal-safari.jpg',
-      location: 'Coast Province',
-      description: 'Perfect combination of wildlife safari and relaxing beach time on the Indian Ocean.'
+      title: 'Diving/Snorkeling (Watamu)',
+      duration: '1-2 days',
+      price: '$120',
+      rating: 4.8,
+      image: '/images/experiences/watamu-diving.jpg',
+      location: 'Watamu',
+      description: 'Explore coral reefs, whale shark encounters.',
+      cta: 'Book Dive'
     },
     {
       id: 4,
-      title: 'Cultural Maasai Experience',
-      duration: '3 days',
-      price: '$699',
+      title: 'Rock Climbing (Hell\'s Gate)',
+      duration: '1 day',
+      price: '$85',
       rating: 4.7,
-      image: '/images/experiences/maasai-culture.jpg',
-      location: 'Kajiado County',
-      description: 'Immerse yourself in authentic Maasai culture with traditional ceremonies and village visits.'
+      image: '/images/experiences/hells-gate-climbing.jpg',
+      location: 'Hell\'s Gate',
+      description: 'Climb dramatic gorges, safe for families.',
+      cta: 'Explore Now'
+    },
+    {
+      id: 5,
+      title: 'Cultural Visits (Samburu)',
+      duration: '2 days',
+      price: '$180',
+      rating: 4.6,
+      image: '/images/experiences/samburu-culture.jpg',
+      location: 'Samburu',
+      description: 'Engage with Samburu communities, unique culture.',
+      cta: 'Book Tour'
+    },
+    {
+      id: 6,
+      title: 'Elephant Viewing (Amboseli)',
+      duration: '2-3 days',
+      price: '$320',
+      rating: 4.8,
+      image: '/images/experiences/amboseli-elephants.jpg',
+      location: 'Amboseli',
+      description: 'Iconic photography with Kilimanjaro backdrop.',
+      cta: 'Book Safari'
     }
   ];
 
   const accommodations = [
     {
       id: 1,
-      name: 'Angama Mara',
-      type: 'Luxury Lodge',
-      price: '$890/night',
+      name: 'Fairmont Mount Kenya Safari Club',
+      type: 'Luxury',
+      price: '$500-2,000/night',
       rating: 4.9,
-      image: '/images/accommodations/angama-mara.jpg',
-      location: 'Maasai Mara',
-      amenities: ['Game Drives', 'Spa', 'Fine Dining', 'Private Deck']
+      image: '/images/accommodations/fairmont-mount-kenya.jpg',
+      location: 'Mount Kenya',
+      amenities: ['Resort-style', 'Golf Course', 'Mountain Views', 'Luxury Service'],
+      description: 'Resort-style, golf course, mountain views.',
+      cta: 'Book Now'
     },
     {
       id: 2,
-      name: 'Elephant Bedroom Camp',
-      type: 'Tented Camp',
-      price: '$520/night',
-      rating: 4.8,
-      image: '/images/accommodations/elephant-bedroom.jpg',
-      location: 'Samburu',
-      amenities: ['River Views', 'Wildlife Viewing', 'Cultural Visits', 'Bush Meals']
+      name: 'Serena Mountain Lodge',
+      type: 'Mid-Range',
+      price: '$150-500/night',
+      rating: 4.7,
+      image: '/images/accommodations/serena-mountain-lodge.jpg',
+      location: 'Mount Kenya',
+      amenities: ['Treehouse-style', 'Cozy', 'Forest Setting', 'Wildlife Viewing'],
+      description: 'Treehouse-style, cozy, forest setting.',
+      cta: 'Book Now'
     },
     {
       id: 3,
-      name: 'Diani Reef Beach Resort',
-      type: 'Beach Resort',
-      price: '$340/night',
-      rating: 4.6,
-      image: '/images/accommodations/diani-reef.jpg',
-      location: 'Diani Beach',
-      amenities: ['Beach Access', 'Water Sports', 'Spa', 'Multiple Restaurants']
+      name: 'Naro Moru River Lodge',
+      type: 'Budget',
+      price: '$20-150/night',
+      rating: 4.4,
+      image: '/images/accommodations/naro-moru.jpg',
+      location: 'Mount Kenya',
+      amenities: ['Affordable', 'Near Trekking Routes', 'Mountain Base', 'Basic Comfort'],
+      description: 'Affordable, near trekking routes.',
+      cta: 'Book Now'
     },
     {
       id: 4,
-      name: 'Fairmont Mount Kenya Safari Club',
-      type: 'Historic Lodge',
-      price: '$450/night',
-      rating: 4.7,
-      image: '/images/accommodations/mount-kenya-safari.jpg',
-      location: 'Nanyuki',
-      amenities: ['Golf Course', 'Animal Orphanage', 'Spa', 'Mountain Views']
+      name: 'Mara Serena Safari Lodge',
+      type: 'Luxury',
+      price: '$500-2,000/night',
+      rating: 4.8,
+      image: '/images/accommodations/mara-serena.jpg',
+      location: 'Masai Mara',
+      amenities: ['Hilltop', 'Upscale', 'Migration Views', 'Premium Service'],
+      description: 'Hilltop, upscale, migration views.',
+      cta: 'Book Now'
+    },
+    {
+      id: 5,
+      name: 'Mara Eden Safari Camp',
+      type: 'Mid-Range',
+      price: '$150-500/night',
+      rating: 4.6,
+      image: '/images/accommodations/mara-eden.jpg',
+      location: 'Masai Mara',
+      amenities: ['Riverside', 'Eco-friendly', 'Wildlife Proximity', 'Tented Camp'],
+      description: 'Riverside, eco-friendly, wildlife proximity.',
+      cta: 'Book Now'
+    },
+    {
+      id: 6,
+      name: 'Mara Explorers Camp',
+      type: 'Budget',
+      price: '$20-150/night',
+      rating: 4.3,
+      image: '/images/accommodations/mara-explorers.jpg',
+      location: 'Masai Mara',
+      amenities: ['Budget Tents', 'Community-focused', 'Affordable', 'Local Experience'],
+      description: 'Budget tents, community-focused.',
+      cta: 'Book Now'
     }
   ];
 
   const insights = [
     {
       id: 1,
-      title: 'Best Time to Visit Kenya',
-      category: 'Planning',
-      readTime: '5 min read',
-      image: '/images/insights/kenya-seasons.jpg',
-      excerpt: 'Discover the optimal timing for wildlife viewing, Great Migration, and weather conditions across Kenya.'
-    },
-    {
-      id: 2,
-      title: 'Kenya Visa Requirements & Entry',
+      title: 'Kenya Visa & Entry Requirements',
       category: 'Travel Tips',
       readTime: '4 min read',
       image: '/images/insights/kenya-visa.jpg',
-      excerpt: 'Complete guide to Kenya visa requirements, border crossings, and entry procedures for international visitors.'
+      excerpt: 'e-Visa ($50); East Africa Tourist Visa ($100) covers Kenya, Uganda, Rwanda.'
+    },
+    {
+      id: 2,
+      title: 'Health & Vaccination Guide for Kenya',
+      category: 'Health',
+      readTime: '5 min read',
+      image: '/images/insights/kenya-health.jpg',
+      excerpt: 'Yellow fever vaccination required, malaria prophylaxis for lowlands.'
     },
     {
       id: 3,
-      title: 'Wildlife Conservation in Kenya',
-      category: 'Conservation',
-      readTime: '7 min read',
-      image: '/images/insights/kenya-conservation.jpg',
-      excerpt: 'Learn about Kenya\'s leading role in wildlife conservation and community-based tourism initiatives.'
+      title: 'Great Migration Booking Guide',
+      category: 'Wildlife',
+      readTime: '6 min read',
+      image: '/images/insights/migration-booking.jpg',
+      excerpt: 'Migration season bookings require 6-12 months advance for prime lodges.'
     },
     {
       id: 4,
-      title: 'Kenyan Cuisine & Cultural Foods',
-      category: 'Culture',
-      readTime: '6 min read',
-      image: '/images/insights/kenyan-cuisine.jpg',
-      excerpt: 'Explore Kenya\'s diverse culinary landscape from nyama choma to coastal Swahili dishes.'
+      title: 'Sustainable Safari Travel in Kenya',
+      category: 'Sustainability',
+      readTime: '5 min read',
+      image: '/images/insights/sustainable-kenya.jpg',
+      excerpt: 'Choose eco-lodges like Nairobi Tented Camp to support conservation.'
+    },
+    {
+      id: 5,
+      title: 'Kenya Safari Packing Essentials',
+      category: 'Packing',
+      readTime: '4 min read',
+      image: '/images/insights/kenya-packing.jpg',
+      excerpt: 'Binoculars, sunscreen, light layers for variable climates.'
+    },
+    {
+      id: 6,
+      title: 'Best Time to Visit Kenya',
+      category: 'Planning',
+      readTime: '3 min read',
+      image: '/images/insights/kenya-seasons.jpg',
+      excerpt: 'June-October, December-February for safaris; year-round for beaches.'
     }
   ];
 
   const faqs = [
     {
-      question: 'Do I need a visa to visit Kenya?',
-      answer: 'Most visitors need a visa to enter Kenya. You can apply for an eVisa online before travel or get a visa on arrival. The tourist visa costs $51 and is valid for 90 days. Citizens of some countries may enter visa-free.'
+      question: 'When is the Great Migration?',
+      answer: 'Peak river crossings occur July-September in Masai Mara. The dramatic wildebeest river crossings typically happen between July and September, though exact timing varies based on rainfall patterns. Over 1.3 million wildebeest cross from Tanzania\'s Serengeti into Kenya\'s Masai Mara during this period.'
     },
     {
-      question: 'When is the best time to see the Great Migration?',
-      answer: 'The Great Migration is in the Maasai Mara from July to October, with the dramatic river crossings typically occurring between July and September. However, the exact timing can vary based on rainfall patterns.'
+      question: 'Is cycling in Hell\'s Gate safe?',
+      answer: 'Yes, no major predators; guided tours recommended. Hell\'s Gate is one of the few Kenyan parks where you can safely cycle and walk among wildlife. The park has buffalo, zebras, and gazelles, but no large predators like lions or leopards, making it family-friendly.'
+    },
+    {
+      question: 'How to book diving in Watamu?',
+      answer: 'Book through resorts like Hemingways Watamu with dive centers. The best diving is from October to March when visibility is clearest. Popular sites include the Watamu Marine National Park coral gardens and offshore reefs where you can encounter whale sharks, manta rays, and sea turtles.'
+    },
+    {
+      question: 'What\'s the best park for rhinos?',
+      answer: 'Lake Nakuru for black and white rhino sightings. Lake Nakuru National Park is Kenya\'s premier rhino sanctuary, home to both black and white rhinoceros populations. The park\'s relatively small size (188 km²) makes rhino sightings almost guaranteed during game drives.'
+    },
+    {
+      question: 'Are beaches family-friendly?',
+      answer: 'Diani Beach offers calm waters and family resorts. The 17km stretch of white sand beach has calm, warm waters protected by coral reefs. Many family-friendly resorts offer kids\' clubs, shallow swimming areas, and water sports suitable for all ages.'
     },
     {
       question: 'What vaccinations do I need for Kenya?',
-      answer: 'Yellow fever vaccination is required if arriving from a yellow fever endemic area. Recommended vaccinations include hepatitis A&B, typhoid, meningitis, and malaria prophylaxis. Consult your doctor 4-6 weeks before travel.'
-    },
-    {
-      question: 'Is Kenya safe for tourists?',
-      answer: 'Kenya is generally safe for tourists, especially in popular safari areas and coastal resorts. Follow standard travel precautions, use reputable tour operators, and stay informed about current conditions in different regions.'
-    },
-    {
-      question: 'What currency is used in Kenya?',
-      answer: 'The Kenyan Shilling (KES) is the official currency. US dollars are widely accepted in tourist areas. Credit cards are accepted in hotels and lodges, but carry cash for local purchases and tips.'
-    },
-    {
-      question: 'How do I get around Kenya?',
-      answer: 'Domestic flights connect major destinations. For safaris, most visitors use tour operators with 4WD vehicles. In cities, options include taxis, ride-sharing apps, matatus (shared minibuses), and private transfers.'
+      answer: 'Yellow fever vaccination is required if arriving from yellow fever endemic areas. Recommended vaccinations include hepatitis A&B, typhoid, meningitis, and malaria prophylaxis for lowland areas. Consult your doctor 4-6 weeks before travel for personalized advice.'
     }
   ];
 
@@ -247,14 +389,21 @@ export default function KenyaPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "TouristDestination",
-            "name": "Kenya",
-            "description": "Discover Kenya's incredible wildlife, stunning landscapes, and rich cultural heritage. From the Great Migration in Maasai Mara to the beaches of Diani, Kenya offers unforgettable safari and coastal experiences.",
+            "name": "Kenya - The Cradle of Safari",
+            "description": "Explore Kenya safari adventures in Masai Mara migration, Diani Beach diving, and Mount Kenya trekking. Experience the Great Migration, world-class beaches, and vibrant Swahili coast culture.",
             "url": "https://shakestravelapp.com/destinations/kenya",
-            "touristType": ["Eco Tourist", "Adventure Tourist", "Wildlife Tourist", "Cultural Tourist"],
+            "keywords": "Kenya safari, Masai Mara migration, Diani Beach diving, Mount Kenya trekking, Great Migration Kenya, Nairobi National Park, Hell's Gate climbing",
+            "touristType": ["Eco Tourist", "Adventure Tourist", "Wildlife Tourist", "Cultural Tourist", "Beach Tourist"],
             "geo": {
               "@type": "GeoCoordinates",
               "addressCountry": "Kenya"
-            }
+            },
+            "hasMap": "https://www.google.com/maps/place/Kenya",
+            "image": [
+              "/images/destinations/masai-mara.jpg",
+              "/images/destinations/diani-beach.jpg",
+              "/images/destinations/mount-kenya.jpg"
+            ]
           })
         }}
       />
@@ -264,8 +413,8 @@ export default function KenyaPage() {
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="/images/destinations/kenya-hero.jpg"
-              alt="Kenya landscape with wildlife"
+              src="/images/destinations/kenya-migration-hero.jpg"
+              alt="Wildebeest migration in Masai Mara with Kilimanjaro from Amboseli, Kenya"
               fill
               className="object-cover"
               priority
@@ -275,37 +424,37 @@ export default function KenyaPage() {
           
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Discover Kenya's <span className="text-[#fec76f]">Wonders</span>
+              Explore Kenya: The <span className="text-[#fec76f]">Cradle of Safari</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 leading-relaxed">
-              Experience the Great Migration, climb Mount Kenya, and explore pristine beaches on the Indian Ocean
+              Witness the Great Migration, climb Mount Kenya, and relax on world-class beaches.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="#destinations"
                 className="bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-4 rounded-lg text-lg font-medium transition-all duration-300 transform hover:scale-105"
               >
-                Explore Destinations
+                Book Your Kenya Adventure Now
               </Link>
               <Link
                 href="#experiences"
                 className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all duration-300"
               >
-                View Experiences
+                Explore Destinations
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Top Destinations */}
+        {/* Tourist Travel and Adventure Destinations */}
         <section id="destinations" className="py-20 bg-gray-50">
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Kenya's Top Destinations
+                Tourist Travel and Adventure Destinations
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From world-famous game reserves to stunning coastal areas, discover Kenya's most spectacular destinations
+                From the Great Migration to pristine beaches, discover Kenya's most spectacular wildlife and adventure destinations
               </p>
             </div>
 
@@ -350,12 +499,9 @@ export default function KenyaPage() {
                               ))}
                             </div>
                           </div>
-                          <Link
-                            href={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '')}`}
-                            className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300"
-                          >
-                            Explore Destination
-                          </Link>
+                          <button className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300">
+                            {destination.cta}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -395,40 +541,43 @@ export default function KenyaPage() {
           </div>
         </section>
 
-        {/* Country Introduction */}
+        {/* Brief Introduction About Kenya */}
         <section className="py-20 bg-white">
           <div className="content-section">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  Why Choose Kenya?
+                  Brief Introduction About Kenya
                 </h2>
                 <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                   <p>
-                    Kenya stands as one of Africa's premier safari destinations, offering an unparalleled combination of wildlife experiences, cultural encounters, and diverse landscapes that span from snow-capped mountains to pristine beaches.
+                    <strong>Overview:</strong> The cradle of safari, Kenya blends iconic wildlife, stunning mountains, and pristine beaches. From the legendary Great Migration to world-class diving and Africa's second-highest peak, Kenya offers the complete East African experience.
                   </p>
                   <p>
-                    Home to the world-famous Great Migration, Kenya's Maasai Mara provides front-row seats to nature's greatest spectacle. Beyond the plains, discover the unique wildlife of Samburu, the elephant herds of Amboseli with Mount Kilimanjaro as a backdrop, and the flamingo-filled waters of Lake Nakuru.
+                    <strong>Key Highlights:</strong> Home to the Great Migration spectacle, spectacular Mount Kilimanjaro views from Amboseli, vibrant Swahili coast culture, and the world's only wildlife park within a capital city. Kenya pioneered the modern safari experience.
                   </p>
                   <p>
-                    Kenya's rich cultural tapestry includes the proud Maasai people, vibrant coastal Swahili culture, and over 40 distinct ethnic groups. From Nairobi's cosmopolitan energy to traditional village life, Kenya offers authentic cultural experiences alongside world-class wildlife viewing.
+                    <strong>Best Time to Visit:</strong> June-October and December-February offer optimal safari conditions with the Great Migration peak. Kenya's beaches are enjoyable year-round with consistent tropical weather and calm Indian Ocean waters.
+                  </p>
+                  <p>
+                    <strong>Quick Fact:</strong> Kenya is home to the world's only wildlife park within a capital city (Nairobi National Park) and hosts one of nature's greatest spectacles - the annual Great Migration of over 1.3 million wildebeest.
                   </p>
                 </div>
                 <div className="mt-8 grid grid-cols-2 gap-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-[#195e48]">60+</div>
-                    <div className="text-gray-600">National Parks & Reserves</div>
+                    <div className="text-3xl font-bold text-[#195e48]">1.3M</div>
+                    <div className="text-gray-600">Wildebeest Migration</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-[#195e48]">1,400</div>
+                    <div className="text-3xl font-bold text-[#195e48]">1,100+</div>
                     <div className="text-gray-600">Bird Species</div>
                   </div>
                 </div>
               </div>
               <div className="relative h-96 lg:h-[600px] rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/destinations/kenya-wildlife.jpg"
-                  alt="Kenya wildlife and landscapes"
+                  src="/images/destinations/kenya-landscape-overview.jpg"
+                  alt="Kenya diverse landscapes from mountains to beaches"
                   fill
                   className="object-cover"
                 />
@@ -445,7 +594,7 @@ export default function KenyaPage() {
                 Top Adventure Experiences
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Embark on extraordinary adventures that showcase Kenya's incredible natural beauty and wildlife
+                Embark on legendary adventures that showcase Kenya's incredible wildlife spectacles and diverse landscapes
               </p>
             </div>
 
@@ -491,7 +640,7 @@ export default function KenyaPage() {
                               {experience.price}
                             </div>
                             <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
-                              Book Now
+                              {experience.cta}
                             </button>
                           </div>
                         </div>
@@ -523,21 +672,21 @@ export default function KenyaPage() {
                 href="/experiences"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Experiences
+                View All Kenya Experiences
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Featured Accommodations */}
+        {/* Featured Accommodation Stays */}
         <section className="py-20 bg-white">
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Featured Accommodations
+                Featured Accommodation Stays
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Stay in Kenya's finest lodges, camps, and resorts, carefully selected for their exceptional service and locations
+                Stay in Kenya's finest lodges and camps, from luxury safari lodges to mountain retreats and beach resorts
               </p>
             </div>
 
@@ -575,6 +724,9 @@ export default function KenyaPage() {
                           <h3 className="text-xl font-bold text-gray-900 mb-3">
                             {accommodation.name}
                           </h3>
+                          <p className="text-gray-600 mb-3 text-sm">
+                            {accommodation.description}
+                          </p>
                           <div className="space-y-3 mb-4">
                             <div className="flex flex-wrap gap-1">
                               {accommodation.amenities.slice(0, 2).map((amenity, index) => (
@@ -593,11 +745,11 @@ export default function KenyaPage() {
                             </div>
                           </div>
                           <div className="flex items-center justify-between">
-                            <div className="text-2xl font-bold text-[#195e48]">
+                            <div className="text-lg font-bold text-[#195e48]">
                               {accommodation.price}
                             </div>
                             <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
-                              Book Now
+                              {accommodation.cta}
                             </button>
                           </div>
                         </div>
@@ -629,7 +781,7 @@ export default function KenyaPage() {
                 href="/accommodations"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Accommodations
+                View All Kenya Accommodations
               </Link>
             </div>
           </div>
@@ -640,10 +792,10 @@ export default function KenyaPage() {
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Travel Insights & Tips
+                Travel Insights
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Essential information to help you plan your perfect Kenya adventure
+                Essential information to help you plan your perfect Kenya safari and beach adventure
               </p>
             </div>
 
@@ -710,13 +862,13 @@ export default function KenyaPage() {
                 href="/travel-guides"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Travel Guides
+                View All Kenya Travel Guides
               </Link>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* Frequently Asked Questions */}
         <section className="py-20 bg-white">
           <div className="content-section">
             <div className="text-center mb-16">
@@ -724,7 +876,7 @@ export default function KenyaPage() {
                 Frequently Asked Questions
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Get answers to common questions about traveling to Kenya
+                Get answers to the most common questions about traveling to Kenya
               </p>
             </div>
 
