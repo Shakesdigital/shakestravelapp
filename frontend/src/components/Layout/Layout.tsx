@@ -27,6 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <ul className="space-y-2 text-white">
                 <li><a href="/about" className="hover:text-[#fec76f]">About Us</a></li>
                 <li><a href="/contact" className="hover:text-[#fec76f]">Contact</a></li>
+                <li><a href="/planting-green-paths" className="hover:text-[#fec76f]">Planting Green Paths</a></li>
                 <li><a href="/help" className="hover:text-[#fec76f]">Help Center</a></li>
               </ul>
             </div>

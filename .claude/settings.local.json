@@ -72,7 +72,8 @@
       "Bash(start:*)",
       "WebFetch(domain:shakestravel.com)",
       "WebFetch(domain:app.netlify.com)",
-      "WebFetch(domain:main--shakestravel.netlify.app)"
+      "WebFetch(domain:main--shakestravel.netlify.app)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": [],

@@ -9,6 +9,7 @@ import Logo from '@/components/Logo';
 const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDestinationsOpen, setIsDestinationsOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -56,14 +57,66 @@ const Navbar: React.FC = () => {
                 >
                   Accommodations
                 </Link>
-                <Link 
-                  href="/planting-green-paths" 
-                  className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap"
-                  onMouseEnter={(e) => e.target.style.color = primaryColor}
-                  onMouseLeave={(e) => e.target.style.color = '#111827'}
+                
+                {/* Destinations Dropdown */}
+                <div 
+                  className="relative"
+                  onMouseEnter={() => setIsDestinationsOpen(true)}
+                  onMouseLeave={() => setIsDestinationsOpen(false)}
                 >
-                  Planting Green Paths
-                </Link>
+                  <button 
+                    className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap flex items-center"
+                    onMouseEnter={(e) => e.target.style.color = primaryColor}
+                    onMouseLeave={(e) => e.target.style.color = '#111827'}
+                  >
+                    Destinations
+                    <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  {isDestinationsOpen && (
+                    <div className="absolute top-full left-0 w-48 bg-white rounded-md shadow-lg py-2 z-50 border border-gray-200">
+                      <Link 
+                        href="/destinations/uganda"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                        onMouseEnter={(e) => e.target.style.color = primaryColor}
+                        onMouseLeave={(e) => e.target.style.color = '#374151'}
+                      >
+                        <span className="mr-2">🇺🇬</span>
+                        Uganda
+                      </Link>
+                      <Link 
+                        href="/destinations/kenya"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                        onMouseEnter={(e) => e.target.style.color = primaryColor}
+                        onMouseLeave={(e) => e.target.style.color = '#374151'}
+                      >
+                        <span className="mr-2">🇰🇪</span>
+                        Kenya
+                      </Link>
+                      <Link 
+                        href="/destinations/tanzania"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                        onMouseEnter={(e) => e.target.style.color = primaryColor}
+                        onMouseLeave={(e) => e.target.style.color = '#374151'}
+                      >
+                        <span className="mr-2">🇹🇿</span>
+                        Tanzania
+                      </Link>
+                      <Link 
+                        href="/destinations/rwanda"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                        onMouseEnter={(e) => e.target.style.color = primaryColor}
+                        onMouseLeave={(e) => e.target.style.color = '#374151'}
+                      >
+                        <span className="mr-2">🇷🇼</span>
+                        Rwanda
+                      </Link>
+                    </div>
+                  )}
+                </div>
                 <Link 
                   href="/travel-guide" 
                   className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap"
@@ -189,13 +242,45 @@ const Navbar: React.FC = () => {
               >
                 Accommodations
               </Link>
-              <Link 
-                href="/planting-green-paths" 
-                className="text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Planting Green Paths
-              </Link>
+              
+              {/* Mobile Destinations Menu */}
+              <div className="px-3 py-2">
+                <div className="text-gray-900 text-base font-medium mb-2">Destinations</div>
+                <div className="pl-4 space-y-1">
+                  <Link 
+                    href="/destinations/uganda"
+                    className="flex items-center text-gray-600 block py-1 text-sm"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="mr-2">🇺🇬</span>
+                    Uganda
+                  </Link>
+                  <Link 
+                    href="/destinations/kenya"
+                    className="flex items-center text-gray-600 block py-1 text-sm"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="mr-2">🇰🇪</span>
+                    Kenya
+                  </Link>
+                  <Link 
+                    href="/destinations/tanzania"
+                    className="flex items-center text-gray-600 block py-1 text-sm"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="mr-2">🇹🇿</span>
+                    Tanzania
+                  </Link>
+                  <Link 
+                    href="/destinations/rwanda"
+                    className="flex items-center text-gray-600 block py-1 text-sm"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="mr-2">🇷🇼</span>
+                    Rwanda
+                  </Link>
+                </div>
+              </div>
               <Link 
                 href="/travel-guide" 
                 className="text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
