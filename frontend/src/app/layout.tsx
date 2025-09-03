@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Shake's Travel - Sustainable East Africa Adventures",
-    description: "Discover eco-friendly travel experiences across East Africa. Book sustainable adventures in Uganda, Kenya, Tanzania, and Rwanda."
+    description: "Discover eco-friendly travel experiences across East Africa. Book sustainable adventures in Uganda, Kenya, Tanzania, and Rwanda.",
     images: ['/images/uganda-hero.jpg'],
     creator: '@shakestravel',
   },

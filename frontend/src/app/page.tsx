@@ -229,7 +229,7 @@ export default function Home() {
     }
   ];
 
-  const filteredDestinations = ugandaDestinations.filter(dest =>
+  const filteredDestinations = getAllDestinations().filter(dest =>
     dest.name.toLowerCase().includes(watchDestination.toLowerCase())
   );
 
