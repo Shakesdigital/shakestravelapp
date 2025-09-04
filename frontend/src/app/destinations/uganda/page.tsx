@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, MapPinIcon, StarIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
@@ -11,6 +11,54 @@ export default function UgandaPage() {
   const [currentAccommodation, setCurrentAccommodation] = useState(0);
   const [currentInsight, setCurrentInsight] = useState(0);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const experienceRef = useRef<HTMLDivElement>(null);
+  const accommodationRef = useRef<HTMLDivElement>(null);
+  const insightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Touch event handlers for swipe gestures
+  const handleTouchStart = useRef<{ x: number; y: number } | null>(null);
+  
+  const onTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    handleTouchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (e: React.TouchEvent, type: 'experience' | 'accommodation' | 'insight') => {
+    if (!handleTouchStart.current) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = handleTouchStart.current.x - touch.clientX;
+    const deltaY = handleTouchStart.current.y - touch.clientY;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Swipe left - next
+        if (type === 'experience') nextExperience();
+        if (type === 'accommodation') nextAccommodation();
+        if (type === 'insight') nextInsight();
+      } else {
+        // Swipe right - previous
+        if (type === 'experience') prevExperience();
+        if (type === 'accommodation') prevAccommodation();
+        if (type === 'insight') prevInsight();
+      }
+    }
+    
+    handleTouchStart.current = null;
+  };
 
   const destinations = [
     {
@@ -345,27 +393,39 @@ export default function UgandaPage() {
   };
 
   const nextExperience = () => {
-    setCurrentExperience((prev) => (prev + 1) % Math.max(1, experiences.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, experiences.length - itemsToShow);
+    setCurrentExperience((prev) => (prev + 1) % (maxIndex + 1));
   };
 
   const prevExperience = () => {
-    setCurrentExperience((prev) => (prev - 1 + Math.max(1, experiences.length - 2)) % Math.max(1, experiences.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, experiences.length - itemsToShow);
+    setCurrentExperience((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const nextAccommodation = () => {
-    setCurrentAccommodation((prev) => (prev + 1) % Math.max(1, accommodations.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, accommodations.length - itemsToShow);
+    setCurrentAccommodation((prev) => (prev + 1) % (maxIndex + 1));
   };
 
   const prevAccommodation = () => {
-    setCurrentAccommodation((prev) => (prev - 1 + Math.max(1, accommodations.length - 2)) % Math.max(1, accommodations.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, accommodations.length - itemsToShow);
+    setCurrentAccommodation((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const nextInsight = () => {
-    setCurrentInsight((prev) => (prev + 1) % Math.max(1, insights.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, insights.length - itemsToShow);
+    setCurrentInsight((prev) => (prev + 1) % (maxIndex + 1));
   };
 
   const prevInsight = () => {
-    setCurrentInsight((prev) => (prev - 1 + Math.max(1, insights.length - 2)) % Math.max(1, insights.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, insights.length - itemsToShow);
+    setCurrentInsight((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const toggleFAQ = (index: number) => {
@@ -578,59 +638,68 @@ export default function UgandaPage() {
         </section>
 
         {/* Top Adventure Experiences */}
-        <section id="experiences" className="py-20" style={{ backgroundColor: '#fafafa' }}>
+        <section id="experiences" className="py-12 md:py-20" style={{ backgroundColor: '#fafafa' }}>
           <div className="content-section">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Top Adventure Experiences
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 Embark on life-changing adventures that showcase Uganda's incredible natural beauty and wildlife
               </p>
             </div>
-
             <div className="relative">
-              <div className="overflow-hidden">
+              <div 
+                ref={experienceRef}
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={(e) => onTouchEnd(e, 'experience')}
+              >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentExperience * (100 / 3)}%)` }}
+                  style={{ 
+                    transform: `translateX(-${currentExperience * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                  }}
                 >
                   {experiences.map((experience) => (
-                    <div key={experience.id} className="w-1/3 flex-shrink-0 px-3">
+                    <div key={experience.id} className={`flex-shrink-0 px-2 md:px-3 ${
+                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
+                    }`}>
                       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        <div className="relative h-64">
+                        <div className="relative h-48 md:h-64">
                           <Image
                             src={experience.image}
                             alt={experience.title}
                             fill
                             className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           />
-                          <div className="absolute top-4 left-4 bg-[#195e48] text-white px-3 py-1 rounded-full text-sm font-medium">
+                          <div className="absolute top-3 md:top-4 left-3 md:left-4 bg-[#195e48] text-white px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">
                             {experience.duration}
                           </div>
                         </div>
-                        <div className="p-6">
+                        <div className="p-4 md:p-6">
                           <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center text-sm text-gray-500">
-                              <MapPinIcon className="w-4 h-4 mr-1" />
-                              {experience.location}
+                            <div className="flex items-center text-xs md:text-sm text-gray-500">
+                              <MapPinIcon className="w-3 md:w-4 h-3 md:h-4 mr-1" />
+                              <span className="truncate">{experience.location}</span>
                             </div>
                             <div className="flex items-center">
-                              <StarIcon className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                              <span className="text-sm font-medium">{experience.rating}</span>
+                              <StarIcon className="w-3 md:w-4 h-3 md:h-4 text-yellow-400 fill-current mr-1" />
+                              <span className="text-xs md:text-sm font-medium">{experience.rating}</span>
                             </div>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-3">
+                          <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 line-clamp-2">
                             {experience.title}
                           </h3>
-                          <p className="text-gray-600 mb-4 line-clamp-3">
+                          <p className="text-sm md:text-base text-gray-600 mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">
                             {experience.description}
                           </p>
                           <div className="flex items-center justify-between">
-                            <div className="text-2xl font-bold text-[#195e48]">
+                            <div className="text-lg md:text-2xl font-bold text-[#195e48]">
                               {experience.price}
                             </div>
-                            <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-colors duration-300">
                               {experience.cta}
                             </button>
                           </div>
@@ -640,24 +709,35 @@ export default function UgandaPage() {
                   ))}
                 </div>
               </div>
-
               <button
                 onClick={prevExperience}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
                 aria-label="Previous experiences"
               >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
-
               <button
                 onClick={nextExperience}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
                 aria-label="Next experiences"
               >
-                <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
+              
+              {/* Dots indicator for mobile */}
+              <div className="flex justify-center mt-6 space-x-2 md:hidden">
+                {Array.from({ length: Math.max(1, experiences.length) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentExperience(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentExperience ? 'bg-[#195e48]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to experience ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
-
             <div className="text-center mt-12">
               <Link
                 href="/experiences"
@@ -670,57 +750,67 @@ export default function UgandaPage() {
         </section>
 
         {/* Featured Accommodation Stays */}
-        <section className="py-20 bg-white">
+        <section className="py-12 md:py-20 bg-white">
           <div className="content-section">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Featured Accommodation Stays
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 Stay in Uganda's finest lodges and camps, from luxury forest camps to community-run eco-lodges
               </p>
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden">
+              <div 
+                ref={accommodationRef}
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={(e) => onTouchEnd(e, 'accommodation')}
+              >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentAccommodation * (100 / 3)}%)` }}
+                  style={{ 
+                    transform: `translateX(-${currentAccommodation * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                  }}
                 >
                   {accommodations.map((accommodation) => (
-                    <div key={accommodation.id} className="w-1/3 flex-shrink-0 px-3">
+                    <div key={accommodation.id} className={`flex-shrink-0 px-2 md:px-3 ${
+                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
+                    }`}>
                       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        <div className="relative h-64">
+                        <div className="relative h-48 md:h-64">
                           <Image
                             src={accommodation.image}
                             alt={accommodation.name}
                             fill
                             className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           />
-                          <div className="absolute top-4 left-4 bg-white bg-opacity-90 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
+                          <div className="absolute top-3 md:top-4 left-3 md:left-4 bg-white bg-opacity-90 text-gray-900 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">
                             {accommodation.type}
                           </div>
                         </div>
-                        <div className="p-6">
+                        <div className="p-4 md:p-6">
                           <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center text-sm text-gray-500">
-                              <MapPinIcon className="w-4 h-4 mr-1" />
-                              {accommodation.location}
+                            <div className="flex items-center text-xs md:text-sm text-gray-500">
+                              <MapPinIcon className="w-3 md:w-4 h-3 md:h-4 mr-1" />
+                              <span className="truncate">{accommodation.location}</span>
                             </div>
                             <div className="flex items-center">
-                              <StarIcon className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                              <span className="text-sm font-medium">{accommodation.rating}</span>
+                              <StarIcon className="w-3 md:w-4 h-3 md:h-4 text-yellow-400 fill-current mr-1" />
+                              <span className="text-xs md:text-sm font-medium">{accommodation.rating}</span>
                             </div>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-3">
+                          <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 line-clamp-2">
                             {accommodation.name}
                           </h3>
-                          <p className="text-gray-600 mb-3 text-sm">
+                          <p className="text-sm md:text-base text-gray-600 mb-2 md:mb-3 line-clamp-2">
                             {accommodation.description}
                           </p>
-                          <div className="space-y-3 mb-4">
+                          <div className="space-y-2 md:space-y-3 mb-3 md:mb-4">
                             <div className="flex flex-wrap gap-1">
-                              {accommodation.amenities.slice(0, 2).map((amenity, index) => (
+                              {accommodation.amenities.slice(0, isMobile ? 1 : 2).map((amenity, index) => (
                                 <span
                                   key={index}
                                   className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
@@ -728,18 +818,18 @@ export default function UgandaPage() {
                                   {amenity}
                                 </span>
                               ))}
-                              {accommodation.amenities.length > 2 && (
+                              {accommodation.amenities.length > (isMobile ? 1 : 2) && (
                                 <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                                  +{accommodation.amenities.length - 2} more
+                                  +{accommodation.amenities.length - (isMobile ? 1 : 2)} more
                                 </span>
                               )}
                             </div>
                           </div>
                           <div className="flex items-center justify-between">
-                            <div className="text-lg font-bold text-[#195e48]">
+                            <div className="text-base md:text-lg font-bold text-[#195e48]">
                               {accommodation.price}
                             </div>
-                            <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
+                            <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-colors duration-300">
                               {accommodation.cta}
                             </button>
                           </div>
@@ -752,19 +842,33 @@ export default function UgandaPage() {
 
               <button
                 onClick={prevAccommodation}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
                 aria-label="Previous accommodations"
               >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
 
               <button
                 onClick={nextAccommodation}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
                 aria-label="Next accommodations"
               >
-                <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
+
+              {/* Dots indicator for mobile */}
+              <div className="flex justify-center mt-6 space-x-2 md:hidden">
+                {Array.from({ length: Math.max(1, accommodations.length) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentAccommodation(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentAccommodation ? 'bg-[#195e48]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to accommodation ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="text-center mt-12">
@@ -779,49 +883,59 @@ export default function UgandaPage() {
         </section>
 
         {/* Travel Insights */}
-        <section className="py-20" style={{ backgroundColor: '#f8fffe' }}>
+        <section className="py-12 md:py-20" style={{ backgroundColor: '#f8fffe' }}>
           <div className="content-section">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Travel Insights
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 Essential information to help you plan your perfect Uganda adventure
               </p>
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden">
+              <div 
+                ref={insightRef}
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={(e) => onTouchEnd(e, 'insight')}
+              >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentInsight * (100 / 3)}%)` }}
+                  style={{ 
+                    transform: `translateX(-${currentInsight * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                  }}
                 >
                   {insights.map((insight) => (
-                    <div key={insight.id} className="w-1/3 flex-shrink-0 px-3">
+                    <div key={insight.id} className={`flex-shrink-0 px-2 md:px-3 ${
+                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
+                    }`}>
                       <article className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        <div className="relative h-48">
+                        <div className="relative h-40 md:h-48">
                           <Image
                             src={insight.image}
                             alt={insight.title}
                             fill
                             className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           />
-                          <div className="absolute top-4 left-4 bg-[#195e48] text-white px-3 py-1 rounded-full text-xs font-medium">
+                          <div className="absolute top-3 md:top-4 left-3 md:left-4 bg-[#195e48] text-white px-2 md:px-3 py-1 rounded-full text-xs font-medium">
                             {insight.category}
                           </div>
                         </div>
-                        <div className="p-6">
-                          <div className="flex items-center text-sm text-gray-500 mb-3">
-                            <ClockIcon className="w-4 h-4 mr-1" />
+                        <div className="p-4 md:p-6">
+                          <div className="flex items-center text-xs md:text-sm text-gray-500 mb-3">
+                            <ClockIcon className="w-3 md:w-4 h-3 md:h-4 mr-1" />
                             {insight.readTime}
                           </div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-3">
+                          <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 line-clamp-2">
                             {insight.title}
                           </h3>
-                          <p className="text-gray-600 mb-4 line-clamp-3">
+                          <p className="text-sm md:text-base text-gray-600 mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">
                             {insight.excerpt}
                           </p>
-                          <button className="text-[#195e48] hover:text-[#164a3a] font-medium transition-colors duration-300">
+                          <button className="text-[#195e48] hover:text-[#164a3a] text-sm md:text-base font-medium transition-colors duration-300">
                             Read More →
                           </button>
                         </div>
@@ -833,19 +947,33 @@ export default function UgandaPage() {
 
               <button
                 onClick={prevInsight}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
                 aria-label="Previous insights"
               >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
 
               <button
                 onClick={nextInsight}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
                 aria-label="Next insights"
               >
-                <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
+
+              {/* Dots indicator for mobile */}
+              <div className="flex justify-center mt-6 space-x-2 md:hidden">
+                {Array.from({ length: Math.max(1, insights.length) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentInsight(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentInsight ? 'bg-[#195e48]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to insight ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="text-center mt-12">
