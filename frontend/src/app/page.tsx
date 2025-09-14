@@ -989,7 +989,7 @@ export default function Home() {
           <div className="flex justify-between items-center mb-16">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Eco-Friendly Stays
+                Find your Perfect Stay
               </h2>
               <p className="text-xl text-gray-600">
                 Sustainable accommodations in Uganda's most beautiful locations
