@@ -992,7 +992,7 @@ export default function Home() {
                 Find your Perfect Stay
               </h2>
               <p className="text-xl text-gray-600">
-                Sustainable accommodations in Uganda's most beautiful locations
+                Discover suitable accommodations in East Africa's most beautiful travel destinations
               </p>
             </div>
             <Link 
