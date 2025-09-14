@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { getDestinationLink, hasDestinationPage } from '@/lib/destinations';
 import ExperienceCarousel from '@/components/ExperienceCarousel';
+import AccommodationCarousel from '@/components/AccommodationCarousel';
 
 interface SearchForm {
   destination: string;
@@ -296,45 +297,281 @@ export default function Home() {
   ];
 
   const featuredAccommodations = [
+    // Uganda - Premium Gorilla Trekking & Safari Accommodations
     {
       id: 1,
       name: 'Clouds Mountain Gorilla Lodge',
-      location: 'Bwindi Forest',
+      location: 'Bwindi Impenetrable Forest',
+      country: '🇺🇬 Uganda',
       rating: 4.9,
       reviews: 156,
       price: 450,
+      originalPrice: 520,
+      discount: 'Save $70',
       image: '🏞️',
-      type: 'Eco-Lodge'
+      type: 'Stone Cottage',
+      category: 'Luxury Lodge',
+      amenities: ['Free WiFi', 'Restaurant', 'Spa', 'Mountain Views', 'Eco-Friendly'],
+      specialFeatures: ['Mountain Views', 'Eco-Friendly'],
+      availability: 'Available'
     },
     {
       id: 2,
       name: 'Chobe Safari Lodge',
-      location: 'Murchison Falls',
+      location: 'Murchison Falls National Park',
+      country: '🇺🇬 Uganda',
       rating: 4.7,
       reviews: 203,
       price: 280,
+      originalPrice: 340,
+      discount: 'Save $60',
       image: '🦁',
-      type: 'Safari Lodge'
+      type: 'Safari Tent',
+      category: 'Safari Lodge',
+      amenities: ['Pool', 'Restaurant', 'Bar', 'River Views', 'Wildlife Viewing'],
+      specialFeatures: ['River Views', 'Wildlife Viewing'],
+      availability: 'Available'
     },
     {
       id: 3,
       name: 'Birdnest Resort',
       location: 'Lake Bunyonyi',
+      country: '🇺🇬 Uganda',
       rating: 4.8,
       reviews: 127,
       price: 180,
-      image: '🏔️',
-      type: 'Resort'
+      originalPrice: 220,
+      discount: 'Save $40',
+      image: '🌊',
+      type: 'Lake View Room',
+      category: 'Eco Resort',
+      amenities: ['Free WiFi', 'Restaurant', 'Canoe Rental', 'Lake Views', 'Bird Watching'],
+      specialFeatures: ['Lake Views', 'Bird Watching'],
+      availability: 'Available'
     },
     {
       id: 4,
-      name: 'Hairy Lemon Island',
-      location: 'Lake Victoria',
-      rating: 4.5,
-      reviews: 94,
-      price: 120,
+      name: 'Kibale Lodge',
+      location: 'Kibale Forest National Park',
+      country: '🇺🇬 Uganda',
+      rating: 4.8,
+      reviews: 189,
+      price: 800,
+      originalPrice: 1000,
+      discount: 'Save $200',
+      image: '🦧',
+      type: 'Forest Cottage',
+      category: 'Luxury Lodge',
+      amenities: ['Chimpanzee Trekking', 'Spa', 'Forest Views', 'Butler Service', 'Organic Garden'],
+      specialFeatures: ['Rwenzori Mountain Views', 'Chimp Trekking'],
+      availability: 'Available'
+    },
+    // Kenya - Migration & Safari Excellence
+    {
+      id: 5,
+      name: 'Angama Mara',
+      location: 'Masai Mara National Reserve',
+      country: '🇰🇪 Kenya',
+      rating: 4.9,
+      reviews: 324,
+      price: 800,
+      originalPrice: 1000,
+      discount: 'Save $200',
+      image: '🦓',
+      type: 'Luxury Suite',
+      category: 'Luxury Lodge',
+      amenities: ['Infinity Pool', 'Spa', 'Butler Service', 'Migration Views', 'Hot Air Balloon'],
+      specialFeatures: ['Migration Views', 'Out of Africa Film Site'],
+      availability: 'Available'
+    },
+    {
+      id: 6,
+      name: 'Tortilis Camp',
+      location: 'Amboseli National Park',
+      country: '🇰🇪 Kenya',
+      rating: 4.8,
+      reviews: 198,
+      price: 600,
+      originalPrice: 750,
+      discount: 'Save $150',
+      image: '🐘',
+      type: 'Tented Room',
+      category: 'Luxury Camp',
+      amenities: ['Kilimanjaro Views', 'Elephant Encounters', 'Pool', 'Spa', 'Game Drives'],
+      specialFeatures: ['Kilimanjaro Views', 'Elephant Encounters'],
+      availability: 'Available'
+    },
+    {
+      id: 7,
+      name: 'Peponi Hotel',
+      location: 'Lamu Old Town',
+      country: '🇰🇪 Kenya',
+      rating: 4.6,
+      reviews: 145,
+      price: 350,
+      originalPrice: 420,
+      discount: 'Save $70',
       image: '🏝️',
-      type: 'Island Resort'
+      type: 'Beachfront Suite',
+      category: 'Boutique Hotel',
+      amenities: ['Private Beach', 'Water Sports', 'Cultural Tours', 'Swahili Architecture'],
+      specialFeatures: ['UNESCO Heritage Site', 'Private Beach'],
+      availability: 'Available'
+    },
+    {
+      id: 8,
+      name: 'Sasaab Lodge',
+      location: 'Samburu National Reserve',
+      country: '🇰🇪 Kenya',
+      rating: 4.9,
+      reviews: 156,
+      price: 1800,
+      originalPrice: 2200,
+      discount: 'Save $400',
+      image: '🦒',
+      type: 'Moroccan Suite',
+      category: 'Ultra Luxury',
+      amenities: ['Private Plunge Pool', 'Spa', 'Desert Views', 'Wildlife Encounters', 'Cultural Tours'],
+      specialFeatures: ['Westgate Conservancy', 'Unique Wildlife'],
+      availability: 'Available'
+    },
+    // Tanzania - Serengeti & Safari Masterpieces
+    {
+      id: 9,
+      name: 'Four Seasons Safari Lodge',
+      location: 'Serengeti National Park',
+      country: '🇹🇿 Tanzania',
+      rating: 4.9,
+      reviews: 456,
+      price: 1200,
+      originalPrice: 1500,
+      discount: 'Save $300',
+      image: '🦁',
+      type: 'Safari Suite',
+      category: 'Ultra Luxury',
+      amenities: ['Waterhole Views', 'Infinity Pool', 'Spa', 'Kids Club', 'Butler Service'],
+      specialFeatures: ['Waterhole Views', 'Migration Route'],
+      availability: 'Available'
+    },
+    {
+      id: 10,
+      name: 'Ngorongoro Serena Safari Lodge',
+      location: 'Ngorongoro Crater',
+      country: '🇹🇿 Tanzania',
+      rating: 4.7,
+      reviews: 289,
+      price: 800,
+      originalPrice: 1000,
+      discount: 'Save $200',
+      image: '🌋',
+      type: 'Crater View Room',
+      category: 'Luxury Lodge',
+      amenities: ['Crater Views', 'Heated Rooms', 'Restaurant', 'Bar', 'Early Game Drives'],
+      specialFeatures: ['Crater Rim Location', 'Maasai Design'],
+      availability: 'Available'
+    },
+    {
+      id: 11,
+      name: 'Park Hyatt Zanzibar',
+      location: 'Stone Town, Zanzibar',
+      country: '🇹🇿 Tanzania',
+      rating: 4.8,
+      reviews: 567,
+      price: 500,
+      originalPrice: 650,
+      discount: 'Save $150',
+      image: '🏝️',
+      type: 'Ocean Suite',
+      category: 'Luxury Beach Resort',
+      amenities: ['Anantara Spa', 'Private Beach', 'Heritage Location', 'Pool', 'Water Sports'],
+      specialFeatures: ['UNESCO Heritage Site', 'Anantara Spa'],
+      availability: 'Available'
+    },
+    {
+      id: 12,
+      name: 'The Residence Zanzibar',
+      location: 'Zanzibar Beaches',
+      country: '🇹🇿 Tanzania',
+      rating: 4.9,
+      reviews: 234,
+      price: 800,
+      originalPrice: 1000,
+      discount: 'Save $200',
+      image: '🏖️',
+      type: 'Beach Villa',
+      category: 'Ultra Luxury Beach',
+      amenities: ['Private Beach', 'Spa', 'Water Sports', 'Fine Dining', 'Butler Service'],
+      specialFeatures: ['Beachfront Luxury', 'Personalized Service'],
+      availability: 'Available'
+    },
+    // Rwanda - Gorilla Trekking Excellence & Lake Retreats
+    {
+      id: 13,
+      name: 'One & Only Gorilla\'s Nest',
+      location: 'Volcanoes National Park',
+      country: '🇷🇼 Rwanda',
+      rating: 5.0,
+      reviews: 98,
+      price: 2100,
+      originalPrice: 2400,
+      discount: 'Save $300',
+      image: '🦍',
+      type: 'Forest Villa',
+      category: 'Ultra Luxury',
+      amenities: ['Infinity Pool', 'Spa', 'Butler Service', 'Organic Garden', 'Forest Views'],
+      specialFeatures: ['Gorilla Trekking', 'Infinity Pool'],
+      availability: 'Available'
+    },
+    {
+      id: 14,
+      name: 'Wilderness Bisate Lodge',
+      location: 'Volcanoes National Park',
+      country: '🇷🇼 Rwanda',
+      rating: 4.9,
+      reviews: 134,
+      price: 1600,
+      originalPrice: 1900,
+      discount: 'Save $300',
+      image: '🌲',
+      type: 'Forest Villa',
+      category: 'Eco Luxury',
+      amenities: ['Award-winning Design', 'Tree Nursery', 'Spa', 'Volcano Views', 'Conservation'],
+      specialFeatures: ['Volcanic Amphitheater', 'Tree Nursery'],
+      availability: 'Available'
+    },
+    {
+      id: 15,
+      name: 'Lake Kivu Serena Hotel',
+      location: 'Lake Kivu',
+      country: '🇷🇼 Rwanda',
+      rating: 4.6,
+      reviews: 245,
+      price: 400,
+      originalPrice: 500,
+      discount: 'Save $100',
+      image: '🌊',
+      type: 'Lakefront Room',
+      category: 'Resort',
+      amenities: ['Private Beach', 'Swimming Pool', 'Water Sports', 'Spa', 'Lake Views'],
+      specialFeatures: ['Lake Views', 'Private Beach'],
+      availability: 'Available'
+    },
+    {
+      id: 16,
+      name: 'Mantis Kivu Queen uBuranga',
+      location: 'Lake Kivu',
+      country: '🇷🇼 Rwanda',
+      rating: 4.8,
+      reviews: 67,
+      price: 800,
+      originalPrice: 1000,
+      discount: 'Save $200',
+      image: '⛵',
+      type: 'Luxury Cabin',
+      category: 'Expedition Vessel',
+      amenities: ['Lake Cruises', 'Spa', 'Fine Dining', 'Cultural Tours', 'Sunset Views'],
+      specialFeatures: ['Luxury Vessel Experience', 'Lake Cruises'],
+      availability: 'Available'
     }
   ];
 
@@ -992,53 +1229,30 @@ export default function Home() {
                 Find your Perfect Stay
               </h2>
               <p className="text-xl text-gray-600">
-                Discover suitable accommodations in East Africa's most beautiful travel destinations
+                Discover premium accommodations across Uganda, Kenya, Tanzania & Rwanda's most stunning destinations
               </p>
             </div>
-            <Link 
-              href="/accommodations" 
-              className="btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors"
+            <Link
+              href="/accommodations"
+              className="hidden md:inline-block btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors"
               style={{ backgroundColor: primaryColor }}
             >
               View All Stays
             </Link>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredAccommodations.map((accommodation) => (
-              <Link
-                key={accommodation.id}
-                href={`/accommodations/${accommodation.id}`}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover-effect"
-              >
-                <div className="h-48 flex items-center justify-center text-6xl" style={{ backgroundColor: `${primaryColor}10` }}>
-                  {accommodation.image}
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="px-3 py-1 text-xs font-semibold rounded-full" style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}>
-                      {accommodation.type}
-                    </span>
-                  </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">{accommodation.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">📍 {accommodation.location}</p>
-                  <div className="flex items-center mb-3">
-                    <div className="flex items-center rating-stars">
-                      {'★'.repeat(Math.floor(accommodation.rating))}
-                    </div>
-                    <span className="text-sm text-gray-600 ml-2">
-                      {accommodation.rating} ({accommodation.reviews} reviews)
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold" style={{ color: primaryColor }}>
-                      ${accommodation.price}
-                    </span>
-                    <span className="text-sm text-gray-500">per night</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+
+          {/* Accommodation Carousel */}
+          <AccommodationCarousel accommodations={featuredAccommodations} primaryColor={primaryColor} />
+
+          {/* Mobile View All Button */}
+          <div className="text-center mt-8 md:hidden">
+            <Link
+              href="/accommodations"
+              className="btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors inline-block"
+              style={{ backgroundColor: primaryColor }}
+            >
+              View All Stays
+            </Link>
           </div>
         </div>
       </section>
