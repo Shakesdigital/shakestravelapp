@@ -38,9 +38,9 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
   // Calculate cards per view based on screen size
   const getCardsPerView = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return 1; // Mobile
-      if (window.innerWidth < 1024) return 2; // Tablet
-      return 3; // Desktop
+      if (window.innerWidth < 768) return 1; // Mobile
+      if (window.innerWidth < 1280) return 2; // Tablet/Small Desktop
+      return 3; // Large Desktop
     }
     return 3;
   };
@@ -128,7 +128,8 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
       {currentIndex > 0 && (
         <button
           onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 md:p-3 shadow-lg hover:shadow-xl transition-all duration-200"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200"
+          style={{ color: primaryColor }}
           aria-label="Previous experiences"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,7 +141,8 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
       {currentIndex < maxIndex && (
         <button
           onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 md:p-3 shadow-lg hover:shadow-xl transition-all duration-200"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200"
+          style={{ color: primaryColor }}
           aria-label="Next experiences"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,7 +152,7 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
       )}
 
       {/* Carousel Container */}
-      <div className="overflow-hidden px-4 md:px-8">
+      <div className="overflow-hidden px-2 md:px-4">
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -159,15 +161,15 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
           onTouchEnd={onTouchEnd}
         >
           {Array.from({ length: totalSlides }, (_, slideIndex) => (
-            <div key={slideIndex} className="w-full flex-shrink-0 px-2 md:px-4">
-              <div className={`grid grid-cols-1 ${cardsPerView === 2 ? 'md:grid-cols-2' : cardsPerView === 3 ? 'md:grid-cols-3' : ''} gap-4 md:gap-8`}>
+            <div key={slideIndex} className="w-full flex-shrink-0 px-1 md:px-2">
+              <div className={`grid grid-cols-1 ${cardsPerView === 2 ? 'md:grid-cols-2' : cardsPerView === 3 ? 'md:grid-cols-3' : ''} gap-2 md:gap-4`}>
                 {experiences
                   .slice(slideIndex * cardsPerView, (slideIndex + 1) * cardsPerView)
                   .map((experience) => (
                     <Link
                       key={experience.id}
                       href={`/experiences/${experience.id}`}
-                      className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group mx-2 flex flex-col w-full max-w-sm"
+                      className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col w-full max-w-md mx-auto"
                     >
                       {/* Discount Badge */}
                       <div className="relative">
@@ -179,7 +181,7 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
 
                         {/* Image/Icon Area */}
                         <div
-                          className="h-48 flex items-center justify-center text-6xl relative overflow-hidden"
+                          className="h-56 flex items-center justify-center text-6xl relative overflow-hidden"
                           style={{ backgroundColor: `${primaryColor}10` }}
                         >
                           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -187,9 +189,9 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
                         </div>
                       </div>
 
-                      <div className="p-6">
+                      <div className="p-4">
                         {/* Category and Duration */}
-                        <div className="flex justify-between items-start mb-3">
+                        <div className="flex justify-between items-start mb-2">
                           <span
                             className="px-3 py-1 text-xs font-semibold rounded-full"
                             style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}
