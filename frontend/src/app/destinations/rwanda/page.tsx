@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, MapPinIcon, StarIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
@@ -11,6 +11,54 @@ export default function RwandaPage() {
   const [currentAccommodation, setCurrentAccommodation] = useState(0);
   const [currentInsight, setCurrentInsight] = useState(0);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const experienceRef = useRef<HTMLDivElement>(null);
+  const accommodationRef = useRef<HTMLDivElement>(null);
+  const insightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Touch event handlers for swipe gestures
+  const handleTouchStart = useRef<{ x: number; y: number } | null>(null);
+  
+  const onTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    handleTouchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (e: React.TouchEvent, type: 'experience' | 'accommodation' | 'insight') => {
+    if (!handleTouchStart.current) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = handleTouchStart.current.x - touch.clientX;
+    const deltaY = handleTouchStart.current.y - touch.clientY;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Swipe left - next
+        if (type === 'experience') nextExperience();
+        if (type === 'accommodation') nextAccommodation();
+        if (type === 'insight') nextInsight();
+      } else {
+        // Swipe right - previous
+        if (type === 'experience') prevExperience();
+        if (type === 'accommodation') prevAccommodation();
+        if (type === 'insight') prevInsight();
+      }
+    }
+    
+    handleTouchStart.current = null;
+  };
 
   const destinations = [
     {
@@ -212,27 +260,39 @@ export default function RwandaPage() {
   };
 
   const nextExperience = () => {
-    setCurrentExperience((prev) => (prev + 1) % Math.max(1, experiences.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, experiences.length - itemsToShow);
+    setCurrentExperience((prev) => (prev + 1) % (maxIndex + 1));
   };
 
   const prevExperience = () => {
-    setCurrentExperience((prev) => (prev - 1 + Math.max(1, experiences.length - 2)) % Math.max(1, experiences.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, experiences.length - itemsToShow);
+    setCurrentExperience((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const nextAccommodation = () => {
-    setCurrentAccommodation((prev) => (prev + 1) % Math.max(1, accommodations.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, accommodations.length - itemsToShow);
+    setCurrentAccommodation((prev) => (prev + 1) % (maxIndex + 1));
   };
 
   const prevAccommodation = () => {
-    setCurrentAccommodation((prev) => (prev - 1 + Math.max(1, accommodations.length - 2)) % Math.max(1, accommodations.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, accommodations.length - itemsToShow);
+    setCurrentAccommodation((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const nextInsight = () => {
-    setCurrentInsight((prev) => (prev + 1) % Math.max(1, insights.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, insights.length - itemsToShow);
+    setCurrentInsight((prev) => (prev + 1) % (maxIndex + 1));
   };
 
   const prevInsight = () => {
-    setCurrentInsight((prev) => (prev - 1 + Math.max(1, insights.length - 2)) % Math.max(1, insights.length - 2));
+    const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+    const maxIndex = Math.max(0, insights.length - itemsToShow);
+    setCurrentInsight((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const toggleFAQ = (index: number) => {
@@ -450,13 +510,22 @@ export default function RwandaPage() {
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden">
+              <div 
+                ref={experienceRef}
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={(e) => onTouchEnd(e, 'experience')}
+              >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentExperience * (100 / 3)}%)` }}
+                  style={{ 
+                    transform: `translateX(-${currentExperience * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                  }}
                 >
                   {experiences.map((experience) => (
-                    <div key={experience.id} className="w-1/3 flex-shrink-0 px-3">
+                    <div key={experience.id} className={`flex-shrink-0 px-2 md:px-3 ${
+                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
+                    }`}>
                       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-64">
                           <Image
@@ -503,19 +572,33 @@ export default function RwandaPage() {
 
               <button
                 onClick={prevExperience}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10 touch-manipulation"
                 aria-label="Previous experiences"
               >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
 
               <button
                 onClick={nextExperience}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10 touch-manipulation"
                 aria-label="Next experiences"
               >
-                <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
+              
+              {/* Dots indicator for mobile */}
+              <div className="flex justify-center mt-6 space-x-2 md:hidden">
+                {Array.from({ length: Math.max(1, experiences.length) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentExperience(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentExperience ? 'bg-[#195e48]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to experience ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="text-center mt-12">
@@ -542,13 +625,22 @@ export default function RwandaPage() {
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden">
+              <div 
+                ref={accommodationRef}
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={(e) => onTouchEnd(e, 'accommodation')}
+              >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentAccommodation * (100 / 3)}%)` }}
+                  style={{ 
+                    transform: `translateX(-${currentAccommodation * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                  }}
                 >
                   {accommodations.map((accommodation) => (
-                    <div key={accommodation.id} className="w-1/3 flex-shrink-0 px-3">
+                    <div key={accommodation.id} className={`flex-shrink-0 px-2 md:px-3 ${
+                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
+                    }`}>
                       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-64">
                           <Image
@@ -609,19 +701,33 @@ export default function RwandaPage() {
 
               <button
                 onClick={prevAccommodation}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10 touch-manipulation"
                 aria-label="Previous accommodations"
               >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
 
               <button
                 onClick={nextAccommodation}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10 touch-manipulation"
                 aria-label="Next accommodations"
               >
-                <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
+              
+              {/* Dots indicator for mobile */}
+              <div className="flex justify-center mt-6 space-x-2 md:hidden">
+                {Array.from({ length: Math.max(1, accommodations.length) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentAccommodation(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentAccommodation ? 'bg-[#195e48]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to accommodation ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="text-center mt-12">
@@ -648,13 +754,22 @@ export default function RwandaPage() {
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden">
+              <div 
+                ref={insightRef}
+                className="overflow-hidden"
+                onTouchStart={onTouchStart}
+                onTouchEnd={(e) => onTouchEnd(e, 'insight')}
+              >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentInsight * (100 / 3)}%)` }}
+                  style={{ 
+                    transform: `translateX(-${currentInsight * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                  }}
                 >
                   {insights.map((insight) => (
-                    <div key={insight.id} className="w-1/3 flex-shrink-0 px-3">
+                    <div key={insight.id} className={`flex-shrink-0 px-2 md:px-3 ${
+                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
+                    }`}>
                       <article className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-48">
                           <Image
@@ -690,19 +805,33 @@ export default function RwandaPage() {
 
               <button
                 onClick={prevInsight}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10 touch-manipulation"
                 aria-label="Previous insights"
               >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+                <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
 
               <button
                 onClick={nextInsight}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10 touch-manipulation"
                 aria-label="Next insights"
               >
-                <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+                <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
+              
+              {/* Dots indicator for mobile */}
+              <div className="flex justify-center mt-6 space-x-2 md:hidden">
+                {Array.from({ length: Math.max(1, insights.length) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentInsight(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentInsight ? 'bg-[#195e48]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to insight ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="text-center mt-12">

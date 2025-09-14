@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { getDestinationLink, hasDestinationPage } from '@/lib/destinations';
+import ExperienceCarousel from '@/components/ExperienceCarousel';
 
 interface SearchForm {
   destination: string;
@@ -92,45 +93,205 @@ export default function Home() {
       id: 1,
       title: 'Gorilla Trekking in Bwindi',
       location: 'Bwindi Impenetrable Forest',
+      country: '🇺🇬 Uganda',
       rating: 4.9,
       reviews: 234,
       price: 800,
+      originalPrice: 950,
+      discount: 'Save $150',
       image: '🦍',
-      duration: '1 day',
-      category: 'Wildlife'
+      duration: '1 Day',
+      category: 'Wildlife Safari',
+      highlights: ['Expert Guide', 'Permit Included'],
+      difficulty: 'Moderate',
+      availability: 'Daily departures'
     },
     {
       id: 2,
-      title: 'White Water Rafting',
-      location: 'Jinja, River Nile',
-      rating: 4.7,
-      reviews: 187,
-      price: 120,
-      image: '🚣‍♂️',
-      duration: '4 hours',
-      category: 'Adventure'
+      title: 'Great Migration Safari',
+      location: 'Masai Mara Reserve',
+      country: '🇰🇪 Kenya',
+      rating: 4.8,
+      reviews: 456,
+      price: 420,
+      originalPrice: 480,
+      discount: 'Save $60',
+      image: '🦓',
+      duration: '3 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Balloon Safari', 'Luxury Camp'],
+      difficulty: 'Easy',
+      availability: 'Jul-Oct Best'
     },
     {
       id: 3,
-      title: 'Safari in Queen Elizabeth',
-      location: 'Queen Elizabeth National Park',
-      rating: 4.8,
+      title: 'Kilimanjaro Summit Trek',
+      location: 'Mount Kilimanjaro',
+      country: '🇹🇿 Tanzania',
+      rating: 4.7,
       reviews: 312,
-      price: 350,
-      image: '🦁',
-      duration: '3 days',
-      category: 'Wildlife'
+      price: 1850,
+      originalPrice: 2100,
+      discount: 'Save $250',
+      image: '🏔️',
+      duration: '7 Days',
+      category: 'Adventure',
+      highlights: ['Full Equipment', 'Expert Guides'],
+      difficulty: 'Challenging',
+      availability: 'Year-round'
     },
     {
       id: 4,
-      title: 'Cultural Village Tour',
-      location: 'Batwa Community',
+      title: 'Golden Monkey Tracking',
+      location: 'Volcanoes National Park',
+      country: '🇷🇼 Rwanda',
+      rating: 4.8,
+      reviews: 189,
+      price: 100,
+      originalPrice: 130,
+      discount: 'Save $30',
+      image: '🐒',
+      duration: '4 Hours',
+      category: 'Wildlife Safari',
+      highlights: ['Small Groups', 'Photography'],
+      difficulty: 'Easy',
+      availability: 'Daily 9AM & 2PM'
+    },
+    {
+      id: 5,
+      title: 'White Water Rafting Adventure',
+      location: 'Jinja, River Nile',
+      country: '🇺🇬 Uganda',
+      rating: 4.7,
+      reviews: 187,
+      price: 120,
+      originalPrice: 150,
+      discount: 'Save $30',
+      image: '🚣',
+      duration: '4 Hours',
+      category: 'Water Sports',
+      highlights: ['Grade 5 Rapids', 'Safety Equipment'],
+      difficulty: 'Challenging',
+      availability: 'Daily 9AM & 2PM'
+    },
+    {
+      id: 6,
+      title: 'Ngorongoro Crater Safari',
+      location: 'Ngorongoro Conservation',
+      country: '🇹🇿 Tanzania',
+      rating: 4.9,
+      reviews: 523,
+      price: 380,
+      originalPrice: 450,
+      discount: 'Save $70',
+      image: '🦁',
+      duration: '2 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Big Five', 'Crater Lodge'],
+      difficulty: 'Easy',
+      availability: 'Daily departures'
+    },
+    {
+      id: 7,
+      title: 'Canopy Walk in Nyungwe',
+      location: 'Nyungwe Forest',
+      country: '🇷🇼 Rwanda',
       rating: 4.6,
-      reviews: 89,
-      price: 75,
+      reviews: 145,
+      price: 60,
+      originalPrice: 80,
+      discount: 'Save $20',
+      image: '🌲',
+      duration: '3 Hours',
+      category: 'Adventure',
+      highlights: ['Suspended Bridge', 'Bird Watching'],
+      difficulty: 'Moderate',
+      availability: 'Morning tours'
+    },
+    {
+      id: 8,
+      title: 'Serengeti Balloon Safari',
+      location: 'Serengeti National Park',
+      country: '🇹🇿 Tanzania',
+      rating: 5.0,
+      reviews: 267,
+      price: 550,
+      originalPrice: 600,
+      discount: 'Save $50',
+      image: '🎈',
+      duration: '3 Hours',
+      category: 'Aerial Adventure',
+      highlights: ['Sunrise Flight', 'Champagne Breakfast'],
+      difficulty: 'Easy',
+      availability: 'Daily at dawn'
+    },
+    {
+      id: 9,
+      title: 'Maasai Cultural Experience',
+      location: 'Amboseli Region',
+      country: '🇰🇪 Kenya',
+      rating: 4.7,
+      reviews: 203,
+      price: 85,
+      originalPrice: 100,
+      discount: 'Save $15',
       image: '🏘️',
-      duration: '2 hours',
-      category: 'Culture'
+      duration: '1 Day',
+      category: 'Cultural',
+      highlights: ['Village Visit', 'Traditional Dance'],
+      difficulty: 'Easy',
+      availability: 'Tue, Thu, Sat'
+    },
+    {
+      id: 10,
+      title: 'Chimpanzee Habituation',
+      location: 'Kibale Forest',
+      country: '🇺🇬 Uganda',
+      rating: 4.8,
+      reviews: 178,
+      price: 250,
+      originalPrice: 300,
+      discount: 'Save $50',
+      image: '🦧',
+      duration: 'Full Day',
+      category: 'Wildlife Safari',
+      highlights: ['Research Team', 'All Day Access'],
+      difficulty: 'Moderate',
+      availability: 'Limited permits'
+    },
+    {
+      id: 11,
+      title: 'Zanzibar Spice & Beach Tour',
+      location: 'Zanzibar Island',
+      country: '🇹🇿 Tanzania',
+      rating: 4.6,
+      reviews: 412,
+      price: 95,
+      originalPrice: 120,
+      discount: 'Save $25',
+      image: '🏝️',
+      duration: '1 Day',
+      category: 'Cultural',
+      highlights: ['Spice Farm', 'Stone Town'],
+      difficulty: 'Easy',
+      availability: 'Daily tours'
+    },
+    {
+      id: 12,
+      title: 'Lake Nakuru Flamingo Safari',
+      location: 'Lake Nakuru',
+      country: '🇰🇪 Kenya',
+      rating: 4.5,
+      reviews: 289,
+      price: 180,
+      originalPrice: 220,
+      discount: 'Save $40',
+      image: '🦩',
+      duration: '1 Day',
+      category: 'Wildlife Safari',
+      highlights: ['Pink Flamingos', 'Rhino Sanctuary'],
+      difficulty: 'Easy',
+      availability: 'Best Nov-Apr'
     }
   ];
 
@@ -785,63 +946,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Experiences */}
+      {/* Featured Experiences with Carousel */}
       <section className="py-20 bg-white">
         <div className="content-section">
           <div className="flex justify-between items-center mb-16">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Top Experiences
+                Top East Africa Experiences
               </h2>
               <p className="text-xl text-gray-600">
-                Unforgettable adventures awaiting your discovery
+                Handpicked adventures across Uganda, Kenya, Tanzania & Rwanda
               </p>
             </div>
-            <Link 
-              href="/all-experiences" 
-              className="btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors"
+            <Link
+              href="/all-experiences"
+              className="hidden md:inline-block btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors"
               style={{ backgroundColor: primaryColor }}
             >
               View All Experiences
             </Link>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredExperiences.map((experience) => (
-              <Link
-                key={experience.id}
-                href={`/experiences/${experience.id}`}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover-effect"
-              >
-                <div className="h-48 flex items-center justify-center text-6xl" style={{ backgroundColor: `${primaryColor}10` }}>
-                  {experience.image}
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="px-3 py-1 text-xs font-semibold rounded-full" style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}>
-                      {experience.category}
-                    </span>
-                    <span className="text-sm text-gray-500">{experience.duration}</span>
-                  </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">{experience.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3">📍 {experience.location}</p>
-                  <div className="flex items-center mb-3">
-                    <div className="flex items-center rating-stars">
-                      {'★'.repeat(Math.floor(experience.rating))}
-                    </div>
-                    <span className="text-sm text-gray-600 ml-2">
-                      {experience.rating} ({experience.reviews} reviews)
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold" style={{ color: primaryColor }}>
-                      ${experience.price}
-                    </span>
-                    <span className="text-sm text-gray-500">per person</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+
+          {/* Experience Carousel */}
+          <ExperienceCarousel experiences={featuredExperiences} primaryColor={primaryColor} />
+
+          {/* Mobile View All Button */}
+          <div className="text-center mt-8 md:hidden">
+            <Link
+              href="/all-experiences"
+              className="btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors inline-block"
+              style={{ backgroundColor: primaryColor }}
+            >
+              View All Experiences
+            </Link>
           </div>
         </div>
       </section>
