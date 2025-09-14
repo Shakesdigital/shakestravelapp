@@ -95,13 +95,9 @@ export default function ExperienceCarousel({ experiences, primaryColor }: Experi
     }
   };
 
-  // Auto-play functionality
+  // Auto-play functionality disabled
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
-    }, 5000); // Change slide every 5 seconds
-
-    return () => clearInterval(interval);
+    // No auto-play interval
   }, [maxIndex]);
 
   return (
