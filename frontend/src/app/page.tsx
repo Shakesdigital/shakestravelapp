@@ -1262,7 +1262,7 @@ export default function Home() {
               🌱 Planting Green Paths
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Travel with purpose. Every journey contributes to Uganda's environmental conservation and community development.
+              Travel with purpose. Every journey contributes to East Africa's environmental conservation and community development.
             </p>
           </div>
           
