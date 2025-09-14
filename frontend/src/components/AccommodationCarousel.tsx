@@ -132,8 +132,8 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
       {currentSlide > 0 && (
         <button
           onClick={prevSlide}
-          className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-offset-2"
-          style={{ focusRingColor: primaryColor }}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200"
+          style={{ color: primaryColor }}
           aria-label="Previous accommodations"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,8 +145,8 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
       {currentSlide < totalSlides - 1 && (
         <button
           onClick={nextSlide}
-          className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 focus:ring-2 focus:ring-offset-2"
-          style={{ focusRingColor: primaryColor }}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200"
+          style={{ color: primaryColor }}
           aria-label="Next accommodations"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,7 +156,7 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
       )}
 
       {/* Carousel Container */}
-      <div className="overflow-hidden px-6 md:px-12">
+      <div className="overflow-hidden px-2 md:px-4">
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -167,15 +167,15 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
           onMouseLeave={handleMouseLeave}
         >
           {Array.from({ length: totalSlides }, (_, slideIndex) => (
-            <div key={slideIndex} className="w-full flex-shrink-0 px-2 md:px-4">
-              <div className={`grid grid-cols-1 ${cardsPerSlide === 2 ? 'md:grid-cols-2' : cardsPerSlide === 3 ? 'md:grid-cols-3' : ''} gap-4 md:gap-8`}>
+            <div key={slideIndex} className="w-full flex-shrink-0 px-1 md:px-2">
+              <div className={`grid grid-cols-1 ${cardsPerSlide === 2 ? 'md:grid-cols-2' : cardsPerSlide === 3 ? 'md:grid-cols-3' : ''} gap-2 md:gap-4`}>
                 {accommodations
                   .slice(slideIndex * cardsPerSlide, (slideIndex + 1) * cardsPerSlide)
                   .map((accommodation) => (
                     <Link
                       key={accommodation.id}
                       href={`/accommodations/${accommodation.id}`}
-                      className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group mx-2 md:mx-4 flex flex-col"
+                      className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col w-full max-w-md mx-auto"
                       aria-label={`Book ${accommodation.name} in ${accommodation.location}`}
                     >
                         {/* Discount Badge */}
@@ -190,7 +190,7 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
 
                           {/* Image/Icon Area */}
                           <div
-                            className="h-48 flex items-center justify-center text-6xl relative overflow-hidden"
+                            className="h-56 flex items-center justify-center text-6xl relative overflow-hidden"
                             style={{ backgroundColor: `${primaryColor}10` }}
                           >
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
