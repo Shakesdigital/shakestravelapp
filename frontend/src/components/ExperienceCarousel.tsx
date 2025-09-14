@@ -240,9 +240,9 @@ export default function ExperienceCarousel({ experiences, primaryColor }: Experi
                           <span className="text-sm text-gray-500">per person</span>
                         </div>
 
-                        {/* Book Now Button (visible on hover) */}
+                        {/* Book Now Button (always visible with hover effect) */}
                         <button
-                          className="w-full mt-4 py-2 rounded-lg font-semibold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          className="w-full mt-4 py-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg hover:brightness-110"
                           style={{ backgroundColor: primaryColor }}
                         >
                           Book Now
