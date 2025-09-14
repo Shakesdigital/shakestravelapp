@@ -578,21 +578,18 @@ export default function Home() {
   const greenPathsHighlights = [
     {
       title: 'Tree Planting Programs',
-      description: 'Join our reforestation efforts across Uganda',
-      icon: '🌳',
-      impact: '50,000+ trees planted'
+      description: 'Join our comprehensive reforestation initiatives across Uganda, where we work with local communities to plant indigenous tree species, restore wildlife corridors, and create sustainable forest ecosystems. Our programs include long-term monitoring and maintenance to ensure tree survival.',
+      icon: '🌳'
     },
     {
       title: 'Carbon Offset Travel',
-      description: 'Every trip contributes to environmental restoration',
-      icon: '🌍',
-      impact: '100% carbon neutral'
+      description: 'We calculate and offset the environmental impact of each journey through a combination of renewable energy projects, reforestation efforts, and sustainable agriculture initiatives. Experience guilt-free travel while supporting climate action in East Africa.',
+      icon: '🌍'
     },
     {
       title: 'Community Conservation',
-      description: 'Supporting local communities in conservation efforts',
-      icon: '👥',
-      impact: '25 communities supported'
+      description: 'Empowering local communities through sustainable conservation projects, including eco-tourism initiatives, environmental education programs, and alternative livelihood development. We ensure that conservation benefits both wildlife and people.',
+      icon: '👥'
     }
   ];
 
