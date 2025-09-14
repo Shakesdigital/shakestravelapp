@@ -70,10 +70,14 @@ export default function ExperienceCarousel({ experiences, primaryColor }: Experi
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
+    // Prevent default to avoid scrolling while swiping
+    e.preventDefault();
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
+    // Prevent scrolling while swiping
+    e.preventDefault();
   };
 
   const onTouchEnd = () => {
@@ -128,7 +132,7 @@ export default function ExperienceCarousel({ experiences, primaryColor }: Experi
       )}
 
       {/* Carousel Container */}
-      <div className="overflow-hidden px-12">
+      <div className="overflow-hidden px-6 md:px-12">
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -137,15 +141,15 @@ export default function ExperienceCarousel({ experiences, primaryColor }: Experi
           onTouchEnd={onTouchEnd}
         >
           {Array.from({ length: totalSlides }, (_, slideIndex) => (
-            <div key={slideIndex} className="w-full flex-shrink-0">
-              <div className={`grid grid-cols-1 ${cardsPerView === 2 ? 'md:grid-cols-2' : cardsPerView === 3 ? 'md:grid-cols-3' : ''} gap-6`}>
+            <div key={slideIndex} className="w-full flex-shrink-0 px-2 md:px-4">
+              <div className={`grid grid-cols-1 ${cardsPerView === 2 ? 'md:grid-cols-2' : cardsPerView === 3 ? 'md:grid-cols-3' : ''} gap-4 md:gap-8`}>
                 {experiences
                   .slice(slideIndex * cardsPerView, (slideIndex + 1) * cardsPerView)
                   .map((experience) => (
                     <Link
                       key={experience.id}
                       href={`/experiences/${experience.id}`}
-                      className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group"
+                      className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group mx-2 md:mx-4 flex flex-col"
                     >
                       {/* Discount Badge */}
                       <div className="relative">
