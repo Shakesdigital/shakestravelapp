@@ -73,9 +73,6 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const totalSlides = Math.ceil(experiences.length / cardsPerView);
-  const maxIndex = totalSlides - 1;
-
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : prev));
   };
