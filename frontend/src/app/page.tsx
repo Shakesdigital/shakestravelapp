@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { getDestinationLink, hasDestinationPage } from '@/lib/destinations';
 import ExperienceCarousel from '@/components/ExperienceCarousel';
 import AccommodationCarousel from '@/components/AccommodationCarousel';
+import TravelInsightsCarousel from '@/components/TravelInsightsCarousel';
+import TravelInsightsCarousel from '@/components/TravelInsightsCarousel';
 
 interface SearchForm {
   destination: string;
@@ -1312,30 +1314,7 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {travelGuideTeases.map((guide, index) => (
-              <Link
-                key={index}
-                href={`/travel-guide/${guide.title.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-gray-50 rounded-2xl overflow-hidden card-hover-effect"
-              >
-                <div className="h-32 flex items-center justify-center text-5xl" style={{ backgroundColor: `${primaryColor}10` }}>
-                  {guide.image}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700">
-                      {guide.readTime}
-                    </span>
-                    <span className="px-2 py-1 text-xs font-medium rounded" style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}>
-                      {guide.region}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{guide.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{guide.preview}</p>
-                </div>
-              </Link>
-            ))}
+          <TravelInsightsCarousel guides={travelGuideTeases} primaryColor={primaryColor} />
           </div>
         </div>
       </section>

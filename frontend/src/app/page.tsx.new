@@ -1,0 +1,47 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import ExperienceCarousel from '@/components/ExperienceCarousel';
+import AccommodationCarousel from '@/components/AccommodationCarousel';
+import TravelInsightsCarousel from '@/components/TravelInsightsCarousel';
+
+export default function Home() {
+  const primaryColor = '#195e48';
+  
+  // Your existing data arrays...
+
+  return (
+    <>
+      {/* Previous sections remain unchanged */}
+
+      {/* Travel Insights */}
+      <section className="py-20 bg-white">
+        <div className="content-section">
+          <div className="flex justify-between items-center mb-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Travel Insights
+              </h2>
+              <p className="text-xl text-gray-600">
+                Expert tips and guides for your perfect East Africa adventure
+              </p>
+            </div>
+            <Link 
+              href="/travel-guide" 
+              className="btn-primary text-white px-8 py-3 rounded-xl font-semibold transition-colors"
+              style={{ backgroundColor: primaryColor }}
+            >
+              View All Guides
+            </Link>
+          </div>
+          
+          <TravelInsightsCarousel guides={travelGuideTeases} primaryColor={primaryColor} />
+        </div>
+      </section>
+
+      {/* Call-to-Action Footer */}
+      {/* ... rest of the code remains unchanged */}
+    </>
+  );
+}
