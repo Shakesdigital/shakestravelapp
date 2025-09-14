@@ -7,7 +7,6 @@ import { getDestinationLink, hasDestinationPage } from '@/lib/destinations';
 import ExperienceCarousel from '@/components/ExperienceCarousel';
 import AccommodationCarousel from '@/components/AccommodationCarousel';
 import TravelInsightsCarousel from '@/components/TravelInsightsCarousel';
-import TravelInsightsCarousel from '@/components/TravelInsightsCarousel';
 
 interface SearchForm {
   destination: string;
