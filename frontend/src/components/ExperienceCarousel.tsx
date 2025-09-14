@@ -33,6 +33,11 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
   const [cardsPerView, setCardsPerView] = useState(3);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
+
+  // Calculate total slides and max index
+  const totalSlides = Math.ceil(experiences.length / cardsPerView);
+  const maxIndex = totalSlides - 1;
 
   // Calculate cards per view based on screen size
   const getCardsPerView = () => {
@@ -45,6 +50,19 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
   };
 
   // Update cards per view on resize
+  // Start autoplay
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }, 5000); // Change slide every 5 seconds
+
+    setAutoplayInterval(interval);
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [maxIndex]);
+
   useEffect(() => {
     const handleResize = () => {
       setCardsPerView(getCardsPerView());
@@ -68,6 +86,20 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
 
   // Touch handlers for mobile swipe
   const minSwipeDistance = 50;
+
+  const handleMouseEnter = () => {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      setAutoplayInterval(null);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }, 5000);
+    setAutoplayInterval(interval);
+  };
 
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);

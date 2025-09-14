@@ -30,6 +30,7 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [autoplayInterval, setAutoplayInterval] = useState<NodeJS.Timeout | null>(null);
 
   const getCardsPerSlide = () => {
     if (typeof window !== 'undefined') {
@@ -42,6 +43,19 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
 
   const [cardsPerSlide, setCardsPerSlide] = useState(getCardsPerSlide());
   const totalSlides = Math.ceil(accommodations.length / cardsPerSlide);
+
+  // Start autoplay
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+    }, 5000); // Change slide every 5 seconds
+
+    setAutoplayInterval(interval);
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [totalSlides]);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -66,12 +80,42 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
 
   const minSwipeDistance = 50;
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
+  const handleMouseEnter = () => {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      setAutoplayInterval(null);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+    }, 5000);
+    setAutoplayInterval(interval);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const onTouchMove = (e: React.TouchEvent) => {
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && currentSlide < totalSlides - 1) {
+      setCurrentSlide(prev => prev + 1);
+    }
+    if (isRightSwipe && currentSlide > 0) {
+      setCurrentSlide(prev => prev - 1);
+    }
+  };  const onTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
@@ -124,9 +168,11 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {Array.from({ length: totalSlides }, (_, slideIndex) => (
             <div key={slideIndex} className="w-full flex-shrink-0 px-2 md:px-4">
