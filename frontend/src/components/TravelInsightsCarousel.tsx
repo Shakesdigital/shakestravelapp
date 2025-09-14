@@ -36,15 +36,18 @@ export default function TravelInsightsCarousel({ guides, primaryColor }: TravelI
   // Start autoplay
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-    }, 5000); // Change slide every 5 seconds
+      setCurrentIndex((prev) => {
+        const total = Math.ceil(guides.length / cardsPerView);
+        return prev >= total - 1 ? 0 : prev + 1;
+      });
+    }, 5000);
 
     setAutoplayInterval(interval);
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [maxIndex]);
+  }, [guides.length, cardsPerView]);
 
   // Update cards per view on resize
   useEffect(() => {
@@ -80,7 +83,10 @@ export default function TravelInsightsCarousel({ guides, primaryColor }: TravelI
 
   const handleMouseLeave = () => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      setCurrentIndex((prev) => {
+        const total = Math.ceil(guides.length / cardsPerView);
+        return prev >= total - 1 ? 0 : prev + 1;
+      });
     }, 5000);
     setAutoplayInterval(interval);
   };

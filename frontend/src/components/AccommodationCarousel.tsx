@@ -47,15 +47,18 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
   // Start autoplay
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
-    }, 5000); // Change slide every 5 seconds
+      setCurrentSlide((prev) => {
+        const total = Math.ceil(accommodations.length / cardsPerSlide);
+        return prev >= total - 1 ? 0 : prev + 1;
+      });
+    }, 5000);
 
     setAutoplayInterval(interval);
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [totalSlides]);
+  }, [accommodations.length, cardsPerSlide]);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -89,7 +92,10 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
 
   const handleMouseLeave = () => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+      setCurrentSlide((prev) => {
+        const total = Math.ceil(accommodations.length / cardsPerSlide);
+        return prev >= total - 1 ? 0 : prev + 1;
+      });
     }, 5000);
     setAutoplayInterval(interval);
   };
