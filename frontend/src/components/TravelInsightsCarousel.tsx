@@ -33,21 +33,7 @@ export default function TravelInsightsCarousel({ guides, primaryColor }: TravelI
     return 3;
   };
 
-  // Start autoplay
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const total = Math.ceil(guides.length / cardsPerView);
-        return prev >= total - 1 ? 0 : prev + 1;
-      });
-    }, 5000);
-
-    setAutoplayInterval(interval);
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [guides.length, cardsPerView]);
+  // Autoplay disabled
 
   // Update cards per view on resize
   useEffect(() => {

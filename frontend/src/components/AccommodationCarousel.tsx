@@ -44,21 +44,7 @@ export default function AccommodationCarousel({ accommodations, primaryColor }: 
   const [cardsPerSlide, setCardsPerSlide] = useState(getCardsPerSlide());
   const totalSlides = Math.ceil(accommodations.length / cardsPerSlide);
 
-  // Start autoplay
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => {
-        const total = Math.ceil(accommodations.length / cardsPerSlide);
-        return prev >= total - 1 ? 0 : prev + 1;
-      });
-    }, 5000);
-
-    setAutoplayInterval(interval);
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [accommodations.length, cardsPerSlide]);
+  // Autoplay disabled
 
   React.useEffect(() => {
     const handleResize = () => {

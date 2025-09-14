@@ -49,21 +49,7 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
   const totalSlides = Math.ceil(experiences.length / cardsPerView);
   const maxIndex = totalSlides - 1;
 
-  // Start autoplay
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const total = Math.ceil(experiences.length / cardsPerView);
-        return prev >= total - 1 ? 0 : prev + 1;
-      });
-    }, 5000);
-
-    setAutoplayInterval(interval);
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [experiences.length, cardsPerView]);
+  // Autoplay disabled
 
   useEffect(() => {
     const handleResize = () => {
@@ -164,7 +150,7 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
       )}
 
       {/* Carousel Container */}
-      <div className="overflow-hidden px-6 md:px-12">
+      <div className="overflow-hidden px-4 md:px-8">
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -181,7 +167,7 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
                     <Link
                       key={experience.id}
                       href={`/experiences/${experience.id}`}
-                      className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group mx-2 md:mx-4 flex flex-col"
+                      className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group mx-2 flex flex-col w-full max-w-sm"
                     >
                       {/* Discount Badge */}
                       <div className="relative">
