@@ -26,7 +26,9 @@ interface ExperienceCarouselProps {
   primaryColor: string;
 }
 
-export default function ExperienceCarousel({ experiences, primaryColor }: ExperienceCarouselProps) {
+import { topEastAfricaExperiences } from '@/data/topExperiences';
+
+export default function ExperienceCarousel({ experiences = topEastAfricaExperiences, primaryColor }: ExperienceCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
   const [touchStart, setTouchStart] = useState<number | null>(null);
