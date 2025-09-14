@@ -1315,7 +1315,6 @@ export default function Home() {
           </div>
           
           <TravelInsightsCarousel guides={travelGuideTeases} primaryColor={primaryColor} />
-          </div>
         </div>
       </section>
 
