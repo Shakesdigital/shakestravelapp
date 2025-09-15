@@ -8,13 +8,13 @@ import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, MapPinIcon, StarIco
 export default function KenyaPage() {
   const [currentDestination, setCurrentDestination] = useState(0);
   const [currentExperience, setCurrentExperience] = useState(0);
-  const [currentAccommodation, setCurrentAccommodation] = useState(0);
+  const [currentStay, setCurrentStay] = useState(0);
   const [currentInsight, setCurrentInsight] = useState(0);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const experienceRef = useRef<HTMLDivElement>(null);
-  const accommodationRef = useRef<HTMLDivElement>(null);
+  const stayRef = useRef<HTMLDivElement>(null);
   const insightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function KenyaPage() {
     handleTouchStart.current = { x: touch.clientX, y: touch.clientY };
   };
 
-  const onTouchEnd = (e: React.TouchEvent, type: 'experience' | 'accommodation' | 'insight') => {
+  const onTouchEnd = (e: React.TouchEvent, type: 'experience' | 'stay' | 'insight') => {
     if (!handleTouchStart.current) return;
     
     const touch = e.changedTouches[0];
@@ -47,12 +47,12 @@ export default function KenyaPage() {
       if (deltaX > 0) {
         // Swipe left - next
         if (type === 'experience') nextExperience();
-        if (type === 'accommodation') nextAccommodation();
+        if (type === 'stay') nextStay();
         if (type === 'insight') nextInsight();
       } else {
         // Swipe right - previous
         if (type === 'experience') prevExperience();
-        if (type === 'accommodation') prevAccommodation();
+        if (type === 'stay') prevStay();
         if (type === 'insight') prevInsight();
       }
     }
@@ -146,7 +146,7 @@ export default function KenyaPage() {
       id: 10,
       name: 'Lake Turkana National Parks',
       image: '/images/destinations/lake-turkana.jpg',
-      description: 'World\'s largest desert lake, UNESCO site, Koobi Fora fossil sites, "Cradle of Mankind."',
+      description: 'World\'s largest desert lake, UNESCO site, Koobi Fora fossil sites, "Cradle of Mankind." ',
       location: 'Northern Kenya',
       highlights: ['World\'s Largest Desert Lake', 'Cradle of Mankind', 'UNESCO World Heritage'],
       cta: 'Discover More'
@@ -240,14 +240,14 @@ export default function KenyaPage() {
     }
   ];
 
-  const accommodations = [
+  const stays = [
     {
       id: 1,
       name: 'Fairmont Mount Kenya Safari Club',
       type: 'Luxury',
       price: '$500-2,000/night',
       rating: 4.9,
-      image: '/images/accommodations/fairmont-mount-kenya.jpg',
+      image: '/images/stays/fairmont-mount-kenya.jpg',
       location: 'Mount Kenya',
       amenities: ['Resort-style', 'Golf Course', 'Mountain Views', 'Luxury Service'],
       description: 'Resort-style, golf course, mountain views.',
@@ -259,7 +259,7 @@ export default function KenyaPage() {
       type: 'Mid-Range',
       price: '$150-500/night',
       rating: 4.7,
-      image: '/images/accommodations/serena-mountain-lodge.jpg',
+      image: '/images/stays/serena-mountain-lodge.jpg',
       location: 'Mount Kenya',
       amenities: ['Treehouse-style', 'Cozy', 'Forest Setting', 'Wildlife Viewing'],
       description: 'Treehouse-style, cozy, forest setting.',
@@ -271,7 +271,7 @@ export default function KenyaPage() {
       type: 'Budget',
       price: '$20-150/night',
       rating: 4.4,
-      image: '/images/accommodations/naro-moru.jpg',
+      image: '/images/stays/naro-moru.jpg',
       location: 'Mount Kenya',
       amenities: ['Affordable', 'Near Trekking Routes', 'Mountain Base', 'Basic Comfort'],
       description: 'Affordable, near trekking routes.',
@@ -283,7 +283,7 @@ export default function KenyaPage() {
       type: 'Luxury',
       price: '$500-2,000/night',
       rating: 4.8,
-      image: '/images/accommodations/mara-serena.jpg',
+      image: '/images/stays/mara-serena.jpg',
       location: 'Masai Mara',
       amenities: ['Hilltop', 'Upscale', 'Migration Views', 'Premium Service'],
       description: 'Hilltop, upscale, migration views.',
@@ -295,7 +295,7 @@ export default function KenyaPage() {
       type: 'Mid-Range',
       price: '$150-500/night',
       rating: 4.6,
-      image: '/images/accommodations/mara-eden.jpg',
+      image: '/images/stays/mara-eden.jpg',
       location: 'Masai Mara',
       amenities: ['Riverside', 'Eco-friendly', 'Wildlife Proximity', 'Tented Camp'],
       description: 'Riverside, eco-friendly, wildlife proximity.',
@@ -307,7 +307,7 @@ export default function KenyaPage() {
       type: 'Budget',
       price: '$20-150/night',
       rating: 4.3,
-      image: '/images/accommodations/mara-explorers.jpg',
+      image: '/images/stays/mara-explorers.jpg',
       location: 'Masai Mara',
       amenities: ['Budget Tents', 'Community-focused', 'Affordable', 'Local Experience'],
       description: 'Budget tents, community-focused.',
@@ -413,16 +413,16 @@ export default function KenyaPage() {
     setCurrentExperience((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
-  const nextAccommodation = () => {
+  const nextStay = () => {
     const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
-    const maxIndex = Math.max(0, accommodations.length - itemsToShow);
-    setCurrentAccommodation((prev) => (prev + 1) % (maxIndex + 1));
+    const maxIndex = Math.max(0, stays.length - itemsToShow);
+    setCurrentStay((prev) => (prev + 1) % (maxIndex + 1));
   };
 
-  const prevAccommodation = () => {
+  const prevStay = () => {
     const itemsToShow = isMobile ? 1 : isTablet ? 2 : 3;
-    const maxIndex = Math.max(0, accommodations.length - itemsToShow);
-    setCurrentAccommodation((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
+    const maxIndex = Math.max(0, stays.length - itemsToShow);
+    setCurrentStay((prev) => (prev - 1 + (maxIndex + 1)) % (maxIndex + 1));
   };
 
   const nextInsight = () => {
@@ -590,9 +590,7 @@ export default function KenyaPage() {
                   <button
                     key={index}
                     onClick={() => setCurrentDestination(index)}
-                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                      index === currentDestination ? 'bg-[#195e48]' : 'bg-gray-300'
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${ index === currentDestination ? 'bg-[#195e48]' : 'bg-gray-300'}`}
                     aria-label={`Go to destination ${index + 1}`}
                   />
                 ))}
@@ -672,9 +670,7 @@ export default function KenyaPage() {
                   }}
                 >
                   {experiences.map((experience) => (
-                    <div key={experience.id} className={`flex-shrink-0 px-2 md:px-3 ${
-                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
-                    }`}>
+                    <div key={experience.id} className={`flex-shrink-0 px-2 md:px-3 ${ isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'}`}>
                       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-48 md:h-64">
                           <Image
@@ -742,9 +738,7 @@ export default function KenyaPage() {
                   <button
                     key={index}
                     onClick={() => setCurrentExperience(index)}
-                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                      index === currentExperience ? 'bg-[#195e48]' : 'bg-gray-300'
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${ index === currentExperience ? 'bg-[#195e48]' : 'bg-gray-300'}`}
                     aria-label={`Go to experience ${index + 1}`}
                   />
                 ))}
@@ -762,12 +756,12 @@ export default function KenyaPage() {
           </div>
         </section>
 
-        {/* Featured Accommodation Stays */}
+        {/* Featured Stays */}
         <section className="py-12 md:py-20 bg-white">
           <div className="content-section">
             <div className="text-center mb-12 md:mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Featured Accommodation Stays
+                Featured Stays
               </h2>
               <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 Stay in Kenya's finest lodges and camps, from luxury safari lodges to mountain retreats and beach resorts
@@ -776,54 +770,52 @@ export default function KenyaPage() {
 
             <div className="relative">
               <div 
-                ref={accommodationRef}
+                ref={stayRef}
                 className="overflow-hidden"
                 onTouchStart={onTouchStart}
-                onTouchEnd={(e) => onTouchEnd(e, 'accommodation')}
+                onTouchEnd={(e) => onTouchEnd(e, 'stay')}
               >
                 <div 
                   className="flex transition-transform duration-500 ease-in-out"
                   style={{ 
-                    transform: `translateX(-${currentAccommodation * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
+                    transform: `translateX(-${currentStay * (isMobile ? 100 : isTablet ? 50 : 100/3)}%)` 
                   }}
                 >
-                  {accommodations.map((accommodation) => (
-                    <div key={accommodation.id} className={`flex-shrink-0 px-2 md:px-3 ${
-                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
-                    }`}>
+                  {stays.map((stay) => (
+                    <div key={stay.id} className={`flex-shrink-0 px-2 md:px-3 ${ isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'}`}>
                       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-48 md:h-64">
                           <Image
-                            src={accommodation.image}
-                            alt={accommodation.name}
+                            src={stay.image}
+                            alt={stay.name}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           />
                           <div className="absolute top-3 md:top-4 left-3 md:left-4 bg-white bg-opacity-90 text-gray-900 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">
-                            {accommodation.type}
+                            {stay.type}
                           </div>
                         </div>
                         <div className="p-4 md:p-6">
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center text-xs md:text-sm text-gray-500">
                               <MapPinIcon className="w-3 md:w-4 h-3 md:h-4 mr-1" />
-                              <span className="truncate">{accommodation.location}</span>
+                              <span className="truncate">{stay.location}</span>
                             </div>
                             <div className="flex items-center">
                               <StarIcon className="w-3 md:w-4 h-3 md:h-4 text-yellow-400 fill-current mr-1" />
-                              <span className="text-xs md:text-sm font-medium">{accommodation.rating}</span>
+                              <span className="text-xs md:text-sm font-medium">{stay.rating}</span>
                             </div>
                           </div>
                           <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 line-clamp-2">
-                            {accommodation.name}
+                            {stay.name}
                           </h3>
                           <p className="text-sm md:text-base text-gray-600 mb-2 md:mb-3 line-clamp-2">
-                            {accommodation.description}
+                            {stay.description}
                           </p>
                           <div className="space-y-2 md:space-y-3 mb-3 md:mb-4">
                             <div className="flex flex-wrap gap-1">
-                              {accommodation.amenities.slice(0, isMobile ? 1 : 2).map((amenity, index) => (
+                              {stay.amenities.slice(0, isMobile ? 1 : 2).map((amenity, index) => (
                                 <span
                                   key={index}
                                   className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
@@ -831,19 +823,19 @@ export default function KenyaPage() {
                                   {amenity}
                                 </span>
                               ))}
-                              {accommodation.amenities.length > (isMobile ? 1 : 2) && (
+                              {stay.amenities.length > (isMobile ? 1 : 2) && (
                                 <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                                  +{accommodation.amenities.length - (isMobile ? 1 : 2)} more
+                                  +{stay.amenities.length - (isMobile ? 1 : 2)} more
                                 </span>
                               )}
                             </div>
                           </div>
                           <div className="flex items-center justify-between">
                             <div className="text-sm md:text-lg font-bold text-[#195e48]">
-                              {accommodation.price}
+                              {stay.price}
                             </div>
                             <button className="bg-[#195e48] hover:bg-[#164a3a] text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-colors duration-300">
-                              {accommodation.cta}
+                              {stay.cta}
                             </button>
                           </div>
                         </div>
@@ -854,31 +846,29 @@ export default function KenyaPage() {
               </div>
 
               <button
-                onClick={prevAccommodation}
+                onClick={prevStay}
                 className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
-                aria-label="Previous accommodations"
+                aria-label="Previous stays"
               >
                 <ChevronLeftIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
 
               <button
-                onClick={nextAccommodation}
+                onClick={nextStay}
                 className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 md:p-3 shadow-lg transition-all duration-300 z-10"
-                aria-label="Next accommodations"
+                aria-label="Next stays"
               >
                 <ChevronRightIcon className="w-4 md:w-6 h-4 md:h-6 text-gray-600" />
               </button>
               
               {/* Dots indicator for mobile */}
               <div className="flex justify-center mt-6 space-x-2 md:hidden">
-                {Array.from({ length: Math.max(1, accommodations.length) }).map((_, index) => (
+                {Array.from({ length: Math.max(1, stays.length) }).map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentAccommodation(index)}
-                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                      index === currentAccommodation ? 'bg-[#195e48]' : 'bg-gray-300'
-                    }`}
-                    aria-label={`Go to accommodation ${index + 1}`}
+                    onClick={() => setCurrentStay(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${ index === currentStay ? 'bg-[#195e48]' : 'bg-gray-300'}`}
+                    aria-label={`Go to stay ${index + 1}`}
                   />
                 ))}
               </div>
@@ -886,10 +876,10 @@ export default function KenyaPage() {
 
             <div className="text-center mt-12">
               <Link
-                href="/accommodations"
+                href="/stays"
                 className="inline-flex items-center bg-[#195e48] hover:bg-[#164a3a] text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
               >
-                View All Kenya Accommodations
+                View All Kenya Stays
               </Link>
             </div>
           </div>
@@ -921,9 +911,7 @@ export default function KenyaPage() {
                   }}
                 >
                   {insights.map((insight) => (
-                    <div key={insight.id} className={`flex-shrink-0 px-2 md:px-3 ${
-                      isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'
-                    }`}>
+                    <div key={insight.id} className={`flex-shrink-0 px-2 md:px-3 ${ isMobile ? 'w-full' : isTablet ? 'w-1/2' : 'w-1/3'}`}>
                       <article className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-40 md:h-48">
                           <Image
@@ -980,9 +968,7 @@ export default function KenyaPage() {
                   <button
                     key={index}
                     onClick={() => setCurrentInsight(index)}
-                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                      index === currentInsight ? 'bg-[#195e48]' : 'bg-gray-300'
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${ index === currentInsight ? 'bg-[#195e48]' : 'bg-gray-300'}`}
                     aria-label={`Go to insight ${index + 1}`}
                   />
                 ))}
@@ -1028,15 +1014,11 @@ export default function KenyaPage() {
                         {faq.question}
                       </h3>
                       <ChevronDownIcon
-                        className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${
-                          expandedFAQ === index ? 'rotate-180' : ''
-                        }`}
+                        className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${ expandedFAQ === index ? 'rotate-180' : ''}`}
                       />
                     </button>
                     <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        expandedFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                      }`}
+                      className={`overflow-hidden transition-all duration-300 ${ expandedFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                     >
                       <div className="px-6 pb-4">
                         <p className="text-gray-600 leading-relaxed">
