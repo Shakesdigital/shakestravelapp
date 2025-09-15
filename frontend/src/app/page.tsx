@@ -700,7 +700,7 @@ export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
-    "name": "Shake's Travel",
+    "name": "Shakes Travel",
     "description": "Sustainable Uganda adventures and eco-friendly accommodations in the Pearl of Africa",
     "url": typeof window !== 'undefined' ? window.location.origin : '',
     "logo": `${typeof window !== 'undefined' ? window.location.origin : ''}/brand_assets/images/logo/logo.png`,
@@ -728,7 +728,7 @@ export default function Home() {
       {
         "@type": "Offer", 
         "name": "Safari Adventures",
-        "description": "Wildlife viewing in Uganda's national parks",
+        "description": "Wildlife viewing in Uganda\'s national parks",
         "category": "Wildlife Tourism"
       },
       {
@@ -769,7 +769,7 @@ export default function Home() {
         <div className="relative z-10 text-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <header>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-              Discover East Africa's Wonders
+              Discover East Africa\'s Wonders
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
               Experience the heart of Africa through carefully planned adventures across Uganda, Kenya, Tanzania, and Rwanda - featuring eco-friendly accommodations and meaningful cultural connections
@@ -799,8 +799,7 @@ export default function Home() {
                         setActiveCountryTab(country.key as any);
                         register('country').onChange({ target: { value: country.key } });
                       }}
-                      className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                        activeCountryTab === country.key
+                      className={`px-4 py-2 rounded-lg font-semibold transition-all ${activeCountryTab === country.key
                           ? 'text-white'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
@@ -980,8 +979,7 @@ export default function Home() {
                 <button
                   key={country.key}
                   onClick={() => setActiveCountryTab(country.key as any)}
-                  className={`px-6 py-3 rounded-lg font-semibold transition-all mx-1 ${
-                    activeCountryTab === country.key
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all mx-1 ${activeCountryTab === country.key
                       ? 'text-white'
                       : 'text-gray-600 hover:bg-gray-100'
                   }`}
@@ -1047,7 +1045,7 @@ export default function Home() {
                               aria-label={`Explore ${destination.name}: ${destination.description}`}
                             >
                               <div 
-                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200 overflow-hidden" 
+                                className="h-40 sm:h-28 md:h-32 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200 overflow-hidden"
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
