@@ -12,8 +12,6 @@ interface Experience {
   difficulty: string;
   rating: number;
   reviews: number;
-  price: number;
-  originalPrice?: number;
   image: string;
   description: string;
   highlights: string[];
@@ -26,8 +24,6 @@ interface Experience {
 interface Filters {
   category: string;
   region: string;
-  priceMin: string;
-  priceMax: string;
   duration: string;
   difficulty: string;
   ecoFriendly: boolean;
@@ -45,8 +41,6 @@ const AllExperiencesPage: React.FC = () => {
   const [filters, setFilters] = useState<Filters>({
     category: 'all',
     region: 'all',
-    priceMin: '',
-    priceMax: '',
     duration: 'all',
     difficulty: 'all',
     ecoFriendly: false,
@@ -741,9 +735,7 @@ const AllExperiencesPage: React.FC = () => {
             <button
               key={index}
               onClick={() => setCurrentHeroImage(index)}
-              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                index === currentHeroImage ? 'opacity-100' : 'bg-white opacity-50'
-              }`}
+              className={`w-3 h-3 rounded-full transition-colors duration-200 ${ index === currentHeroImage ? 'opacity-100' : 'bg-white opacity-50'}`}
               style={{ backgroundColor: index === currentHeroImage ? 'white' : undefined }}
               aria-label={`Go to hero image ${index + 1}`}
             />
@@ -785,11 +777,9 @@ const AllExperiencesPage: React.FC = () => {
               <button
                 key={category.value}
                 onClick={() => handleFilterChange('category', category.value)}
-                className={`p-4 rounded-xl border-2 transition-all duration-200 text-center hover:shadow-md ${
-                  filters.category === category.value
+                className={`p-4 rounded-xl border-2 transition-all duration-200 text-center hover:shadow-md ${ filters.category === category.value
                     ? 'border-[#195e48] bg-[#195e48] text-white'
-                    : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
-                }`}
+                    : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'}`}
               >
                 <div className="text-2xl mb-2">
                   {category.value === 'Wildlife Safari' && '🦁'}

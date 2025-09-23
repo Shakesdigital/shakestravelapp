@@ -10,9 +10,6 @@ interface Experience {
   country: string;
   rating: number;
   reviews: number;
-  price: number;
-  originalPrice: number;
-  discount: string;
   image: string;
   duration: string;
   category: string;
@@ -171,15 +168,8 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
                       href={`/experiences/${experience.id}`}
                       className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col w-full max-w-md mx-auto"
                     >
-                      {/* Discount Badge */}
+                      {/* Image/Icon Area */}
                       <div className="relative">
-                        <div className="absolute top-4 right-4 z-10">
-                          <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                            {experience.discount}
-                          </span>
-                        </div>
-
-                        {/* Image/Icon Area */}
                         <div
                           className="h-56 flex items-center justify-center text-6xl relative overflow-hidden"
                           style={{ backgroundColor: `${primaryColor}10` }}
@@ -253,23 +243,12 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
                           </span>
                         </div>
 
-                        {/* Price */}
-                        <div className="flex justify-between items-center pt-4 border-t">
-                          <div>
-                            <span className="text-gray-400 line-through text-sm">${experience.originalPrice}</span>
-                            <span className="text-2xl font-bold ml-2" style={{ color: primaryColor }}>
-                              ${experience.price}
-                            </span>
-                          </div>
-                          <span className="text-sm text-gray-500">per person</span>
-                        </div>
-
-                        {/* Book Now Button (always visible with hover effect) */}
+                        {/* Learn More Button */}
                         <button
                           className="w-full mt-4 py-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg hover:brightness-110"
                           style={{ backgroundColor: primaryColor }}
                         >
-                          Book Now
+                          Learn More
                         </button>
                       </div>
                     </Link>

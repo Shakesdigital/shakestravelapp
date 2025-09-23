@@ -6,9 +6,6 @@ export const topEastAfricaExperiences = [
     country: "Uganda",
     rating: 4.9,
     reviews: 128,
-    price: 750, // Updated from previous price
-    originalPrice: 850,
-    discount: "12% OFF",
     image: "🦍",
     duration: "Full Day",
     category: "Wildlife",
@@ -23,9 +20,6 @@ export const topEastAfricaExperiences = [
     country: "Kenya",
     rating: 4.8,
     reviews: 245,
-    price: 495, // Updated from previous price
-    originalPrice: 595,
-    discount: "17% OFF",
     image: "🦁",
     duration: "3 Days",
     category: "Safari",
@@ -40,9 +34,6 @@ export const topEastAfricaExperiences = [
     country: "Tanzania",
     rating: 4.9,
     reviews: 189,
-    price: 650, // Updated from previous price
-    originalPrice: 750,
-    discount: "13% OFF",
     image: "🦓",
     duration: "4 Days",
     category: "Safari",
@@ -57,9 +48,6 @@ export const topEastAfricaExperiences = [
     country: "Tanzania",
     rating: 4.7,
     reviews: 156,
-    price: 2200, // Updated from previous price
-    originalPrice: 2400,
-    discount: "8% OFF",
     image: "⛰️",
     duration: "7 Days",
     category: "Trekking",
@@ -74,9 +62,6 @@ export const topEastAfricaExperiences = [
     country: "Tanzania",
     rating: 4.6,
     reviews: 178,
-    price: 320, // Updated from previous price
-    originalPrice: 380,
-    discount: "16% OFF",
     image: "🏖️",
     duration: "2 Days",
     category: "Cultural",
@@ -91,9 +76,6 @@ export const topEastAfricaExperiences = [
     country: "Uganda",
     rating: 4.7,
     reviews: 134,
-    price: 380, // Updated from previous price
-    originalPrice: 450,
-    discount: "15% OFF",
     image: "🌊",
     duration: "2 Days",
     category: "Safari",
