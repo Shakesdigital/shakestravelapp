@@ -10,6 +10,7 @@ const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDestinationsOpen, setIsDestinationsOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -19,9 +20,68 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Top bar with theme color */}
-      <div className="bg-[#195e48] h-4 w-full fixed top-0 z-[60]"></div>
-      <nav className="bg-white shadow-lg border-b fixed w-full top-4 z-50">
+      {/* Top bar with auth buttons */}
+      <div className="bg-[#195e48] h-10 w-full fixed top-0 z-[60] flex items-center">
+        <div className="content-section flex justify-end pr-6">
+          {user ? (
+          <div className="relative inline-block text-white">
+            <button
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              className="flex items-center space-x-2 focus:outline-none"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </button>
+            {isUserMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsUserMenuOpen(false)}
+                >
+                  Profile
+                </Link>
+                {user.role === 'host' && (
+                  <Link
+                    href="/host/dashboard"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    Host Dashboard
+                  </Link>
+                )}
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsUserMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="space-x-4">
+            <Link 
+              href="/auth/login" 
+              className="px-4 py-1.5 text-sm text-white border border-white rounded-md hover:bg-white hover:text-[#195e48] transition-colors duration-200"
+            >
+              Login
+            </Link>
+            <Link 
+              href="/auth/register" 
+              className="px-4 py-1.5 text-sm bg-white text-[#195e48] rounded-md hover:bg-opacity-90 transition-colors duration-200"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
+        </div>
+      </div>
+      <nav className="bg-white shadow-lg border-b fixed w-full top-10 z-50">
         <div className="content-section">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -118,6 +178,14 @@ const Navbar: React.FC = () => {
                   )}
                 </div>
                 <Link 
+                  href="/planting-green-paths" 
+                  className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap"
+                  onMouseEnter={(e) => e.target.style.color = primaryColor}
+                  onMouseLeave={(e) => e.target.style.color = '#111827'}
+                >
+                  Planting Green Paths
+                </Link>
+                <Link 
                   href="/travel-guide" 
                   className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap"
                   onMouseEnter={(e) => e.target.style.color = primaryColor}
@@ -145,54 +213,6 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              {user ? (
-                <>
-                  <Link 
-                    href="/profile" 
-                    className="hidden md:block text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = primaryColor}
-                    onMouseLeave={(e) => e.target.style.color = '#111827'}
-                  >
-                    Profile
-                  </Link>
-                  {user.role === 'host' && (
-                    <Link 
-                      href="/host/dashboard" 
-                      className="hidden md:block text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                      onMouseEnter={(e) => e.target.style.color = primaryColor}
-                      onMouseLeave={(e) => e.target.style.color = '#111827'}
-                    >
-                      Host Dashboard
-                    </Link>
-                  )}
-                  <button
-                    onClick={logout}
-                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link 
-                    href="/auth/login" 
-                    className="text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = primaryColor}
-                    onMouseLeave={(e) => e.target.style.color = '#111827'}
-                  >
-                    Login
-                  </Link>
-                  <Link 
-                    href="/auth/register" 
-                    className="text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                    style={{ backgroundColor: primaryColor }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = '#164439'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = primaryColor}
-                  >
-                    Sign Up
-                  </Link>
-                </>
-              )}
               
               {/* Hamburger menu button */}
               <button
@@ -241,6 +261,13 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Stays
+              </Link>
+              <Link 
+                href="/planting-green-paths" 
+                className="text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Planting Green Paths
               </Link>
               
               {/* Mobile Destinations Menu */}
@@ -302,26 +329,7 @@ const Navbar: React.FC = () => {
               >
                 Contact Us
               </Link>
-              {user && (
-                <>
-                  <Link 
-                    href="/profile" 
-                    className="text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Profile
-                  </Link>
-                  {user.role === 'host' && (
-                    <Link 
-                      href="/host/dashboard" 
-                      className="text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Host Dashboard
-                    </Link>
-                  )}
-                </>
-              )}
+
             </div>
           </div>
         )}
