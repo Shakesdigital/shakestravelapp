@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
     <>
       {/* Top bar with auth buttons */}
       <div className="bg-[#195e48] h-10 w-full fixed top-0 z-[60] flex items-center">
-        <div className="content-section flex justify-start pl-6">
+        <div className="content-section flex justify-end pr-6">
           {user ? (
           <div className="relative inline-block text-white">
             <button
