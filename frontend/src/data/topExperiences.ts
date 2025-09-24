@@ -11,7 +11,8 @@ export const topEastAfricaExperiences = [
     category: "Wildlife",
     highlights: ["Gorilla Family", "Forest Trek", "Photography"],
     difficulty: "Moderate",
-    availability: "Limited Spots"
+    availability: "Limited Spots",
+    description: "Experience the magic of encountering mountain gorillas in their natural habitat"
   },
   {
     id: 2,
@@ -25,7 +26,8 @@ export const topEastAfricaExperiences = [
     category: "Safari",
     highlights: ["Big Five", "Migration", "Masai Culture"],
     difficulty: "Easy",
-    availability: "Daily Tours"
+    availability: "Daily Tours",
+    description: "Witness the Great Migration and encounter Africa's Big Five in Kenya's premier wildlife destination"
   },
   {
     id: 3,
@@ -39,7 +41,8 @@ export const topEastAfricaExperiences = [
     category: "Safari",
     highlights: ["Migration", "Predators", "Camping"],
     difficulty: "Easy",
-    availability: "Seasonal"
+    availability: "Seasonal",
+    description: "Observe one of nature's greatest spectacles as millions of wildebeest and zebra cross the Serengeti"
   },
   {
     id: 4,
@@ -53,7 +56,8 @@ export const topEastAfricaExperiences = [
     category: "Trekking",
     highlights: ["Summit", "Scenic Views", "Professional Guides"],
     difficulty: "Challenging",
-    availability: "Year-round"
+    availability: "Year-round",
+    description: "Conquer Africa's highest peak with expert guides and experience breathtaking landscapes"
   },
   {
     id: 5,
@@ -67,7 +71,8 @@ export const topEastAfricaExperiences = [
     category: "Cultural",
     highlights: ["Stone Town", "Spice Tour", "Beach"],
     difficulty: "Easy",
-    availability: "Daily Tours"
+    availability: "Daily Tours",
+    description: "Relax on pristine beaches while exploring the rich cultural heritage of the Spice Island"
   },
   {
     id: 6,
@@ -81,6 +86,7 @@ export const topEastAfricaExperiences = [
     category: "Safari",
     highlights: ["Boat Cruise", "Game Drive", "Waterfall"],
     difficulty: "Easy",
-    availability: "Daily Tours"
+    availability: "Daily Tours",
+    description: "Explore Uganda's largest national park and witness the powerful Murchison Falls"
   }
 ];

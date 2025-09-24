@@ -16,6 +16,9 @@ interface Experience {
   highlights: string[];
   difficulty: string;
   availability: string;
+  description: string;
+  price?: number;
+  originalPrice?: number;
 }
 
 interface ExperienceCarouselProps {
@@ -204,6 +207,11 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
                           {experience.country}
                         </div>
 
+                        {/* Description/Introduction */}
+                        <p className="text-gray-700 text-sm mb-3 line-clamp-2">
+                          {experience.description}
+                        </p>
+
                         {/* Highlights */}
                         <div className="flex gap-2 mb-3">
                           {experience.highlights.map((highlight, idx) => (
@@ -242,6 +250,23 @@ export default function ExperienceCarousel({ experiences = topEastAfricaExperien
                             {experience.availability}
                           </span>
                         </div>
+
+                        {/* Price Information */}
+                        {experience.price !== undefined && (
+                          <div className="flex justify-between items-center mb-4">
+                            <div>
+                              {experience.originalPrice && experience.originalPrice > experience.price && (
+                                <span className="text-sm text-gray-400 line-through mr-2">
+                                  ${experience.originalPrice}
+                                </span>
+                              )}
+                              <span className="text-lg font-bold" style={{ color: primaryColor }}>
+                                ${experience.price}
+                              </span>
+                              <span className="text-xs text-gray-500 ml-1">per person</span>
+                            </div>
+                          </div>
+                        )}
 
                         {/* Learn More Button */}
                         <button

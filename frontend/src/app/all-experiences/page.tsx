@@ -19,6 +19,8 @@ interface Experience {
   groupSize: string;
   ecoFriendly: boolean;
   region: string;
+  price: number;
+  originalPrice?: number;
 }
 
 interface Filters {
