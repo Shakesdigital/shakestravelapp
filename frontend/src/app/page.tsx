@@ -53,10 +53,10 @@ export default function Home() {
 
   const destinations = {
     uganda: [
-      { name: 'Kampala', description: 'Uganda\'s vibrant capital city', country: 'Uganda' },
+      { name: 'Kampala', description: "Uganda's vibrant capital city", country: 'Uganda' },
       { name: 'Bwindi Impenetrable Forest', description: 'Home to mountain gorillas', country: 'Uganda' },
       { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise', country: 'Uganda' },
-      { name: 'Murchison Falls', description: 'World\'s most powerful waterfall', country: 'Uganda' },
+      { name: 'Murchison Falls', description: "World's most powerful waterfall", country: 'Uganda' },
       { name: 'Lake Bunyonyi', description: 'Switzerland of Africa', country: 'Uganda' }
     ],
     kenya: [
@@ -68,8 +68,8 @@ export default function Home() {
     ],
     tanzania: [
       { name: 'Serengeti National Park', description: 'Endless plains of wildlife', country: 'Tanzania' },
-      { name: 'Ngorongoro Crater', description: 'World\'s largest volcanic caldera', country: 'Tanzania' },
-      { name: 'Mount Kilimanjaro', description: 'Africa\'s highest peak', country: 'Tanzania' },
+      { name: 'Ngorongoro Crater', description: "World's largest volcanic caldera", country: 'Tanzania' },
+      { name: 'Mount Kilimanjaro', description: "Africa's highest peak", country: 'Tanzania' },
       { name: 'Zanzibar', description: 'Spice island paradise', country: 'Tanzania' },
       { name: 'Tarangire National Park', description: 'Land of giants and baobabs', country: 'Tanzania' }
     ],
@@ -90,7 +90,188 @@ export default function Home() {
     return destinations[activeCountryTab];
   };
 
-  const featuredExperiences = [\n    {\n      id: 1,\n      title: 'Gorilla Trekking in Bwindi',\n      location: 'Bwindi Impenetrable Forest',\n      country: '🇺🇬 Uganda',\n      rating: 4.9,\n      reviews: 234,\n      image: '🦍',\n      duration: '1 Day',\n      category: 'Wildlife Safari',\n      highlights: ['Expert Guide', 'Permit Included'],\n      difficulty: 'Moderate',\n      availability: 'Daily departures',\n      description: 'Experience the magic of encountering mountain gorillas in their natural habitat'\n    },\n    {\n      id: 2,\n      title: 'Great Migration Safari',\n      location: 'Masai Mara Reserve',\n      country: '🇰🇪 Kenya',\n      rating: 4.8,\n      reviews: 456,\n      image: '🦓',\n      duration: '3 Days',\n      category: 'Wildlife Safari',\n      highlights: ['Balloon Safari', 'Luxury Camp'],\n      difficulty: 'Easy',\n      availability: 'Jul-Oct Best',\n      description: 'Witness one of nature's greatest spectacles as millions of animals cross the savanna'\n    },\n    {\n      id: 3,\n      title: 'Kilimanjaro Summit Trek',\n      location: 'Mount Kilimanjaro',\n      country: '🇹🇿 Tanzania',\n      rating: 4.7,\n      reviews: 312,\n      image: '🏔️',\n      duration: '7 Days',\n      category: 'Adventure',\n      highlights: ['Full Equipment', 'Expert Guides'],\n      difficulty: 'Challenging',\n      availability: 'Year-round',\n      description: 'Conquer Africa's highest peak with breathtaking landscapes and unforgettable adventures'\n    },\n    {\n      id: 4,\n      title: 'Golden Monkey Tracking',\n      location: 'Volcanoes National Park',\n      country: '🇷🇼 Rwanda',\n      rating: 4.8,\n      reviews: 189,\n      image: '🐒',\n      duration: '4 Hours',\n      category: 'Wildlife Safari',\n      highlights: ['Small Groups', 'Photography'],\n      difficulty: 'Easy',\n      availability: 'Daily 9AM & 2PM',\n      description: 'Track playful golden monkeys in Rwanda's pristine mountain forests'\n    },\n    {\n      id: 5,\n      title: 'White Water Rafting Adventure',\n      location: 'Jinja, River Nile',\n      country: '🇺🇬 Uganda',\n      rating: 4.7,\n      reviews: 187,\n      image: '🚣',\n      duration: '4 Hours',\n      category: 'Water Sports',\n      highlights: ['Grade 5 Rapids', 'Safety Equipment'],\n      difficulty: 'Challenging',\n      availability: 'Daily 9AM & 2PM',\n      description: 'Navigate the legendary rapids of the River Nile with expert guides'\n    },\n    {\n      id: 6,\n      title: 'Ngorongoro Crater Safari',\n      location: 'Ngorongoro Conservation',\n      country: '🇹🇿 Tanzania',\n      rating: 4.9,\n      reviews: 523,\n      image: '🦁',\n      duration: '2 Days',\n      category: 'Wildlife Safari',\n      highlights: ['Big Five', 'Crater Lodge'],\n      difficulty: 'Easy',\n      availability: 'Daily departures',\n      description: 'Explore the world's largest intact volcanic caldera teeming with wildlife'\n    },\n    {\n      id: 7,\n      title: 'Canopy Walk in Nyungwe',\n      location: 'Nyungwe Forest',\n      country: '🇷🇼 Rwanda',\n      rating: 4.6,\n      reviews: 145,\n      image: '🌲',\n      duration: '3 Hours',\n      category: 'Adventure',\n      highlights: ['Suspended Bridge', 'Bird Watching'],\n      difficulty: 'Moderate',\n      availability: 'Morning tours',\n      description: 'Walk among the treetops in one of Africa's oldest rainforests'\n    },\n    {\n      id: 8,\n      title: 'Serengeti Balloon Safari',\n      location: 'Serengeti National Park',\n      country: '🇹🇿 Tanzania',\n      rating: 5.0,\n      reviews: 267,\n      image: '🎈',\n      duration: '3 Hours',\n      category: 'Aerial Adventure',\n      highlights: ['Sunrise Flight', 'Champagne Breakfast'],\n      difficulty: 'Easy',\n      availability: 'Daily at dawn',\n      description: 'Float above the endless plains and witness wildlife from a unique perspective'\n    },\n    {\n      id: 9,\n      title: 'Maasai Cultural Experience',\n      location: 'Amboseli Region',\n      country: '🇰🇪 Kenya',\n      rating: 4.7,\n      reviews: 203,\n      image: '🏘️',\n      duration: '1 Day',\n      category: 'Cultural',\n      highlights: ['Village Visit', 'Traditional Dance'],\n      difficulty: 'Easy',\n      availability: 'Tue, Thu, Sat',\n      description: 'Immerse yourself in the rich traditions of the iconic Maasai people'\n    },\n    {\n      id: 10,\n      title: 'Chimpanzee Habituation',\n      location: 'Kibale Forest',\n      country: '🇺🇬 Uganda',\n      rating: 4.8,\n      reviews: 178,\n      image: '🦧',\n      duration: 'Full Day',\n      category: 'Wildlife Safari',\n      highlights: ['Research Team', 'All Day Access'],\n      difficulty: 'Moderate',\n      availability: 'Limited permits',\n      description: 'Spend an entire day with our closest relatives in their natural forest home'\n    },\n    {\n      id: 11,\n      title: 'Zanzibar Spice & Beach Tour',\n      location: 'Zanzibar Island',\n      country: '🇹🇿 Tanzania',\n      rating: 4.6,\n      reviews: 412,\n      image: '🏝️',\n      duration: '1 Day',\n      category: 'Cultural',\n      highlights: ['Spice Farm', 'Stone Town'],\n      difficulty: 'Easy',\n      availability: 'Daily tours',\n      description: 'Explore aromatic spice farms and pristine beaches on the exotic Spice Island'\n    },\n    {\n      id: 12,\n      title: 'Lake Nakuru Flamingo Safari',\n      location: 'Lake Nakuru',\n      country: '🇰🇪 Kenya',\n      rating: 4.5,\n      reviews: 289,\n      image: '🦩',\n      duration: '1 Day',\n      category: 'Wildlife Safari',\n      highlights: ['Pink Flamingos', 'Rhino Sanctuary'],\n      difficulty: 'Easy',\n      availability: 'Best Nov-Apr',\n      description: 'Marvel at thousands of pink flamingos and endangered rhinos in this beautiful park'\n    }\n  ];
+  const featuredExperiences = [
+    {
+      id: 1,
+      title: 'Gorilla Trekking in Bwindi',
+      location: 'Bwindi Impenetrable Forest',
+      country: '🇺🇬 Uganda',
+      rating: 4.9,
+      reviews: 234,
+      image: '🦍',
+      duration: '1 Day',
+      category: 'Wildlife Safari',
+      highlights: ['Expert Guide', 'Permit Included'],
+      difficulty: 'Moderate',
+      availability: 'Daily departures',
+      description: 'Experience the magic of encountering mountain gorillas in their natural habitat'
+    },
+    {
+      id: 2,
+      title: 'Great Migration Safari',
+      location: 'Masai Mara Reserve',
+      country: '🇰🇪 Kenya',
+      rating: 4.8,
+      reviews: 456,
+      image: '🦓',
+      duration: '3 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Balloon Safari', 'Luxury Camp'],
+      difficulty: 'Easy',
+      availability: 'Jul-Oct Best',
+      description: "Witness one of nature's greatest spectacles as millions of animals cross the savanna"
+    },
+    {
+      id: 3,
+      title: 'Kilimanjaro Summit Trek',
+      location: 'Mount Kilimanjaro',
+      country: '🇹🇿 Tanzania',
+      rating: 4.7,
+      reviews: 312,
+      image: '🏔️',
+      duration: '7 Days',
+      category: 'Adventure',
+      highlights: ['Full Equipment', 'Expert Guides'],
+      difficulty: 'Challenging',
+      availability: 'Year-round',
+      description: "Conquer Africa's highest peak with breathtaking landscapes and unforgettable adventures"
+    },
+    {
+      id: 4,
+      title: 'Golden Monkey Tracking',
+      location: 'Volcanoes National Park',
+      country: '🇷🇼 Rwanda',
+      rating: 4.8,
+      reviews: 189,
+      image: '🐒',
+      duration: '4 Hours',
+      category: 'Wildlife Safari',
+      highlights: ['Small Groups', 'Photography'],
+      difficulty: 'Easy',
+      availability: 'Daily 9AM & 2PM',
+      description: "Track playful golden monkeys in Rwanda's pristine mountain forests"
+    },
+    {
+      id: 5,
+      title: 'White Water Rafting Adventure',
+      location: 'Jinja, River Nile',
+      country: '🇺🇬 Uganda',
+      rating: 4.7,
+      reviews: 187,
+      image: '🚣',
+      duration: '4 Hours',
+      category: 'Water Sports',
+      highlights: ['Grade 5 Rapids', 'Safety Equipment'],
+      difficulty: 'Challenging',
+      availability: 'Daily 9AM & 2PM',
+      description: 'Navigate the legendary rapids of the River Nile with expert guides'
+    },
+    {
+      id: 6,
+      title: 'Ngorongoro Crater Safari',
+      location: 'Ngorongoro Conservation',
+      country: '🇹🇿 Tanzania',
+      rating: 4.9,
+      reviews: 523,
+      image: '🦁',
+      duration: '2 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Big Five', 'Crater Lodge'],
+      difficulty: 'Easy',
+      availability: 'Daily departures',
+      description: 'Explore the world\'s largest intact volcanic caldera teeming with wildlife'
+    },
+    {
+      id: 7,
+      title: 'Canopy Walk in Nyungwe',
+      location: 'Nyungwe Forest',
+      country: '🇷🇼 Rwanda',
+      rating: 4.6,
+      reviews: 145,
+      image: '🌲',
+      duration: '3 Hours',
+      category: 'Adventure',
+      highlights: ['Suspended Bridge', 'Bird Watching'],
+      difficulty: 'Moderate',
+      availability: 'Morning tours',
+      description: "Walk among the treetops in one of Africa's oldest rainforests"
+    },
+    {
+      id: 8,
+      title: 'Serengeti Balloon Safari',
+      location: 'Serengeti National Park',
+      country: '🇹🇿 Tanzania',
+      rating: 5.0,
+      reviews: 267,
+      image: '🎈',
+      duration: '3 Hours',
+      category: 'Aerial Adventure',
+      highlights: ['Sunrise Flight', 'Champagne Breakfast'],
+      difficulty: 'Easy',
+      availability: 'Daily at dawn',
+      description: 'Float above the endless plains and witness wildlife from a unique perspective'
+    },
+    {
+      id: 9,
+      title: 'Maasai Cultural Experience',
+      location: 'Amboseli Region',
+      country: '🇰🇪 Kenya',
+      rating: 4.7,
+      reviews: 203,
+      image: '🏘️',
+      duration: '1 Day',
+      category: 'Cultural',
+      highlights: ['Village Visit', 'Traditional Dance'],
+      difficulty: 'Easy',
+      availability: 'Tue, Thu, Sat',
+      description: 'Immerse yourself in the rich traditions of the iconic Maasai people'
+    },
+    {
+      id: 10,
+      title: 'Chimpanzee Habituation',
+      location: 'Kibale Forest',
+      country: '🇺🇬 Uganda',
+      rating: 4.8,
+      reviews: 178,
+      image: '🦧',
+      duration: 'Full Day',
+      category: 'Wildlife Safari',
+      highlights: ['Research Team', 'All Day Access'],
+      difficulty: 'Moderate',
+      availability: 'Limited permits',
+      description: "Spend an entire day with our closest relatives in their natural forest home"
+    },
+    {
+      id: 11,
+      title: 'Zanzibar Spice & Beach Tour',
+      location: 'Zanzibar Island',
+      country: '🇹🇿 Tanzania',
+      rating: 4.6,
+      reviews: 412,
+      image: '🏝️',
+      duration: '1 Day',
+      category: 'Cultural',
+      highlights: ['Spice Farm', 'Stone Town'],
+      difficulty: 'Easy',
+      availability: 'Daily tours',
+      description: 'Explore aromatic spice farms and pristine beaches on the exotic Spice Island'
+    },
+    {
+      id: 12,
+      title: 'Lake Nakuru Flamingo Safari',
+      location: 'Lake Nakuru',
+      country: '🇰🇪 Kenya',
+      rating: 4.5,
+      reviews: 289,
+      image: '🦩',
+      duration: '1 Day',
+      category: 'Wildlife Safari',
+      highlights: ['Pink Flamingos', 'Rhino Sanctuary'],
+      difficulty: 'Easy',
+      availability: 'Best Nov-Apr',
+      description: 'Marvel at thousands of pink flamingos and endangered rhinos in this beautiful park'
+    }
+  ];
 
   const featuredAccommodations = [
     // Uganda - Premium Gorilla Trekking & Safari Accommodations
@@ -303,7 +484,7 @@ export default function Home() {
     // Rwanda - Gorilla Trekking Excellence & Lake Retreats
     {
       id: 13,
-      name: 'One & Only Gorilla\'s Nest',
+      name: "One & Only Gorilla's Nest",
       location: 'Volcanoes National Park',
       country: '🇷🇼 Rwanda',
       rating: 5.0,
@@ -399,7 +580,7 @@ export default function Home() {
     },
     {
       title: 'Great Migration Guide',
-      preview: 'Follow the world\'s greatest wildlife spectacle from Serengeti to Maasai Mara and plan your perfect migration safari...',
+      preview: "Follow the world's greatest wildlife spectacle from Serengeti to Maasai Mara and plan your perfect migration safari...",
       readTime: '10 min read',
       image: '🦁',
       region: 'Kenya & Tanzania'
@@ -475,7 +656,7 @@ export default function Home() {
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) return; 
     
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
@@ -523,7 +704,7 @@ export default function Home() {
       {
         "@type": "Offer", 
         "name": "Safari Adventures",
-        "description": "Wildlife viewing in Uganda\'s national parks",
+        "description": "Wildlife viewing in Uganda's national parks",
         "category": "Wildlife Tourism"
       },
       {
@@ -564,7 +745,7 @@ export default function Home() {
         <div className="relative z-10 text-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <header>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-              Discover East Africa\'s Wonders
+              Discover East Africa's Wonders
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
               Experience the heart of Africa through carefully planned adventures across Uganda, Kenya, Tanzania, and Rwanda - featuring eco-friendly accommodations and meaningful cultural connections
@@ -765,7 +946,7 @@ export default function Home() {
           {/* Country Navigation for Destinations */}
           <div className="flex justify-center mb-12">
             <div className="bg-white rounded-xl p-2 shadow-md">
-              {[
+              {[ 
                 { key: 'uganda', label: '🇺🇬 Uganda' },
                 { key: 'kenya', label: '🇰🇪 Kenya' },
                 { key: 'tanzania', label: '🇹🇿 Tanzania' },
