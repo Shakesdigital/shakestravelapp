@@ -1164,19 +1164,8 @@ const AllExperiencesPage: React.FC = () => {
                                 <span>👥 {experience.groupSize}</span>
                               </div>
                               
-                              {/* Price and Book Button */}
-                              <div className="flex justify-between items-center">
-                                <div>
-                                  {experience.originalPrice && experience.originalPrice > experience.price && (
-                                    <span className="text-sm text-gray-400 line-through mr-2">
-                                      ${experience.originalPrice}
-                                    </span>
-                                  )}
-                                  <span className="text-2xl font-bold" style={{ color: primaryColor }}>
-                                    ${experience.price}
-                                  </span>
-                                  <span className="text-sm text-gray-500 ml-1">per person</span>
-                                </div>
+                              {/* Book Button */}
+                              <div className="flex justify-end items-center">
                                 <button
                                   className="btn-primary text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm"
                                   style={{ backgroundColor: primaryColor }}
@@ -1185,7 +1174,7 @@ const AllExperiencesPage: React.FC = () => {
                                     window.location.href = `/experiences/${experience.id}`;
                                   }}
                                 >
-                                  Book Now
+                                  View Details
                                 </button>
                               </div>
                             </div>
