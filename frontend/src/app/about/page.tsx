@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'About Us | Sustainable East Africa Adventures | Shake\'s Travel',
-  description: 'Welcome to Shakes Travel, a Uganda-based travel agency dedicated to inspiring meaningful travel experiences that showcase East Africa\'s stunning natural beauty through our flagship Planting Green Paths Initiative.','
+  description: 'Welcome to Shakes Travel, a Uganda-based travel agency dedicated to inspiring meaningful travel experiences that showcase East Africa\'s stunning natural beauty through our flagship Planting Green Paths Initiative.',
   keywords: 'about Shakes Travel, East Africa travel company, Uganda Kenya Tanzania Rwanda, sustainable tourism, eco-friendly adventures, team, mission, values',
   openGraph: {
     title: 'About Shake\'s Travel | Sustainable East Africa Adventures',
