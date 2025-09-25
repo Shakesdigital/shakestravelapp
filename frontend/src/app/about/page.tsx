@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'About Us | Sustainable East Africa Adventures | Shake\'s Travel',
-  description: 'Learn about Shake\'s Travel - East Africa\'s premier eco-friendly adventure travel company. Discover our mission, team, and commitment to sustainable tourism across Uganda, Kenya, Tanzania, and Rwanda.',
+  description: 'Welcome to Shakes Travel, a Uganda-based travel agency dedicated to inspiring meaningful travel experiences that showcase East Africa\'s stunning natural beauty through our flagship Planting Green Paths Initiative.','
   keywords: 'about Shakes Travel, East Africa travel company, Uganda Kenya Tanzania Rwanda, sustainable tourism, eco-friendly adventures, team, mission, values',
   openGraph: {
     title: 'About Shake\'s Travel | Sustainable East Africa Adventures',
@@ -88,13 +88,13 @@ const AboutPage: React.FC = () => {
   const companyValues = [
     {
       icon: '🌱',
-      title: 'Environmental Stewardship',
-      description: 'We\'re committed to preserving East Africa\'s natural beauty for future generations through sustainable practices and regional conservation initiatives.'
+      title: 'Environmental Conservation',
+      description: 'Through strategic tree planting and reforestation, every trip with us actively restores East Africa\'s natural ecosystems and leaves a greener, more vibrant footprint.'
     },
     {
       icon: '🤝',
-      title: 'Community Empowerment',
-      description: 'Every tour directly benefits local communities across Uganda, Kenya, Tanzania, and Rwanda through employment, fair wages, and development projects.'
+      title: 'Local Community Partnership',
+      description: 'We collaborate with authentic local providers across East Africa, ensuring our tours benefit communities while delivering exceptional, culturally immersive experiences.'
     },
     {
       icon: '🦍',
@@ -103,8 +103,8 @@ const AboutPage: React.FC = () => {
     },
     {
       icon: '✨',
-      title: 'Authentic Experiences',
-      description: 'We create genuine connections between travelers and East Africa\'s diverse peoples, cultures, and landscapes for meaningful memories.'
+      title: 'Meaningful Travel Experiences',
+      description: 'Our journeys immerse travelers in East Africa\'s stunning natural beauty, vibrant cultures, and diverse landscapes, creating transformative adventures with purpose.'
     },
     {
       icon: '🛡️',
@@ -113,8 +113,8 @@ const AboutPage: React.FC = () => {
     },
     {
       icon: '💚',
-      title: 'Ethical Tourism',
-      description: 'We believe in responsible travel that respects local customs, supports regional economies, and minimizes environmental impact across East Africa.'
+      title: 'Sustainable Tourism Mission',
+      description: 'We are committed to sustainable tourism that actively restores natural ecosystems while fostering deep, responsible connections with East Africa\'s people and places.'
     }
   ];
 
@@ -237,7 +237,7 @@ const AboutPage: React.FC = () => {
                 About Shake's Travel
               </h1>
               <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-                East Africa's premier eco-friendly adventure travel company, committed to sustainable tourism and conservation across Uganda, Kenya, Tanzania, and Rwanda since 2012
+A Uganda-based travel agency dedicated to inspiring and crafting meaningful travel and adventure experiences that showcase East Africa's stunning natural beauty, vibrant cultures, and diverse landscapes
               </p>
             </div>
             
@@ -273,13 +273,13 @@ const AboutPage: React.FC = () => {
                 </h2>
                 <div className="prose prose-lg text-gray-600 space-y-6">
                   <p>
-                    Founded in 2012 by Sarah Nakato, a passionate conservationist and Uganda native, Shake's Travel began with a simple yet powerful vision: to share East Africa's incredible natural beauty while ensuring its preservation for future generations across all four countries.
+                    Welcome to Shakes Travel, a Uganda-based travel agency dedicated to inspiring and crafting meaningful travel and adventure experiences that showcase East Africa's stunning natural beauty, vibrant cultures, and diverse landscapes. Our journeys immerse travelers in the heart of East Africa while advancing environmental conservation through our flagship Planting Green Paths Initiative.
                   </p>
                   <p>
-                    Growing up in Kampala, Sarah witnessed firsthand the challenges facing East Africa's wildlife and communities. She recognized that sustainable tourism could be a powerful force for positive change, creating economic opportunities while funding conservation efforts across borders.
+                    We are committed to sustainable tourism that actively restores East Africa's natural ecosystems. Through strategic tree planting and reforestation, every trip leaves a greener, more vibrant footprint. At the core of our mission, we deliver exceptional travel experiences across iconic East African destinations—Maasai Mara, Amboseli, Serengeti, Zanzibar, Volcanoes National Park, and Bwindi—rooted in local insight and authentic partnerships with community tour providers.
                   </p>
                   <p>
-                    What started as small group tours to Bwindi Impenetrable Forest has grown into East Africa's leading eco-friendly adventure travel company, with operations spanning Uganda, Kenya, Tanzania, and Rwanda. Our core mission remains unchanged: authentic experiences that benefit travelers, communities, and the environment across the region.
+                    We collaborate with local providers to offer meticulously planned safaris, convenient tourist accommodations, and immersive cultural and historical tours that highlight the region's rich heritage. Our eco-friendly services, including green travel options with tree planting initiatives and expert travel consultation, ensure unforgettable journeys while fostering deep, responsible connections with East Africa's people and places.
                   </p>
                 </div>
                 <Link 
@@ -326,32 +326,32 @@ const AboutPage: React.FC = () => {
                 Our Mission
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                To create transformative travel experiences that celebrate East Africa's natural wonders while actively contributing to conservation and community development across Uganda, Kenya, Tanzania, and Rwanda
+                To inspire and craft meaningful travel and adventure experiences that showcase East Africa's stunning natural beauty while advancing environmental conservation through our flagship Planting Green Paths Initiative, creating transformative journeys that preserve the wild beauty of East Africa with purpose
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-2xl p-8 shadow-lg card-hover-effect text-center">
                 <div className="text-6xl mb-6">🌍</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Sustainable Tourism</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Planting Green Paths Initiative</h3>
                 <p className="text-gray-600">
-                  We operate with minimal environmental impact across East Africa, using eco-friendly practices and supporting regional conservation initiatives in every aspect of our business.
+                  Through the Planting Green Paths Initiative, we combat deforestation and restore fragile habitats across East Africa's tourist and adventure destinations. A portion of every booking directly funds the planting of a tree seedling, ensuring that every traveler contributes to conservation.
                 </p>
               </div>
               
               <div className="bg-white rounded-2xl p-8 shadow-lg card-hover-effect text-center">
                 <div className="text-6xl mb-6">🤝</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Community Partnership</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Authentic Local Partnerships</h3>
                 <p className="text-gray-600">
-                  We work directly with local communities across all four East African countries, ensuring fair employment, cultural respect, and that tourism benefits reach those who need it most.
+                  We collaborate with local providers to offer meticulously planned safaris, convenient tourist accommodations, and immersive cultural and historical tours. Our authentic partnerships with community tour providers ensure meaningful connections with East Africa's people and places.
                 </p>
               </div>
               
               <div className="bg-white rounded-2xl p-8 shadow-lg card-hover-effect text-center">
                 <div className="text-6xl mb-6">💚</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Conservation Impact</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Ecosystem Restoration</h3>
                 <p className="text-gray-600">
-                  Through our regional tree planting programs and cross-border wildlife conservation partnerships, we actively contribute to preserving East Africa's rich biodiversity.
+                  By choosing Shakes Travel, you help us plant trees that preserve biodiversity, stabilize ecosystems, and safeguard East Africa's natural beauty for future generations. Every journey leaves a greener, more vibrant footprint.
                 </p>
               </div>
             </div>
@@ -512,7 +512,7 @@ const AboutPage: React.FC = () => {
               Ready to Explore East Africa?
             </h2>
             <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
-              Join us for an unforgettable adventure that makes a positive impact on East Africa's communities and environment across Uganda, Kenya, Tanzania, and Rwanda
+              Join us for transformative East African adventures where every journey preserves the wild beauty of East Africa with purpose. Experience our flagship Planting Green Paths Initiative and discover iconic destinations like Maasai Mara, Serengeti, Zanzibar, and Bwindi
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
