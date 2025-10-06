@@ -25,6 +25,8 @@
   "author": "Shakes Travel Team",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.902.0",
+    "@aws-sdk/lib-dynamodb": "^3.902.0",
     "@netlify/blobs": "^10.0.9",
     "axios": "^1.11.0",
     "bcryptjs": "^2.4.3",

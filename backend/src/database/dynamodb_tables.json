@@ -1,0 +1,264 @@
+{
+  "tables": [
+    {
+      "TableName": "ShakesTravel_Experiences",
+      "AttributeDefinitions": [
+        {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "userId",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "createdAt",
+          "AttributeType": "S"
+        }
+      ],
+      "KeySchema": [
+        {
+          "AttributeName": "id",
+          "KeyType": "HASH"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "UserIdIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "userId",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "createdAt",
+              "KeyType": "RANGE"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        },
+        {
+          "IndexName": "StatusIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "status",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "createdAt",
+              "KeyType": "RANGE"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        }
+      ],
+      "BillingMode": "PAY_PER_REQUEST",
+      "Tags": [
+        {
+          "Key": "Application",
+          "Value": "ShakesTravel"
+        },
+        {
+          "Key": "Environment",
+          "Value": "Production"
+        }
+      ]
+    },
+    {
+      "TableName": "ShakesTravel_Accommodations",
+      "AttributeDefinitions": [
+        {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "userId",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "createdAt",
+          "AttributeType": "S"
+        }
+      ],
+      "KeySchema": [
+        {
+          "AttributeName": "id",
+          "KeyType": "HASH"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "UserIdIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "userId",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "createdAt",
+              "KeyType": "RANGE"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        },
+        {
+          "IndexName": "StatusIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "status",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "createdAt",
+              "KeyType": "RANGE"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        }
+      ],
+      "BillingMode": "PAY_PER_REQUEST",
+      "Tags": [
+        {
+          "Key": "Application",
+          "Value": "ShakesTravel"
+        },
+        {
+          "Key": "Environment",
+          "Value": "Production"
+        }
+      ]
+    },
+    {
+      "TableName": "ShakesTravel_Articles",
+      "AttributeDefinitions": [
+        {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "authorId",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "slug",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "moderationStatus",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "publishedAt",
+          "AttributeType": "S"
+        }
+      ],
+      "KeySchema": [
+        {
+          "AttributeName": "id",
+          "KeyType": "HASH"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "AuthorIdIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "authorId",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "publishedAt",
+              "KeyType": "RANGE"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        },
+        {
+          "IndexName": "SlugIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "slug",
+              "KeyType": "HASH"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        },
+        {
+          "IndexName": "ModerationStatusIndex",
+          "KeySchema": [
+            {
+              "AttributeName": "moderationStatus",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "publishedAt",
+              "KeyType": "RANGE"
+            }
+          ],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        }
+      ],
+      "BillingMode": "PAY_PER_REQUEST",
+      "Tags": [
+        {
+          "Key": "Application",
+          "Value": "ShakesTravel"
+        },
+        {
+          "Key": "Environment",
+          "Value": "Production"
+        }
+      ]
+    }
+  ]
+}

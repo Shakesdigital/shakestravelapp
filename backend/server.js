@@ -26,7 +26,7 @@ const morgan = require('morgan');
 
 // Import custom modules
 const database = require('./src/config/database');
-const { initializeOracleDB, healthCheck: oracleHealthCheck, closePool } = require('./src/config/oracle');
+const { initializeDynamoDB, healthCheck: dynamoHealthCheck } = require('./src/config/dynamodb');
 const { setupSecurity, sanitizeInput } = require('./src/middleware/security');
 const { globalErrorHandler, notFoundHandler, catchAsync } = require('./src/middleware/errorHandler');
 const { logger, requestLogger, businessLogger, performanceLogger } = require('./src/utils/logger');
@@ -86,10 +86,10 @@ class ShakesTravelServer {
       await database.connect();
       logger.info('✅ MongoDB connected successfully');
 
-      // Connect to Oracle Database
-      logger.info('📊 Connecting to Oracle Database...');
-      await initializeOracleDB();
-      logger.info('✅ Oracle Database connected successfully');
+      // Connect to DynamoDB
+      logger.info('📊 Connecting to DynamoDB...');
+      await initializeDynamoDB();
+      logger.info('✅ DynamoDB connected successfully');
     } catch (error) {
       logger.error('❌ Database connection failed:', error);
       throw error;
@@ -172,9 +172,9 @@ class ShakesTravelServer {
 
     // Health check endpoint
     this.app.get('/api/health', catchAsync(async (req, res) => {
-      const [mongoHealth, oracleHealth] = await Promise.all([
+      const [mongoHealth, dynamoHealth] = await Promise.all([
         database.healthCheck(),
-        oracleHealthCheck()
+        dynamoHealthCheck()
       ]);
 
       const healthCheck = {
@@ -189,12 +189,12 @@ class ShakesTravelServer {
         },
         databases: {
           mongodb: mongoHealth,
-          oracle: oracleHealth ? 'connected' : 'disconnected'
+          dynamodb: dynamoHealth ? 'connected' : 'disconnected'
         }
       };
 
       // Check if any critical systems are down
-      if (!database.isHealthy() || !oracleHealth) {
+      if (!database.isHealthy() || !dynamoHealth) {
         healthCheck.status = 'unhealthy';
         return res.status(503).json(healthCheck);
       }
@@ -282,14 +282,14 @@ class ShakesTravelServer {
     // Trip plans routes (public)
     this.app.use('/api/trip-plans', require('./src/routes/trip-plans'));
 
-    // User content creation routes (Oracle DB)
-    this.app.use('/api/user-content', require('./src/routes/userContentOracle'));
+    // User content creation routes (DynamoDB)
+    this.app.use('/api/user-content', require('./src/routes/userContentDynamoDB'));
 
     // Admin moderation routes (keep existing MongoDB version for now)
     this.app.use('/api/admin/moderation', require('./src/routes/adminModeration'));
 
-    // Public content routes (Oracle DB - approved user-generated content)
-    this.app.use('/api/public', require('./src/routes/publicContentOracle'));
+    // Public content routes (DynamoDB - approved user-generated content)
+    this.app.use('/api/public', require('./src/routes/publicContentDynamoDB'));
 
     logger.info('✅ Routes setup completed');
   }
@@ -349,14 +349,12 @@ class ShakesTravelServer {
           });
         }
 
-        // Close Oracle Database connection pool
-        logger.info('🔒 Closing Oracle Database connection pool...');
-        await closePool();
-        logger.info('✅ Oracle connection pool closed');
-
         // Close MongoDB connection
         await database.disconnect();
         logger.info('✅ MongoDB connection closed');
+
+        // DynamoDB doesn't require explicit connection closing
+        logger.info('✅ DynamoDB client closed');
 
         // Log final shutdown message
         logger.info('🛑 Server shutdown completed gracefully');
