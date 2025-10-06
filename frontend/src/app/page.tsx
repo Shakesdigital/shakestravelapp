@@ -748,7 +748,7 @@ export default function Home() {
               Discover East Africa's Wonders
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto">
-              Experience the heart of Africa through carefully planned adventures across Uganda, Kenya, Tanzania, and Rwanda - featuring eco-friendly accommodations and meaningful cultural connections
+              Experience sustainable tourism that celebrates East Africa's breathtaking natural wonders - crafting immersive journeys that connect travelers deeply with the authentic spirit of the region while championing environmental conservation
             </p>
           </header>
           
@@ -1237,7 +1237,7 @@ export default function Home() {
               🌱 Planting Green Paths
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Travel with purpose. Every journey contributes to East Africa's environmental conservation and community development.
+              Travel with purpose. Every journey actively contributes to healing and protecting the continent's ecosystems while empowering communities and creating pathways for cultural preservation.
             </p>
           </div>
           
@@ -1298,7 +1298,7 @@ export default function Home() {
             Ready for Your East Africa Adventure?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of travelers discovering sustainable adventures across Uganda, Kenya, Tanzania, and Rwanda
+            Join us in redefining adventure as a force for good - where travelers, hosts, and ecosystems thrive together through responsible, restorative travel
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 

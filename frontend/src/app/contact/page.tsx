@@ -236,7 +236,7 @@ const ContactPage: React.FC = () => {
                 Get In Touch
               </h1>
               <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-                Ready to start your Uganda adventure? We're here to help plan your perfect eco-friendly journey
+                Ready to start your East Africa adventure? We're here to help craft restorative journeys that connect you with the authentic spirit of the region
               </p>
             </div>
             
@@ -284,7 +284,7 @@ const ContactPage: React.FC = () => {
                   Send Us a Message
                 </h2>
                 <p className="text-xl text-gray-600 mb-8">
-                  Fill out the form below and we'll get back to you within 24 hours with personalized recommendations for your Uganda adventure.
+                  Fill out the form below and we'll get back to you within 24 hours with personalized recommendations for your East Africa restorative travel experience.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -533,8 +533,8 @@ const ContactPage: React.FC = () => {
                   <div className="flex items-start space-x-4">
                     <div className="text-2xl">💚</div>
                     <div>
-                      <div className="font-semibold text-gray-900">Eco-Friendly Focus</div>
-                      <div className="text-gray-600 text-sm">Sustainable tourism that gives back</div>
+                      <div className="font-semibold text-gray-900">Restorative Travel</div>
+                      <div className="text-gray-600 text-sm">Adventures that heal ecosystems and empower communities</div>
                     </div>
                   </div>
                 </div>
@@ -559,7 +559,7 @@ const ContactPage: React.FC = () => {
                 Our Locations
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Visit us at our offices across Uganda, strategically located for easy access to major attractions
+                Visit us at our offices across East Africa, strategically located for easy access to major attractions and authentic community connections
               </p>
             </div>
 
@@ -701,7 +701,7 @@ const ContactPage: React.FC = () => {
                 Frequently Asked Questions
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Get quick answers to common questions about Uganda adventures
+                Get quick answers to common questions about East Africa's restorative travel adventures
               </p>
             </div>
 
@@ -758,7 +758,7 @@ const ContactPage: React.FC = () => {
                 Follow Our Adventures
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Stay connected and get inspired by real Uganda adventures from our travelers
+                Stay connected and get inspired by real East Africa restorative travel stories from our community
               </p>
             </div>
 
@@ -798,7 +798,7 @@ const ContactPage: React.FC = () => {
               Ready to Start Planning?
             </h2>
             <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
-              Whether you're dreaming of gorilla encounters, Nile adventures, or cultural immersion, we're here to make it happen
+              Whether you're dreaming of gorilla encounters, Nile adventures, or cultural immersion - we're here to craft restorative journeys that connect you deeply with East Africa's authentic spirit
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 

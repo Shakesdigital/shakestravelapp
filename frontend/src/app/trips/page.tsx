@@ -295,8 +295,8 @@ export default function ExperiencesPage() {
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
                 {heroImages[currentHeroImage].title}
               </h1>
-              <p className="text-xl md:text-2xl mb-8 opacity-90">
-                {heroImages[currentHeroImage].subtitle}
+              <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
+                {heroImages[currentHeroImage].subtitle} - Restorative travel experiences that heal and protect East Africa's ecosystems
               </p>
             </div>
             
@@ -472,7 +472,7 @@ export default function ExperiencesPage() {
                 Adventure Categories
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Choose your perfect adventure from our diverse range of Uganda experiences
+                Choose handcrafted adventures that prioritize low-impact exploration, responsible wildlife encounters, and genuine cultural exchanges across East Africa
               </p>
             </header>
             
@@ -877,7 +877,7 @@ export default function ExperiencesPage() {
                 Adventure Travel Guides
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Expert tips and comprehensive guides to help you plan your perfect Uganda adventure
+                Expert tips for mindful, sustainable adventures - fostering meaningful encounters with local communities while championing environmental conservation
               </p>
             </header>
             

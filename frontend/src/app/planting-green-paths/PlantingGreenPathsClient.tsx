@@ -40,7 +40,7 @@ const PlantingGreenPathsClient: React.FC = () => {
               Planting <span className="text-green-200">Green Paths</span>
             </h1>
             <p className="hero-subtitle text-xl md:text-2xl text-green-100 mb-8 max-w-3xl leading-relaxed">
-              Adventure travel that sustainably conserves Uganda's environment. Join our mission to protect biodiversity while creating unforgettable experiences.
+              Restorative travel that actively heals and protects East Africa's ecosystems. Every adventure plants seeds—literally and figuratively—for a greener, more harmonious future.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button 
@@ -76,7 +76,7 @@ const PlantingGreenPathsClient: React.FC = () => {
                 Adventure That Makes a Difference
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                Our Planting Green Paths initiative combines Uganda's breathtaking adventure travel with meaningful environmental conservation. Every journey contributes to reforestation, community development, and the preservation of Uganda's unique biodiversity.
+                Our Planting Green Paths initiative transforms travel into an advocacy platform for harmonious East Africa - where every experience actively contributes to healing ecosystems, empowering communities, and building resilient economies rooted in tourism's positive potential.
               </p>
             </div>
 
@@ -86,7 +86,7 @@ const PlantingGreenPathsClient: React.FC = () => {
                   Conservation Through Adventure
                 </h3>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Uganda is home to incredible wildlife, pristine forests, and vibrant communities. Our initiative ensures that tourism becomes a force for conservation, creating sustainable livelihoods while protecting the natural heritage that makes Uganda the "Pearl of Africa."
+                  East Africa is home to incredible wildlife, pristine forests, and vibrant communities. Our initiative redefines adventure as a force for good - amplifying local voices and expertise to create pathways for cultural preservation, empower communities, and ensure travelers, hosts, and ecosystems thrive together.
                 </p>
                 <ul className="space-y-4">
                   <li className="flex items-start">
@@ -156,7 +156,7 @@ const PlantingGreenPathsClient: React.FC = () => {
                 Why Conservation Matters
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Uganda's biodiversity is under threat. Our initiative creates sustainable solutions that benefit both nature and communities.
+                East Africa's ecosystems need protection. Our initiative creates restorative solutions that benefit nature, communities, and travelers through mindful, low-impact exploration.
               </p>
             </div>
 
@@ -219,7 +219,7 @@ const PlantingGreenPathsClient: React.FC = () => {
                 Join the Green Path Movement
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Choose your level of involvement in Uganda's conservation future
+                Choose your level of involvement in East Africa's restorative future - one mindful step at a time
               </p>
             </div>
 
@@ -231,7 +231,7 @@ const PlantingGreenPathsClient: React.FC = () => {
                     🌱 Tree Planting Program
                   </h3>
                   <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                    Plant native trees in degraded areas, create wildlife corridors, and restore Uganda's forests. Choose from individual sponsorship or join group planting expeditions.
+                    Plant native trees in degraded areas, create wildlife corridors, and restore East Africa's forests. Every tree plants seeds—literally and figuratively—for a greener, more harmonious future.
                   </p>
                   
                   <div className="space-y-4 mb-8">
@@ -331,7 +331,7 @@ const PlantingGreenPathsClient: React.FC = () => {
                   🦎 Eco Adventure Trips
                 </h3>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Experience Uganda's wonders through carefully designed sustainable tours that support conservation and local communities.
+                  Experience East Africa's wonders through handcrafted sustainable tours that honor heritage, empower communities, and ensure low-impact, responsible exploration.
                 </p>
 
                 <div className="space-y-4 mb-8">
@@ -480,7 +480,7 @@ const PlantingGreenPathsClient: React.FC = () => {
               Ready to Plant Your Green Path?
             </h2>
             <p className="text-xl mb-8 text-green-100 leading-relaxed">
-              Join thousands of travelers who are making a positive impact on Uganda's environment while experiencing unforgettable adventures.
+              Join us in redefining adventure as a force for good - where travelers, hosts, and ecosystems thrive together in a harmonious East Africa.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button 
