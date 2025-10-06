@@ -21,6 +21,11 @@ const Accommodation = require('./Accommodation');
 const Booking = require('./Booking');
 const Payment = require('./Payment');
 const Review = require('./Review');
+const Article = require('./Article');
+
+// User-generated content models (with moderation workflow)
+const UserExperience = require('./UserExperience');
+const UserAccommodation = require('./UserAccommodation');
 
 // Additional utility models (optional - can be added later)
 // const Wishlist = require('./Wishlist');
@@ -32,15 +37,15 @@ const Review = require('./Review');
  * Ensures all models are properly registered with Mongoose
  */
 const validateModels = () => {
-  const requiredModels = ['User', 'Trip', 'Accommodation', 'Booking', 'Payment', 'Review'];
+  const requiredModels = ['User', 'Trip', 'Accommodation', 'Booking', 'Payment', 'Review', 'Article', 'UserExperience', 'UserAccommodation'];
   const registeredModels = mongoose.modelNames();
-  
+
   const missingModels = requiredModels.filter(model => !registeredModels.includes(model));
-  
+
   if (missingModels.length > 0) {
     throw new Error(`Missing required models: ${missingModels.join(', ')}`);
   }
-  
+
   console.log('✅ All required models registered successfully:', registeredModels.join(', '));
 };
 
@@ -65,7 +70,10 @@ const initializeModels = async () => {
         Accommodation.createIndexes(),
         Booking.createIndexes(),
         Payment.createIndexes(),
-        Review.createIndexes()
+        Review.createIndexes(),
+        Article.createIndexes(),
+        UserExperience.createIndexes(),
+        UserAccommodation.createIndexes()
       ]);
       
       console.log('✅ Database indexes created successfully');
@@ -88,7 +96,7 @@ const getModelStats = async () => {
     const stats = {};
     
     // Get collection stats for each model
-    const models = [User, Trip, Accommodation, Booking, Payment, Review];
+    const models = [User, Trip, Accommodation, Booking, Payment, Review, Article, UserExperience, UserAccommodation];
     
     for (const Model of models) {
       const collection = Model.collection;
@@ -145,7 +153,10 @@ const healthCheck = async () => {
       { name: 'Accommodation', model: Accommodation },
       { name: 'Booking', model: Booking },
       { name: 'Payment', model: Payment },
-      { name: 'Review', model: Review }
+      { name: 'Review', model: Review },
+      { name: 'Article', model: Article },
+      { name: 'UserExperience', model: UserExperience },
+      { name: 'UserAccommodation', model: UserAccommodation }
     ];
     
     for (const { name, model } of models) {
@@ -186,14 +197,19 @@ module.exports = {
   Booking,
   Payment,
   Review,
-  
+  Article,
+
+  // User-generated content models
+  UserExperience,
+  UserAccommodation,
+
   // Utility functions
   initializeModels,
   validateModels,
   getModelStats,
   healthCheck,
   cleanup,
-  
+
   // Model collections (for advanced queries)
   models: {
     User,
@@ -201,9 +217,12 @@ module.exports = {
     Accommodation,
     Booking,
     Payment,
-    Review
+    Review,
+    Article,
+    UserExperience,
+    UserAccommodation
   },
-  
+
   // Model names (useful for dynamic model access)
-  modelNames: ['User', 'Trip', 'Accommodation', 'Booking', 'Payment', 'Review']
+  modelNames: ['User', 'Trip', 'Accommodation', 'Booking', 'Payment', 'Review', 'Article', 'UserExperience', 'UserAccommodation']
 };
