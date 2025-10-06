@@ -157,28 +157,34 @@ export default function ExperiencesPage() {
     { id: 'night', name: 'Night Safari', icon: '🌙', count: 1, slug: 'night-safari' }
   ];
 
-  const ugandaDestinations = [
-    { name: 'Kampala', description: 'Uganda\'s vibrant capital city' },
-    { name: 'Bwindi Forest', description: 'Mountain gorilla trekking paradise' },
-    { name: 'Queen Elizabeth Park', description: 'Uganda\'s most visited safari park' },
-    { name: 'Murchison Falls', description: 'World\'s most powerful waterfall' },
-    { name: 'Jinja', description: 'Adventure capital of East Africa' },
-    { name: 'Lake Bunyonyi', description: 'Switzerland of Africa' },
-    { name: 'Mount Elgon', description: 'Ancient volcanic mountain' },
-    { name: 'Kibale Forest', description: 'Primate capital of the world' },
-    { name: 'Lake Victoria', description: 'Africa\'s largest freshwater lake' },
-    { name: 'Ssese Islands', description: 'Tropical island paradise' },
-    { name: 'Ngamba Island', description: 'Chimpanzee sanctuary island' },
-    { name: 'Banda Island', description: 'Secluded island retreat' },
-    { name: 'Bulago Island', description: 'Private luxury island' },
-    { name: 'Rwenzori Mountains', description: 'Mountains of the Moon' },
-    { name: 'Lake Mburo Park', description: 'Compact savanna park' },
-    { name: 'Kidepo Valley', description: 'Remote wilderness paradise' },
-    { name: 'Sipi Falls', description: 'Three-tier waterfall system' },
-    { name: 'Fort Portal', description: 'Gateway to crater lakes' },
-    { name: 'Semuliki Park', description: 'Lowland tropical rainforest' },
-    { name: 'Mount Moroto', description: 'Sacred Karamojong mountain' },
-    { name: 'Pian Upe Reserve', description: 'Uganda\'s largest game reserve' }
+  const eastAfricaDestinations = [
+    // Uganda
+    { name: 'Bwindi Forest', description: 'Mountain gorilla trekking paradise', country: 'Uganda' },
+    { name: 'Kampala', description: 'Uganda\'s vibrant capital city', country: 'Uganda' },
+    { name: 'Queen Elizabeth Park', description: 'Uganda\'s premier safari park', country: 'Uganda' },
+    { name: 'Murchison Falls', description: 'World\'s most powerful waterfall', country: 'Uganda' },
+    { name: 'Jinja', description: 'Adventure capital of East Africa', country: 'Uganda' },
+    { name: 'Lake Bunyonyi', description: 'Switzerland of Africa', country: 'Uganda' },
+    // Kenya
+    { name: 'Maasai Mara', description: 'Home to the Great Migration', country: 'Kenya' },
+    { name: 'Amboseli National Park', description: 'Iconic elephants & Kilimanjaro views', country: 'Kenya' },
+    { name: 'Nairobi', description: 'Kenya\'s cosmopolitan capital', country: 'Kenya' },
+    { name: 'Lake Nakuru', description: 'Pink flamingo paradise', country: 'Kenya' },
+    { name: 'Samburu Reserve', description: 'Unique northern wildlife', country: 'Kenya' },
+    { name: 'Diani Beach', description: 'Pristine coastal paradise', country: 'Kenya' },
+    // Tanzania
+    { name: 'Serengeti', description: 'Endless plains of wildlife', country: 'Tanzania' },
+    { name: 'Ngorongoro Crater', description: 'World\'s largest volcanic caldera', country: 'Tanzania' },
+    { name: 'Mount Kilimanjaro', description: 'Africa\'s highest peak', country: 'Tanzania' },
+    { name: 'Zanzibar', description: 'Spice island paradise', country: 'Tanzania' },
+    { name: 'Tarangire Park', description: 'Land of giants and baobabs', country: 'Tanzania' },
+    { name: 'Arusha', description: 'Safari capital gateway', country: 'Tanzania' },
+    // Rwanda
+    { name: 'Volcanoes National Park', description: 'Mountain gorilla sanctuary', country: 'Rwanda' },
+    { name: 'Nyungwe Forest', description: 'Pristine rainforest canopy', country: 'Rwanda' },
+    { name: 'Lake Kivu', description: 'Great Rift Valley jewel', country: 'Rwanda' },
+    { name: 'Kigali', description: 'Clean, modern capital city', country: 'Rwanda' },
+    { name: 'Akagera Park', description: 'Big Five savanna experience', country: 'Rwanda' }
   ];
 
   const heroImages = [
@@ -223,7 +229,7 @@ export default function ExperiencesPage() {
 
   // Destination carousel navigation
   const nextDestinations = () => {
-    const maxIndex = Math.max(0, ugandaDestinations.length - 6); // Show 6 destinations at a time
+    const maxIndex = Math.max(0, eastAfricaDestinations.length - 6); // Show 6 destinations at a time
     setCurrentDestinationIndex(prev => Math.min(prev + 1, maxIndex));
   };
 
@@ -232,15 +238,15 @@ export default function ExperiencesPage() {
   };
 
   const getVisibleDestinations = () => {
-    return ugandaDestinations.slice(currentDestinationIndex, currentDestinationIndex + 6);
+    return eastAfricaDestinations.slice(currentDestinationIndex, currentDestinationIndex + 6);
   };
 
   // Structured data for SEO
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Uganda Adventure Experiences",
-    "description": "Discover amazing adventure experiences in Uganda - from gorilla trekking to white water rafting",
+    "name": "East Africa Adventure Experiences",
+    "description": "Discover amazing adventure experiences across Uganda, Kenya, Tanzania, and Rwanda - from gorilla trekking to safari adventures",
     "url": typeof window !== 'undefined' ? window.location.href : '',
     "hasPart": featuredExperiences.map(exp => ({
       "@type": "TouristAttraction",
@@ -543,10 +549,10 @@ export default function ExperiencesPage() {
           <div className="content-section">
             <header className="text-center mb-12">
               <h2 id="destinations-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Top Uganda Destinations
+                Top East Africa Destinations
               </h2>
               <p className="text-xl text-gray-600">
-                Explore adventures across Uganda's most spectacular locations, from mountain peaks to tropical islands
+                Explore adventures across East Africa's most spectacular locations - from Uganda's mountain gorillas to Kenya's savannas, Tanzania's Serengeti, and Rwanda's volcanic highlands
               </p>
             </header>
             
@@ -566,7 +572,7 @@ export default function ExperiencesPage() {
                   </button>
                   <button
                     onClick={nextDestinations}
-                    disabled={currentDestinationIndex >= Math.max(0, ugandaDestinations.length - 6)}
+                    disabled={currentDestinationIndex >= Math.max(0, eastAfricaDestinations.length - 6)}
                     className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     aria-label="Next destinations"
                   >
@@ -576,7 +582,7 @@ export default function ExperiencesPage() {
                   </button>
                 </div>
                 <div className="text-sm text-gray-500">
-                  {currentDestinationIndex + 1}-{Math.min(currentDestinationIndex + 6, ugandaDestinations.length)} of {ugandaDestinations.length} destinations
+                  {currentDestinationIndex + 1}-{Math.min(currentDestinationIndex + 6, eastAfricaDestinations.length)} of {eastAfricaDestinations.length} destinations
                 </div>
               </div>
               
@@ -709,7 +715,7 @@ export default function ExperiencesPage() {
               
               {/* Carousel Indicators */}
               <div className="flex justify-center space-x-2 mt-6">
-                {Array.from({ length: Math.ceil(ugandaDestinations.length / 6) }, (_, index) => (
+                {Array.from({ length: Math.ceil(eastAfricaDestinations.length / 6) }, (_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentDestinationIndex(index * 6)}

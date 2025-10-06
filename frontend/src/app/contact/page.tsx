@@ -51,36 +51,47 @@ const ContactPage: React.FC = () => {
   const officeLocations = [
     {
       id: 'kampala',
-      city: 'Kampala',
-      type: 'Main Office',
+      city: 'Kampala, Uganda',
+      type: 'Regional Headquarters',
       address: 'Plot 123, Kampala Road, Central Division',
       phone: '+256 (0) 414 123 456',
-      email: 'info@shakestravel.com',
+      email: 'uganda@shakestravel.com',
       hours: 'Mon-Fri: 8:00 AM - 6:00 PM, Sat: 9:00 AM - 4:00 PM',
       coordinates: { lat: 0.3136, lng: 32.5811 },
-      icon: '🏢'
+      icon: '🇺🇬'
     },
     {
-      id: 'jinja',
-      city: 'Jinja',
-      type: 'Adventure Hub',
-      address: 'Nile Crescent, Source of the Nile',
-      phone: '+256 (0) 434 123 789',
-      email: 'jinja@shakestravel.com',
-      hours: 'Daily: 7:00 AM - 7:00 PM',
-      coordinates: { lat: 0.4297, lng: 33.2041 },
-      icon: '🚣‍♂️'
+      id: 'nairobi',
+      city: 'Nairobi, Kenya',
+      type: 'Kenya Operations',
+      address: 'Westlands, Nairobi Central Business District',
+      phone: '+254 (0) 20 123 4567',
+      email: 'kenya@shakestravel.com',
+      hours: 'Mon-Fri: 8:00 AM - 6:00 PM, Sat: 9:00 AM - 4:00 PM',
+      coordinates: { lat: -1.2921, lng: 36.8219 },
+      icon: '🇰🇪'
     },
     {
-      id: 'bwindi',
-      city: 'Bwindi',
-      type: 'Gorilla Trekking Base',
-      address: 'Buhoma Sector, Bwindi Impenetrable Forest',
-      phone: '+256 (0) 486 123 101',
-      email: 'bwindi@shakestravel.com',
-      hours: 'Daily: 6:00 AM - 8:00 PM',
-      coordinates: { lat: -1.0652, lng: 29.7256 },
-      icon: '🦍'
+      id: 'arusha',
+      city: 'Arusha, Tanzania',
+      type: 'Tanzania Hub',
+      address: 'Safari Capital, Arusha City Center',
+      phone: '+255 (0) 27 250 1234',
+      email: 'tanzania@shakestravel.com',
+      hours: 'Mon-Fri: 8:00 AM - 6:00 PM, Sat: 9:00 AM - 4:00 PM',
+      coordinates: { lat: -3.3869, lng: 36.6830 },
+      icon: '🇹🇿'
+    },
+    {
+      id: 'kigali',
+      city: 'Kigali, Rwanda',
+      type: 'Rwanda Office',
+      address: 'KG 7 Avenue, Kigali City Centre',
+      phone: '+250 (0) 78 123 4567',
+      email: 'rwanda@shakestravel.com',
+      hours: 'Mon-Fri: 8:00 AM - 6:00 PM, Sat: 9:00 AM - 4:00 PM',
+      coordinates: { lat: -1.9403, lng: 29.8739 },
+      icon: '🇷🇼'
     }
   ];
 
@@ -88,32 +99,32 @@ const ContactPage: React.FC = () => {
     {
       id: 'booking',
       category: 'Booking',
-      question: 'How far in advance should I book my Uganda adventure?',
-      answer: 'For gorilla trekking, we recommend booking 3-6 months in advance as permits are limited. For other adventures, 4-8 weeks is usually sufficient, though peak season (June-September, December-February) requires earlier booking.'
+      question: 'How far in advance should I book my East Africa adventure?',
+      answer: 'For gorilla trekking in Uganda and Rwanda, we recommend booking 3-6 months in advance as permits are limited. For safaris in Kenya and Tanzania, 4-8 weeks is usually sufficient, though peak season (June-September, December-February) requires earlier booking.'
     },
     {
       id: 'permits',
       category: 'Permits',
       question: 'Do you handle gorilla trekking permits?',
-      answer: 'Yes! We handle all permit bookings through the Uganda Wildlife Authority. Gorilla permits cost $700 per person for foreign non-residents. We secure permits as soon as you confirm your booking and pay the deposit.'
+      answer: 'Yes! We handle all permit bookings through Uganda Wildlife Authority and Rwanda Development Board. Gorilla permits cost $700 in Uganda and $1,500 in Rwanda per person for foreign non-residents. We secure permits as soon as you confirm your booking and pay the deposit.'
     },
     {
       id: 'safety',
       category: 'Safety',
-      question: 'How safe is adventure travel in Uganda?',
-      answer: 'Uganda is generally very safe for tourists. Our experienced guides are trained in first aid and emergency procedures. We provide safety briefings, quality equipment, and maintain communication with local authorities and park rangers.'
+      question: 'How safe is adventure travel in East Africa?',
+      answer: 'East Africa is generally very safe for tourists across Uganda, Kenya, Tanzania, and Rwanda. Our experienced guides are trained in first aid and emergency procedures. We provide safety briefings, quality equipment, and maintain communication with local authorities and park rangers in all countries.'
     },
     {
       id: 'weather',
       category: 'Travel',
-      question: 'What\'s the best time to visit Uganda?',
-      answer: 'Uganda can be visited year-round! Dry seasons (June-September, December-February) offer easier trekking conditions. Wet seasons (March-May, October-November) have fewer crowds and lush landscapes, plus discounted rates.'
+      question: 'What\'s the best time to visit East Africa?',
+      answer: 'East Africa can be visited year-round! Dry seasons (June-September, December-February) offer optimal conditions for safaris and trekking across all four countries. The Great Migration in Kenya/Tanzania peaks July-October. Wet seasons (March-May, October-November) have fewer crowds, lush landscapes, and discounted rates.'
     },
     {
       id: 'health',
       category: 'Health',
-      question: 'What vaccinations do I need for Uganda?',
-      answer: 'Yellow fever vaccination is mandatory. We also recommend hepatitis A/B, typhoid, and malaria prophylaxis. Consult your doctor 4-6 weeks before travel. We provide detailed health guidelines upon booking.'
+      question: 'What vaccinations do I need for East Africa?',
+      answer: 'Yellow fever vaccination is mandatory for Uganda, Kenya, Tanzania, and Rwanda. We also recommend hepatitis A/B, typhoid, and malaria prophylaxis for all four countries. Consult your doctor 4-6 weeks before travel. We provide detailed health guidelines upon booking.'
     },
     {
       id: 'payment',
@@ -632,47 +643,58 @@ const ContactPage: React.FC = () => {
           <div className="content-section">
             <div className="text-center mb-16">
               <h2 id="map-heading" className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Find Us Across Uganda
+                Find Us Across East Africa
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                We operate throughout Uganda with offices and partners in key locations
+                We operate throughout Uganda, Kenya, Tanzania, and Rwanda with offices and partners in key locations
               </p>
             </div>
 
             {/* Simplified Visual Map */}
             <div className="bg-gray-50 rounded-2xl p-8 relative overflow-hidden">
-              <div className="text-center text-6xl mb-8">🇺🇬</div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="text-center text-6xl mb-8">🇺🇬 🇰🇪 🇹🇿 🇷🇼</div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white rounded-xl p-6 shadow-md">
-                  <div className="text-3xl mb-3">🏢</div>
-                  <h3 className="font-bold text-lg mb-2">Kampala HQ</h3>
-                  <p className="text-gray-600 text-sm">Main operations & planning</p>
+                  <div className="text-3xl mb-3">🇺🇬</div>
+                  <h3 className="font-bold text-lg mb-2">Kampala, Uganda</h3>
+                  <p className="text-gray-600 text-sm">Regional headquarters</p>
                   <div className="mt-3">
                     <a href="tel:+256414123456" className="text-sm font-semibold" style={{ color: primaryColor }}>
                       +256 414 123 456
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="bg-white rounded-xl p-6 shadow-md">
-                  <div className="text-3xl mb-3">🚣‍♂️</div>
-                  <h3 className="font-bold text-lg mb-2">Jinja Adventure Hub</h3>
-                  <p className="text-gray-600 text-sm">White water rafting & Nile activities</p>
+                  <div className="text-3xl mb-3">🇰🇪</div>
+                  <h3 className="font-bold text-lg mb-2">Nairobi, Kenya</h3>
+                  <p className="text-gray-600 text-sm">Safari & coastal operations</p>
                   <div className="mt-3">
-                    <a href="tel:+256434123789" className="text-sm font-semibold" style={{ color: primaryColor }}>
-                      +256 434 123 789
+                    <a href="tel:+254201234567" className="text-sm font-semibold" style={{ color: primaryColor }}>
+                      +254 20 123 4567
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="bg-white rounded-xl p-6 shadow-md">
-                  <div className="text-3xl mb-3">🦍</div>
-                  <h3 className="font-bold text-lg mb-2">Bwindi Base</h3>
-                  <p className="text-gray-600 text-sm">Gorilla trekking headquarters</p>
+                  <div className="text-3xl mb-3">🇹🇿</div>
+                  <h3 className="font-bold text-lg mb-2">Arusha, Tanzania</h3>
+                  <p className="text-gray-600 text-sm">Serengeti & Kilimanjaro base</p>
                   <div className="mt-3">
-                    <a href="tel:+256486123101" className="text-sm font-semibold" style={{ color: primaryColor }}>
-                      +256 486 123 101
+                    <a href="tel:+255272501234" className="text-sm font-semibold" style={{ color: primaryColor }}>
+                      +255 27 250 1234
+                    </a>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-6 shadow-md">
+                  <div className="text-3xl mb-3">🇷🇼</div>
+                  <h3 className="font-bold text-lg mb-2">Kigali, Rwanda</h3>
+                  <p className="text-gray-600 text-sm">Gorilla trekking center</p>
+                  <div className="mt-3">
+                    <a href="tel:+250781234567" className="text-sm font-semibold" style={{ color: primaryColor }}>
+                      +250 78 123 4567
                     </a>
                   </div>
                 </div>
