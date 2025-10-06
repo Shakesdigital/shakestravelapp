@@ -26,6 +26,7 @@ const morgan = require('morgan');
 
 // Import custom modules
 const database = require('./src/config/database');
+const { initializeOracleDB, healthCheck: oracleHealthCheck, closePool } = require('./src/config/oracle');
 const { setupSecurity, sanitizeInput } = require('./src/middleware/security');
 const { globalErrorHandler, notFoundHandler, catchAsync } = require('./src/middleware/errorHandler');
 const { logger, requestLogger, businessLogger, performanceLogger } = require('./src/utils/logger');
@@ -80,11 +81,17 @@ class ShakesTravelServer {
 
   async connectDatabase() {
     try {
+      // Connect to MongoDB
       logger.info('📊 Connecting to MongoDB...');
       await database.connect();
       logger.info('✅ MongoDB connected successfully');
+
+      // Connect to Oracle Database
+      logger.info('📊 Connecting to Oracle Database...');
+      await initializeOracleDB();
+      logger.info('✅ Oracle Database connected successfully');
     } catch (error) {
-      logger.error('❌ MongoDB connection failed:', error);
+      logger.error('❌ Database connection failed:', error);
       throw error;
     }
   }
@@ -165,6 +172,11 @@ class ShakesTravelServer {
 
     // Health check endpoint
     this.app.get('/api/health', catchAsync(async (req, res) => {
+      const [mongoHealth, oracleHealth] = await Promise.all([
+        database.healthCheck(),
+        oracleHealthCheck()
+      ]);
+
       const healthCheck = {
         status: 'healthy',
         timestamp: new Date().toISOString(),
@@ -175,11 +187,14 @@ class ShakesTravelServer {
           used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + ' MB',
           total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024) + ' MB'
         },
-        database: await database.healthCheck()
+        databases: {
+          mongodb: mongoHealth,
+          oracle: oracleHealth ? 'connected' : 'disconnected'
+        }
       };
 
       // Check if any critical systems are down
-      if (!database.isHealthy()) {
+      if (!database.isHealthy() || !oracleHealth) {
         healthCheck.status = 'unhealthy';
         return res.status(503).json(healthCheck);
       }
@@ -263,9 +278,18 @@ class ShakesTravelServer {
     
     // Search routes
     this.app.use('/api/search', require('./src/routes/search'));
-    
+
     // Trip plans routes (public)
     this.app.use('/api/trip-plans', require('./src/routes/trip-plans'));
+
+    // User content creation routes (Oracle DB)
+    this.app.use('/api/user-content', require('./src/routes/userContentOracle'));
+
+    // Admin moderation routes (keep existing MongoDB version for now)
+    this.app.use('/api/admin/moderation', require('./src/routes/adminModeration'));
+
+    // Public content routes (Oracle DB - approved user-generated content)
+    this.app.use('/api/public', require('./src/routes/publicContentOracle'));
 
     logger.info('✅ Routes setup completed');
   }
@@ -323,12 +347,16 @@ class ShakesTravelServer {
           await new Promise((resolve) => {
             this.server.close(resolve);
           });
-          logger.info('✅ HTTP server closed');
         }
 
-        // Close database connection
+        // Close Oracle Database connection pool
+        logger.info('🔒 Closing Oracle Database connection pool...');
+        await closePool();
+        logger.info('✅ Oracle connection pool closed');
+
+        // Close MongoDB connection
         await database.disconnect();
-        logger.info('✅ Database connection closed');
+        logger.info('✅ MongoDB connection closed');
 
         // Log final shutdown message
         logger.info('🛑 Server shutdown completed gracefully');
