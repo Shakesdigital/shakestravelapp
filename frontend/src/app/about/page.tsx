@@ -273,13 +273,16 @@ A Uganda-based travel agency dedicated to inspiring and crafting meaningful trav
                 </h2>
                 <div className="prose prose-lg text-gray-600 space-y-6">
                   <p>
-                    Welcome to Shakes Travel, a Uganda-based travel agency dedicated to inspiring and crafting meaningful travel and adventure experiences that showcase East Africa's stunning natural beauty, vibrant cultures, and diverse landscapes. Our journeys immerse travelers in the heart of East Africa while advancing environmental conservation through our flagship Planting Green Paths Initiative.
+                    Welcome to Shakes Travel, a Uganda-based travel platform dedicated to inspiring sustainable tourism that celebrates East Africa's breathtaking natural wonders, diverse landscapes, and vibrant cultures. Our mission is to craft immersive journeys that connect travelers deeply with the authentic spirit of the region—fostering meaningful encounters with local communities while championing environmental conservation and long-term wellbeing for all who call East Africa home.
                   </p>
                   <p>
-                    We are committed to sustainable tourism that actively restores East Africa's natural ecosystems. Through strategic tree planting and reforestation, every trip leaves a greener, more vibrant footprint. At the core of our mission, we deliver exceptional travel experiences across iconic East African destinations—Maasai Mara, Amboseli, Serengeti, Zanzibar, Volcanoes National Park, and Bwindi—rooted in local insight and authentic partnerships with community tour providers.
+                    At the heart of our vision lies a commitment to restorative travel: every experience we curate actively contributes to healing and protecting the continent's ecosystems. Through our flagship Planting Green Paths Initiative, we integrate tree planting and eco-stewardship into every adventure, ensuring that each journey plants seeds—literally and figuratively—for a greener future. Whether exploring the iconic savannas of Maasai Mara, Amboseli, and Serengeti; unwinding on the spice-scented shores of Zanzibar; or trekking the misty highlands of Volcanoes National Park and Bwindi Impenetrable Forest, our trips are designed to leave the world better than we found it.
                   </p>
                   <p>
-                    We collaborate with local providers to offer meticulously planned safaris, convenient tourist accommodations, and immersive cultural and historical tours that highlight the region's rich heritage. Our eco-friendly services, including green travel options with tree planting initiatives and expert travel consultation, ensure unforgettable journeys while fostering deep, responsible connections with East Africa's people and places.
+                    We partner closely with local travel providers and community hosts to showcase handcrafted adventures, eco-conscious stays, and cultural immersions that honor East Africa's rich heritage. From guided safaris that reveal hidden wildlife trails to homestays that share indigenous stories and traditions, our offerings prioritize low-impact exploration, responsible wildlife encounters, and genuine cultural exchanges. By amplifying local voices and expertise, we aim to empower communities, create pathways for cultural preservation, and build resilient economies rooted in tourism's positive potential.
+                  </p>
+                  <p>
+                    Shakes Travel is more than a marketplace—it's an advocacy platform for a harmonious East Africa, where travelers, hosts, and ecosystems thrive together. Join us in redefining adventure as a force for good, one mindful step at a time.
                   </p>
                 </div>
                 <Link 
