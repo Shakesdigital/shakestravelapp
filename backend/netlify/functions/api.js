@@ -65,7 +65,11 @@ async function initializeApp() {
           hasDynamoAccessKey: !!process.env.DYNAMODB_ACCESS_KEY_ID,
           hasAwsAccessKey: !!process.env.AWS_ACCESS_KEY_ID,
           hasDynamoSecret: !!process.env.DYNAMODB_SECRET_ACCESS_KEY,
-          hasAwsSecret: !!process.env.AWS_SECRET_ACCESS_KEY
+          hasAwsSecret: !!process.env.AWS_SECRET_ACCESS_KEY,
+          dynamoAccessKeyPrefix: process.env.DYNAMODB_ACCESS_KEY_ID ? process.env.DYNAMODB_ACCESS_KEY_ID.substring(0, 8) + '...' : null,
+          awsAccessKeyPrefix: process.env.AWS_ACCESS_KEY_ID ? process.env.AWS_ACCESS_KEY_ID.substring(0, 8) + '...' : null,
+          dynamoRegion: process.env.DYNAMODB_REGION || null,
+          awsRegion: process.env.AWS_REGION || null
         }
       });
     }));
