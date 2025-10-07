@@ -4,11 +4,18 @@ const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
 
-// Create logs directory if it doesn't exist
+// Create logs directory if it doesn't exist (skip in serverless environments)
 const fs = require('fs');
+const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY || process.env.VERCEL;
 const logsDir = path.join(process.cwd(), 'logs');
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true });
+
+if (!isServerless && !fs.existsSync(logsDir)) {
+  try {
+    fs.mkdirSync(logsDir, { recursive: true });
+  } catch (error) {
+    // Ignore errors in read-only filesystems
+    console.warn('Could not create logs directory:', error.message);
+  }
 }
 
 // Enhanced log format with correlation IDs and structured metadata
@@ -84,69 +91,60 @@ const logger = winston.createLogger({
       handleExceptions: false
     }),
 
-    // Daily rotating file transport for all logs
-    new DailyRotateFile({
-      filename: path.join(logsDir, 'app-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level: 'info',
-      maxSize: '100m', // 100MB per file
-      maxFiles: '30d', // Keep logs for 30 days
-      format: logFormat,
-      auditFile: path.join(logsDir, 'audit.json'),
-      zippedArchive: true
-    }),
+    // File transports (skip in serverless environments)
+    ...(!isServerless ? [
+      // Daily rotating file transport for all logs
+      new DailyRotateFile({
+        filename: path.join(logsDir, 'app-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        level: 'info',
+        maxSize: '100m', // 100MB per file
+        maxFiles: '30d', // Keep logs for 30 days
+        format: logFormat,
+        auditFile: path.join(logsDir, 'audit.json'),
+        zippedArchive: true
+      }),
 
-    // Daily rotating file transport for error logs
-    new DailyRotateFile({
-      filename: path.join(logsDir, 'error-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level: 'error',
-      maxSize: '100m',
-      maxFiles: '60d', // Keep error logs longer
-      format: logFormat,
-      auditFile: path.join(logsDir, 'error-audit.json'),
-      zippedArchive: true
-    }),
+      // Daily rotating file transport for error logs
+      new DailyRotateFile({
+        filename: path.join(logsDir, 'error-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        level: 'error',
+        maxSize: '100m',
+        maxFiles: '60d', // Keep error logs longer
+        format: logFormat,
+        auditFile: path.join(logsDir, 'error-audit.json'),
+        zippedArchive: true
+      }),
 
-    // Daily rotating file for security events
-    new DailyRotateFile({
-      filename: path.join(logsDir, 'security-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level: 'warn',
-      maxSize: '50m',
-      maxFiles: '90d', // Keep security logs for 90 days
-      format: logFormat,
-      auditFile: path.join(logsDir, 'security-audit.json'),
-      zippedArchive: true
-    }),
+      // Daily rotating file for security events
+      new DailyRotateFile({
+        filename: path.join(logsDir, 'security-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        level: 'warn',
+        maxSize: '50m',
+        maxFiles: '90d', // Keep security logs for 90 days
+        format: logFormat,
+        auditFile: path.join(logsDir, 'security-audit.json'),
+        zippedArchive: true
+      }),
 
-    // Daily rotating file for business events
-    new DailyRotateFile({
-      filename: path.join(logsDir, 'business-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level: 'info',
-      maxSize: '50m',
-      maxFiles: '365d', // Keep business logs for 1 year
-      format: logFormat,
-      auditFile: path.join(logsDir, 'business-audit.json'),
-      zippedArchive: true
-    }),
-
-    // Daily rotating file for performance monitoring
-    new DailyRotateFile({
-      filename: path.join(logsDir, 'performance-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      level: 'warn',
-      maxSize: '20m',
-      maxFiles: '7d', // Keep performance logs for 7 days
-      format: logFormat,
-      auditFile: path.join(logsDir, 'performance-audit.json'),
-      zippedArchive: true
-    })
+      // Daily rotating file for business events
+      new DailyRotateFile({
+        filename: path.join(logsDir, 'business-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        level: 'info',
+        maxSize: '50m',
+        maxFiles: '365d', // Keep business logs for 1 year
+        format: logFormat,
+        auditFile: path.join(logsDir, 'business-audit.json'),
+        zippedArchive: true
+      })
+    ] : [])
   ],
 
   // Handle uncaught exceptions with daily rotation
-  exceptionHandlers: [
+  exceptionHandlers: !isServerless ? [
     new DailyRotateFile({
       filename: path.join(logsDir, 'exceptions-%DATE%.log'),
       datePattern: 'YYYY-MM-DD',
@@ -155,10 +153,14 @@ const logger = winston.createLogger({
       format: logFormat,
       zippedArchive: true
     })
+  ] : [
+    new winston.transports.Console({
+      format: logFormat
+    })
   ],
 
   // Handle unhandled promise rejections with daily rotation
-  rejectionHandlers: [
+  rejectionHandlers: !isServerless ? [
     new DailyRotateFile({
       filename: path.join(logsDir, 'rejections-%DATE%.log'),
       datePattern: 'YYYY-MM-DD',
@@ -166,6 +168,10 @@ const logger = winston.createLogger({
       maxFiles: '30d',
       format: logFormat,
       zippedArchive: true
+    })
+  ] : [
+    new winston.transports.Console({
+      format: logFormat
     })
   ]
 });
