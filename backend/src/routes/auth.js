@@ -1,13 +1,13 @@
 const express = require('express');
-const authController = require('../controllers/authController');
-const { 
-  authenticate, 
+const authController = require('../controllers/authControllerDynamoDB');
+const {
+  authenticate,
   optionalAuth,
   authorize,
   authRateLimit,
   logUserActivity,
   attachPermissions
-} = require('../middleware/auth');
+} = require('../middleware/authDynamoDB');
 const { rateLimiters } = require('../middleware/security');
 const {
   validateRegister,
@@ -148,8 +148,8 @@ router.post('/resend-verification',
   async (req, res, next) => {
     try {
       const user = req.user;
-      
-      if (user.verification?.isEmailVerified) {
+
+      if (user.isVerified) {
         return res.status(400).json({
           success: false,
           error: {
@@ -159,16 +159,7 @@ router.post('/resend-verification',
         });
       }
 
-      // Generate new verification token
-      const authUtils = require('../utils/auth');
-      const verificationTokenData = authUtils.createEmailVerificationToken();
-      
-      user.verification.emailVerificationToken = verificationTokenData.hashedToken;
-      user.verification.emailVerificationExpires = verificationTokenData.expiresAt;
-      await user.save();
-
-      // TODO: Send verification email
-      // await emailService.sendVerificationEmail(user.email, verificationTokenData.token);
+      // TODO: Generate verification token and send email
 
       res.status(200).json({
         success: true,
@@ -191,7 +182,7 @@ router.get('/me',
   authenticate,
   (req, res) => {
     const user = req.user;
-    
+
     res.status(200).json({
       success: true,
       data: {
@@ -200,9 +191,9 @@ router.get('/me',
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
-        isEmailVerified: user.verification?.isEmailVerified || false,
+        isVerified: user.isVerified || false,
         isActive: user.isActive,
-        avatar: user.profile?.avatar?.url
+        avatar: user.profile?.avatar
       }
     });
   }
@@ -227,107 +218,8 @@ router.get('/check',
           firstName: req.user.firstName,
           lastName: req.user.lastName,
           role: req.user.role,
-          isEmailVerified: req.user.verification?.isEmailVerified || false
+          isVerified: req.user.isVerified || false
         } : null
-      }
-    });
-  }
-);
-
-/**
- * Host-specific routes
- */
-
-/**
- * @route   POST /api/auth/apply-host
- * @desc    Apply to become a host
- * @access  Private (guest only)
- * @headers Authorization: Bearer <token>
- * @body    { businessInfo?, motivation? }
- */
-router.post('/apply-host',
-  authenticate,
-  authorize('guest'), // Only guests can apply to become hosts
-  async (req, res, next) => {
-    try {
-      const user = req.user;
-      const { businessInfo, motivation } = req.body;
-
-      // Check if user already has host profile
-      if (user.hostProfile?.isHost) {
-        return res.status(400).json({
-          success: false,
-          error: {
-            message: 'User is already a host',
-            code: 'ALREADY_HOST'
-          }
-        });
-      }
-
-      // Initialize host profile
-      user.hostProfile = {
-        isHost: true,
-        businessInfo: businessInfo || {},
-        joinedAsHostAt: new Date(),
-        isVerified: false
-      };
-
-      // Update role to host
-      user.role = 'host';
-
-      await user.save();
-
-      res.status(200).json({
-        success: true,
-        message: 'Host application submitted successfully. Verification process will begin shortly.',
-        data: {
-          user: user.toJSON(),
-          nextSteps: [
-            'Complete business profile',
-            'Upload verification documents',
-            'Wait for verification approval'
-          ]
-        }
-      });
-
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-/**
- * @route   GET /api/auth/host-status
- * @desc    Get host verification status
- * @access  Private (host only)
- * @headers Authorization: Bearer <token>
- */
-router.get('/host-status',
-  authenticate,
-  authorize('host', 'admin'),
-  (req, res) => {
-    const user = req.user;
-    const hostProfile = user.hostProfile;
-
-    res.status(200).json({
-      success: true,
-      data: {
-        isHost: hostProfile?.isHost || false,
-        isVerified: hostProfile?.isVerified || false,
-        joinedAsHostAt: hostProfile?.joinedAsHostAt,
-        verifiedAt: hostProfile?.verifiedAt,
-        rating: hostProfile?.rating || 0,
-        totalReviews: hostProfile?.totalReviews || 0,
-        totalBookings: hostProfile?.totalBookings || 0,
-        businessInfo: hostProfile?.businessInfo || {},
-        nextSteps: !hostProfile?.isVerified ? [
-          'Complete business profile',
-          'Upload verification documents',
-          'Wait for verification approval'
-        ] : [
-          'Create your first listing',
-          'Optimize your profile for better visibility'
-        ]
       }
     });
   }
@@ -342,66 +234,31 @@ router.get('/host-status',
  * @desc    Get all users (admin only)
  * @access  Private (admin only)
  * @headers Authorization: Bearer <token>
- * @query   { page?, limit?, role?, search?, status? }
+ * @query   { role?, search? }
  */
 router.get('/users',
   authenticate,
-  authorize('admin', 'superadmin'),
+  authorize('admin'),
   async (req, res, next) => {
     try {
-      const {
-        page = 1,
-        limit = 20,
-        role,
-        search,
-        status = 'active'
-      } = req.query;
+      const UserModel = require('../models/DynamoDBUser');
+      const { role, search } = req.query;
 
-      const query = {};
-      
-      // Filter by role
-      if (role) {
-        query.role = role;
-      }
+      let users;
 
-      // Filter by status
-      if (status === 'active') {
-        query.isActive = true;
-        query.isSuspended = false;
-      } else if (status === 'suspended') {
-        query.isSuspended = true;
-      } else if (status === 'inactive') {
-        query.isActive = false;
-      }
-
-      // Search functionality
       if (search) {
-        const searchRegex = new RegExp(search, 'i');
-        query.$or = [
-          { firstName: searchRegex },
-          { lastName: searchRegex },
-          { email: searchRegex }
-        ];
+        users = await UserModel.search(search);
+      } else if (role) {
+        users = await UserModel.findAll({ role });
+      } else {
+        users = await UserModel.findAll();
       }
-
-      const users = await User.find(query)
-        .select('-password -passwordResetToken -passwordResetExpires')
-        .sort({ createdAt: -1 })
-        .limit(limit * 1)
-        .skip((page - 1) * limit);
-
-      const total = await User.countDocuments(query);
 
       res.status(200).json({
         success: true,
         data: {
           users,
-          pagination: {
-            page: parseInt(page),
-            limit: parseInt(limit),
-            total,
-            pages: Math.ceil(total / limit)
-          }
+          total: users.length
         }
       });
 

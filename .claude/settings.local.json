@@ -73,7 +73,17 @@
       "WebFetch(domain:shakestravel.com)",
       "WebFetch(domain:app.netlify.com)",
       "WebFetch(domain:main--shakestravel.netlify.app)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(dir \"C:\\Users\\TECH DEAL\\Desktop\\shakestravelapp\\frontend\")",
+      "Bash(move \"src\\app\\admin\" \"src\\app\\admin.disabled\")",
+      "Bash(ren:*)",
+      "Bash(dir \"C:\\Users\\TECH DEAL\\Desktop\\shakestravelapp\\frontend\\out\")",
+      "WebFetch(domain:www.shakestravel.com)",
+      "Read(//c/**)",
+      "Bash(git reset:*)",
+      "Bash(findstr:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3NTk4MDg0NTY3MjctY2VxaHFkZzk3IiwiZW1haWwiOiJ0ZXN0dXNlckBzaGFrZXN0cmF2ZWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTk4MDg2MDEsImV4cCI6MTc1OTgwOTUwMX0.fp8Or10uxbx2xoaVv9e1iMd5iX36g-qn_IjWpCoSnGQ\")",
+      "Bash(__NEW_LINE__ curl -s http://localhost:5000/api/auth/profile -H \"Authorization: Bearer $TOKEN\" -H \"User-Agent: Mozilla/5.0\")"
     ],
     "deny": [],
     "ask": [],

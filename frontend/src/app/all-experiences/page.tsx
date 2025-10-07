@@ -50,9 +50,10 @@ const AllExperiencesPage: React.FC = () => {
   });
 
   const primaryColor = '#195e48';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://shakes-travel-backend.netlify.app/api';
 
-  // Sample experiences data (in real app, this would come from API)
-  const allExperiences: Experience[] = [
+  // Sample experiences data (will be combined with user-generated content)
+  const curatedExperiences: Experience[] = [
     {
       id: 1,
       title: 'Gorilla Trekking in Bwindi',
@@ -554,14 +555,33 @@ const AllExperiencesPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Load experiences (in real app, this would be an API call)
+  // Load experiences from API and combine with curated content
   useEffect(() => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setExperiences(allExperiences);
-      setLoading(false);
-    }, 1000);
+    const fetchExperiences = async () => {
+      setLoading(true);
+      try {
+        // Fetch user-generated experiences
+        const response = await fetch(`${API_URL}/public/experiences?limit=100`);
+        const data = await response.json();
+
+        if (data.success) {
+          // Combine curated experiences with user-generated content
+          const combinedExperiences = [...curatedExperiences, ...data.data];
+          setExperiences(combinedExperiences);
+        } else {
+          // Fallback to curated only if API fails
+          setExperiences(curatedExperiences);
+        }
+      } catch (error) {
+        console.error('Error fetching experiences:', error);
+        // Fallback to curated only if API fails
+        setExperiences(curatedExperiences);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperiences();
   }, []);
 
   // Filter and sort experiences

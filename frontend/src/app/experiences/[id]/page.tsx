@@ -74,6 +74,7 @@ export default function ExperienceDetailPage() {
   const [showBookingMobile, setShowBookingMobile] = useState(false);
 
   const primaryColor = '#195e48';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://shakes-travel-backend.netlify.app/api';
 
   // Sample experience data (in production, this would come from an API)
   const sampleExperience: Experience = {
@@ -208,13 +209,42 @@ export default function ExperienceDetailPage() {
   ];
 
   useEffect(() => {
-    // Simulate API call
-    setLoading(true);
-    setTimeout(() => {
-      setExperience(sampleExperience);
-      setReviews(sampleReviews);
-      setLoading(false);
-    }, 1000);
+    const fetchExperience = async () => {
+      setLoading(true);
+      try {
+        // Try to fetch from user-generated content first
+        const response = await fetch(`${API_URL}/public/experiences/${params.id}`);
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          // Set user-generated experience
+          setExperience(data.data);
+          setReviews([]); // TODO: Fetch reviews for user-generated content
+        } else {
+          // Fallback to sample experience (curated content)
+          if (parseInt(params.id as string) === 1) {
+            setExperience(sampleExperience);
+            setReviews(sampleReviews);
+          } else {
+            // Experience not found
+            setExperience(null);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching experience:', error);
+        // Fallback to sample experience for ID 1
+        if (parseInt(params.id as string) === 1) {
+          setExperience(sampleExperience);
+          setReviews(sampleReviews);
+        } else {
+          setExperience(null);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperience();
   }, [params.id]);
 
   if (loading) {

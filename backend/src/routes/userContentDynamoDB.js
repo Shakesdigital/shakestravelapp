@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/auth');
+const { authenticate } = require('../middleware/authDynamoDB');
 const { ExperienceModel, AccommodationModel, ArticleModel } = require('../models/DynamoDBUserContent');
 const { upload } = require('../middleware/upload');
 
@@ -17,9 +17,9 @@ const { upload } = require('../middleware/upload');
 
 // ============= EXPERIENCES (TRIPS) =============
 
-router.post('/experiences', protect, async (req, res) => {
+router.post('/experiences', authenticate, async (req, res) => {
   try {
-    const experience = await ExperienceModel.create(req.user._id, req.body);
+    const experience = await ExperienceModel.create(req.user.id, req.body);
 
     res.status(201).json({
       success: true,
@@ -34,10 +34,10 @@ router.post('/experiences', protect, async (req, res) => {
   }
 });
 
-router.get('/experiences/my', protect, async (req, res) => {
+router.get('/experiences/my', authenticate, async (req, res) => {
   try {
     const { status } = req.query;
-    const experiences = await ExperienceModel.findByUserId(req.user._id, status);
+    const experiences = await ExperienceModel.findByUserId(req.user.id, status);
 
     res.json({
       success: true,
@@ -52,7 +52,7 @@ router.get('/experiences/my', protect, async (req, res) => {
   }
 });
 
-router.get('/experiences/:id', protect, async (req, res) => {
+router.get('/experiences/:id', authenticate, async (req, res) => {
   try {
     const experience = await ExperienceModel.findById(req.params.id);
 
@@ -63,7 +63,7 @@ router.get('/experiences/:id', protect, async (req, res) => {
       });
     }
 
-    if (experience.userId !== req.user._id.toString()) {
+    if (experience.userId !== req.user.id.toString()) {
       return res.status(403).json({
         success: false,
         error: 'Not authorized to view this experience'
@@ -82,9 +82,9 @@ router.get('/experiences/:id', protect, async (req, res) => {
   }
 });
 
-router.put('/experiences/:id', protect, async (req, res) => {
+router.put('/experiences/:id', authenticate, async (req, res) => {
   try {
-    const experience = await ExperienceModel.update(req.params.id, req.user._id, req.body);
+    const experience = await ExperienceModel.update(req.params.id, req.user.id, req.body);
 
     if (!experience) {
       return res.status(404).json({
@@ -106,9 +106,9 @@ router.put('/experiences/:id', protect, async (req, res) => {
   }
 });
 
-router.post('/experiences/:id/submit-review', protect, async (req, res) => {
+router.post('/experiences/:id/submit-review', authenticate, async (req, res) => {
   try {
-    const experience = await ExperienceModel.submitForReview(req.params.id, req.user._id);
+    const experience = await ExperienceModel.submitForReview(req.params.id, req.user.id);
 
     if (!experience) {
       return res.status(404).json({
@@ -130,9 +130,9 @@ router.post('/experiences/:id/submit-review', protect, async (req, res) => {
   }
 });
 
-router.delete('/experiences/:id', protect, async (req, res) => {
+router.delete('/experiences/:id', authenticate, async (req, res) => {
   try {
-    const deleted = await ExperienceModel.delete(req.params.id, req.user._id);
+    const deleted = await ExperienceModel.delete(req.params.id, req.user.id);
 
     if (!deleted) {
       return res.status(404).json({
@@ -155,9 +155,9 @@ router.delete('/experiences/:id', protect, async (req, res) => {
 
 // ============= ACCOMMODATIONS =============
 
-router.post('/accommodations', protect, async (req, res) => {
+router.post('/accommodations', authenticate, async (req, res) => {
   try {
-    const accommodation = await AccommodationModel.create(req.user._id, req.body);
+    const accommodation = await AccommodationModel.create(req.user.id, req.body);
 
     res.status(201).json({
       success: true,
@@ -172,10 +172,10 @@ router.post('/accommodations', protect, async (req, res) => {
   }
 });
 
-router.get('/accommodations/my', protect, async (req, res) => {
+router.get('/accommodations/my', authenticate, async (req, res) => {
   try {
     const { status } = req.query;
-    const accommodations = await AccommodationModel.findByUserId(req.user._id, status);
+    const accommodations = await AccommodationModel.findByUserId(req.user.id, status);
 
     res.json({
       success: true,
@@ -190,7 +190,7 @@ router.get('/accommodations/my', protect, async (req, res) => {
   }
 });
 
-router.get('/accommodations/:id', protect, async (req, res) => {
+router.get('/accommodations/:id', authenticate, async (req, res) => {
   try {
     const accommodation = await AccommodationModel.findById(req.params.id);
 
@@ -201,7 +201,7 @@ router.get('/accommodations/:id', protect, async (req, res) => {
       });
     }
 
-    if (accommodation.userId !== req.user._id.toString()) {
+    if (accommodation.userId !== req.user.id.toString()) {
       return res.status(403).json({
         success: false,
         error: 'Not authorized to view this accommodation'
@@ -220,9 +220,9 @@ router.get('/accommodations/:id', protect, async (req, res) => {
   }
 });
 
-router.put('/accommodations/:id', protect, async (req, res) => {
+router.put('/accommodations/:id', authenticate, async (req, res) => {
   try {
-    const accommodation = await AccommodationModel.update(req.params.id, req.user._id, req.body);
+    const accommodation = await AccommodationModel.update(req.params.id, req.user.id, req.body);
 
     if (!accommodation) {
       return res.status(404).json({
@@ -244,9 +244,9 @@ router.put('/accommodations/:id', protect, async (req, res) => {
   }
 });
 
-router.delete('/accommodations/:id', protect, async (req, res) => {
+router.delete('/accommodations/:id', authenticate, async (req, res) => {
   try {
-    const deleted = await AccommodationModel.delete(req.params.id, req.user._id);
+    const deleted = await AccommodationModel.delete(req.params.id, req.user.id);
 
     if (!deleted) {
       return res.status(404).json({
@@ -269,9 +269,9 @@ router.delete('/accommodations/:id', protect, async (req, res) => {
 
 // ============= ARTICLES =============
 
-router.post('/articles', protect, async (req, res) => {
+router.post('/articles', authenticate, async (req, res) => {
   try {
-    const article = await ArticleModel.create(req.user._id, req.body);
+    const article = await ArticleModel.create(req.user.id, req.body);
 
     res.status(201).json({
       success: true,
@@ -286,10 +286,10 @@ router.post('/articles', protect, async (req, res) => {
   }
 });
 
-router.get('/articles/my', protect, async (req, res) => {
+router.get('/articles/my', authenticate, async (req, res) => {
   try {
     const { status } = req.query;
-    const articles = await ArticleModel.findByAuthorId(req.user._id, status);
+    const articles = await ArticleModel.findByAuthorId(req.user.id, status);
 
     res.json({
       success: true,
@@ -304,7 +304,7 @@ router.get('/articles/my', protect, async (req, res) => {
   }
 });
 
-router.get('/articles/:id', protect, async (req, res) => {
+router.get('/articles/:id', authenticate, async (req, res) => {
   try {
     const article = await ArticleModel.findById(req.params.id);
 
@@ -315,7 +315,7 @@ router.get('/articles/:id', protect, async (req, res) => {
       });
     }
 
-    if (article.authorId !== req.user._id.toString()) {
+    if (article.authorId !== req.user.id.toString()) {
       return res.status(403).json({
         success: false,
         error: 'Not authorized to view this article'
@@ -334,9 +334,9 @@ router.get('/articles/:id', protect, async (req, res) => {
   }
 });
 
-router.put('/articles/:id', protect, async (req, res) => {
+router.put('/articles/:id', authenticate, async (req, res) => {
   try {
-    const article = await ArticleModel.update(req.params.id, req.user._id, req.body);
+    const article = await ArticleModel.update(req.params.id, req.user.id, req.body);
 
     if (!article) {
       return res.status(404).json({
@@ -358,9 +358,9 @@ router.put('/articles/:id', protect, async (req, res) => {
   }
 });
 
-router.post('/articles/:id/submit-review', protect, async (req, res) => {
+router.post('/articles/:id/submit-review', authenticate, async (req, res) => {
   try {
-    const article = await ArticleModel.submitForReview(req.params.id, req.user._id);
+    const article = await ArticleModel.submitForReview(req.params.id, req.user.id);
 
     if (!article) {
       return res.status(404).json({
@@ -382,13 +382,13 @@ router.post('/articles/:id/submit-review', protect, async (req, res) => {
   }
 });
 
-router.delete('/articles/:id', protect, async (req, res) => {
+router.delete('/articles/:id', authenticate, async (req, res) => {
   try {
     const { deleteItem, TABLES } = require('../config/dynamodb');
 
     const article = await ArticleModel.findById(req.params.id);
 
-    if (!article || article.authorId !== req.user._id.toString() || article.moderationStatus !== 'draft') {
+    if (!article || article.authorId !== req.user.id.toString() || article.moderationStatus !== 'draft') {
       return res.status(404).json({
         success: false,
         error: 'Article not found or cannot be deleted'
@@ -411,7 +411,7 @@ router.delete('/articles/:id', protect, async (req, res) => {
 
 // ============= UPLOAD IMAGES =============
 
-router.post('/upload-images', protect, upload.array('images', 10), async (req, res) => {
+router.post('/upload-images', authenticate, upload.array('images', 10), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({
@@ -441,9 +441,9 @@ router.post('/upload-images', protect, upload.array('images', 10), async (req, r
 
 // ============= DASHBOARD STATS =============
 
-router.get('/dashboard-stats', protect, async (req, res) => {
+router.get('/dashboard-stats', authenticate, async (req, res) => {
   try {
-    const userId = req.user._id.toString();
+    const userId = req.user.id.toString();
 
     const [experiences, accommodations, articles] = await Promise.all([
       ExperienceModel.findByUserId(userId),

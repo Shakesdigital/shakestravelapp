@@ -81,15 +81,19 @@ class ShakesTravelServer {
 
   async connectDatabase() {
     try {
-      // Connect to MongoDB
-      logger.info('📊 Connecting to MongoDB...');
-      await database.connect();
-      logger.info('✅ MongoDB connected successfully');
-
-      // Connect to DynamoDB
+      // Connect to DynamoDB (primary database)
       logger.info('📊 Connecting to DynamoDB...');
       await initializeDynamoDB();
       logger.info('✅ DynamoDB connected successfully');
+
+      // Connect to MongoDB (optional - for legacy features)
+      if (process.env.USE_MONGODB === 'true') {
+        logger.info('📊 Connecting to MongoDB...');
+        await database.connect();
+        logger.info('✅ MongoDB connected successfully');
+      } else {
+        logger.info('ℹ️  MongoDB disabled - using DynamoDB only');
+      }
     } catch (error) {
       logger.error('❌ Database connection failed:', error);
       throw error;
@@ -172,10 +176,7 @@ class ShakesTravelServer {
 
     // Health check endpoint
     this.app.get('/api/health', catchAsync(async (req, res) => {
-      const [mongoHealth, dynamoHealth] = await Promise.all([
-        database.healthCheck(),
-        dynamoHealthCheck()
-      ]);
+      const dynamoHealth = await dynamoHealthCheck();
 
       const healthCheck = {
         status: 'healthy',
@@ -188,15 +189,28 @@ class ShakesTravelServer {
           total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024) + ' MB'
         },
         databases: {
-          mongodb: mongoHealth,
           dynamodb: dynamoHealth ? 'connected' : 'disconnected'
         }
       };
 
-      // Check if any critical systems are down
-      if (!database.isHealthy() || !dynamoHealth) {
-        healthCheck.status = 'unhealthy';
-        return res.status(503).json(healthCheck);
+      // Check MongoDB if enabled
+      if (process.env.USE_MONGODB === 'true') {
+        const mongoHealth = await database.healthCheck();
+        healthCheck.databases.mongodb = mongoHealth;
+
+        // Check if any critical systems are down
+        if (!database.isHealthy() || !dynamoHealth) {
+          healthCheck.status = 'unhealthy';
+          return res.status(503).json(healthCheck);
+        }
+      } else {
+        healthCheck.databases.mongodb = 'disabled';
+
+        // Only check DynamoDB
+        if (!dynamoHealth) {
+          healthCheck.status = 'unhealthy';
+          return res.status(503).json(healthCheck);
+        }
       }
 
       res.status(200).json(healthCheck);
@@ -349,9 +363,11 @@ class ShakesTravelServer {
           });
         }
 
-        // Close MongoDB connection
-        await database.disconnect();
-        logger.info('✅ MongoDB connection closed');
+        // Close MongoDB connection if enabled
+        if (process.env.USE_MONGODB === 'true') {
+          await database.disconnect();
+          logger.info('✅ MongoDB connection closed');
+        }
 
         // DynamoDB doesn't require explicit connection closing
         logger.info('✅ DynamoDB client closed');
