@@ -1,22 +1,29 @@
 const serverless = require('serverless-http');
 
-// Try to get app with error handling
+// Load the main server with DynamoDB support
 let app;
 try {
-  app = require('../../server-standalone').getApp();
+  const server = require('../../server');
+  app = server.getApp();
 } catch (error) {
-  console.error('Failed to load server-standalone:', error);
-  // Fallback simple Express app
-  const express = require('express');
-  app = express();
-  
-  app.get('*', (req, res) => {
-    res.json({
-      error: 'Server initialization failed',
-      message: error.message,
-      timestamp: new Date().toISOString()
+  console.error('Failed to load main server:', error);
+  // Fallback to standalone if main server fails
+  try {
+    app = require('../../server-standalone').getApp();
+  } catch (fallbackError) {
+    console.error('Failed to load server-standalone:', fallbackError);
+    // Final fallback - simple Express app
+    const express = require('express');
+    app = express();
+
+    app.get('*', (req, res) => {
+      res.json({
+        error: 'Server initialization failed',
+        message: error.message,
+        timestamp: new Date().toISOString()
+      });
     });
-  });
+  }
 }
 
 // Configure for Netlify Functions
