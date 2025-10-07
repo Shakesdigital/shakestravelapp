@@ -24,10 +24,10 @@ const { logger } = require('../utils/logger');
 
 // DynamoDB Client Configuration
 const dynamoDBClient = new DynamoDBClient({
-  region: process.env.AWS_REGION || 'us-east-1',
-  credentials: process.env.AWS_ACCESS_KEY_ID ? {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  region: process.env.AWS_REGION || process.env.DYNAMODB_REGION || 'us-east-1',
+  credentials: (process.env.AWS_ACCESS_KEY_ID || process.env.DYNAMODB_ACCESS_KEY_ID) ? {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || process.env.DYNAMODB_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || process.env.DYNAMODB_SECRET_ACCESS_KEY
   } : undefined, // Use default credential provider chain if not specified
   endpoint: process.env.DYNAMODB_ENDPOINT || undefined // For local DynamoDB
 });
