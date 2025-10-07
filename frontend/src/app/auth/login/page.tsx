@@ -46,12 +46,18 @@ export default function LoginPage() {
     setError('');
 
     try {
-      // Use Netlify Identity for login instead of custom API
-      netlifyLogin();
-      
-      // Note: Netlify login will trigger the redirect via useEffect when successful
+      // Use DynamoDB backend for login
+      await login(data.email, data.password);
+
+      // Redirect after successful login
+      const returnUrl = new URLSearchParams(window.location.search).get('returnUrl');
+      if (returnUrl) {
+        router.push(returnUrl);
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err: any) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(err.response?.data?.error?.message || err.message || 'Login failed. Please check your credentials.');
       setLoading(false);
     }
   };

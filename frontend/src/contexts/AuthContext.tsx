@@ -59,8 +59,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const response = await api.auth.login({ email, password });
       const { data } = response.data;
-      const { token: newToken, user: userData } = data;
-      
+
+      // Handle both old format (token) and new format (tokens.accessToken)
+      const newToken = data.tokens?.accessToken || data.token;
+      const userData = data.user;
+
       setToken(newToken);
       setUser({
         ...userData,
@@ -76,17 +79,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const register = async (firstName: string, lastName: string, email: string, password: string, agreeToTerms: boolean = true, agreeToPrivacy: boolean = true) => {
     try {
-      const response = await api.auth.register({ 
-        firstName, 
-        lastName, 
-        email, 
-        password, 
-        agreeToTerms, 
-        agreeToPrivacy 
+      const response = await api.auth.register({
+        firstName,
+        lastName,
+        email,
+        password,
+        agreeToTerms,
+        agreeToPrivacy
       });
       const { data } = response.data;
-      const { token: newToken, user: userData } = data;
-      
+
+      // Handle both old format (token) and new format (tokens.accessToken)
+      const newToken = data.tokens?.accessToken || data.token;
+      const userData = data.user;
+
       setToken(newToken);
       setUser({
         ...userData,
