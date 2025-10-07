@@ -304,10 +304,14 @@ async function healthCheck() {
   try {
     // Simple test - try to get a non-existent item
     await getItem(TABLES.EXPERIENCES, { id: 'health-check-test' });
-    return true;
+    return { success: true };
   } catch (error) {
     logger.error('❌ DynamoDB health check failed:', error);
-    return false;
+    return {
+      success: false,
+      error: error.message || 'Unknown error',
+      code: error.code || error.name
+    };
   }
 }
 

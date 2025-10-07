@@ -55,7 +55,8 @@ async function initializeApp() {
         environment: NODE_ENV,
         version: '1.0.0',
         databases: {
-          dynamodb: dynamoHealth ? 'connected' : 'disconnected',
+          dynamodb: dynamoHealth.success ? 'connected' : 'disconnected',
+          dynamodbError: dynamoHealth.success ? null : { message: dynamoHealth.error, code: dynamoHealth.code },
           mongodb: 'disabled'
         },
         envCheck: {
