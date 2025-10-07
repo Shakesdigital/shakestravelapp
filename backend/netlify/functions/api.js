@@ -57,6 +57,14 @@ async function initializeApp() {
         databases: {
           dynamodb: dynamoHealth ? 'connected' : 'disconnected',
           mongodb: 'disabled'
+        },
+        envCheck: {
+          hasDynamoRegion: !!process.env.DYNAMODB_REGION,
+          hasAwsRegion: !!process.env.AWS_REGION,
+          hasDynamoAccessKey: !!process.env.DYNAMODB_ACCESS_KEY_ID,
+          hasAwsAccessKey: !!process.env.AWS_ACCESS_KEY_ID,
+          hasDynamoSecret: !!process.env.DYNAMODB_SECRET_ACCESS_KEY,
+          hasAwsSecret: !!process.env.AWS_SECRET_ACCESS_KEY
         }
       });
     }));
