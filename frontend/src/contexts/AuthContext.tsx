@@ -18,7 +18,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (firstName: string, lastName: string, email: string, password: string, agreeToTerms?: boolean, agreeToPrivacy?: boolean) => Promise<void>;
+  register: (firstName: string, lastName: string, email: string, password: string, role?: 'user' | 'host', agreeToTerms?: boolean, agreeToPrivacy?: boolean) => Promise<void>;
   googleLogin: (credential: string, clientId?: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
@@ -77,13 +77,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  const register = async (firstName: string, lastName: string, email: string, password: string, agreeToTerms: boolean = true, agreeToPrivacy: boolean = true) => {
+  const register = async (firstName: string, lastName: string, email: string, password: string, role: 'user' | 'host' = 'user', agreeToTerms: boolean = true, agreeToPrivacy: boolean = true) => {
     try {
       const response = await api.auth.register({
         firstName,
         lastName,
         email,
         password,
+        role,
         agreeToTerms,
         agreeToPrivacy
       });

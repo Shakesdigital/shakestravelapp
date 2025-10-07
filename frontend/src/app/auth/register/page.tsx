@@ -14,6 +14,7 @@ interface RegisterFormData {
   email: string;
   password: string;
   confirmPassword: string;
+  role: 'user' | 'host';
   agreeToTerms: boolean;
   agreeToPrivacy: boolean;
   subscribeNewsletter: boolean;
@@ -41,6 +42,7 @@ export default function RegisterPage() {
       email: '',
       password: '',
       confirmPassword: '',
+      role: 'user',
       agreeToTerms: false,
       agreeToPrivacy: false,
       subscribeNewsletter: false
@@ -72,12 +74,18 @@ export default function RegisterPage() {
     }
 
     try {
-      // Use Netlify Identity for registration instead of custom API
-      netlifySignup();
-      
-      // Note: Netlify signup will trigger the redirect via useEffect when successful
+      // Use DynamoDB backend for registration with role
+      await registerUser(data.firstName, data.lastName, data.email, data.password, data.role, data.agreeToTerms, data.agreeToPrivacy);
+
+      // Redirect based on user role after successful registration
+      const returnUrl = new URLSearchParams(window.location.search).get('returnUrl');
+      if (returnUrl) {
+        router.push(returnUrl);
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err: any) {
-      setError(err.message || 'Registration failed. Please try again.');
+      setError(err.response?.data?.error?.message || err.message || 'Registration failed. Please try again.');
       setLoading(false);
     }
   };
