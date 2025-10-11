@@ -91,7 +91,7 @@ const AllExperiencesPage: React.FC = () => {
         if (filters.duration === 'Full Day' && exp.duration !== 'Full Day') {
           return false;
         }
-        if (filters.duration === 'Multi-Day' && !exp.duration.toLowerCase().includes('day') || exp.duration === 'Full Day' || exp.duration === 'Half Day') {
+        if (filters.duration === 'Multi-Day' && (exp.duration === 'Full Day' || exp.duration === 'Half Day' || !exp.duration.toLowerCase().includes('day'))) {
           return false;
         }
       }
