@@ -435,4 +435,5 @@ export const accommodations: Accommodation[] = [
   }
 ];
 
+export { accommodations };
 export default accommodations;
