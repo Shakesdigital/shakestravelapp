@@ -765,7 +765,7 @@ export default function ExperiencesPage() {
                   key={experience.id} 
                   className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <Link href={`/experiences/${experience.id}`}>
+                  <div className="block cursor-pointer">
                     {/* Experience Image */}
                     <div 
                       className="h-48 flex items-center justify-center text-6xl relative overflow-hidden"
@@ -846,19 +846,16 @@ export default function ExperiencesPage() {
                           </span>
                           <span className="text-sm text-gray-500 ml-1">per person</span>
                         </div>
-                        <button
+                        <Link
+                          href="/all-experiences"
                           className="btn-primary text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm"
                           style={{ backgroundColor: primaryColor }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = `/experiences/${experience.id}`;
-                          }}
                         >
-                          Book Now
-                        </button>
+                          View All
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </article>
               ))}
             </div>
