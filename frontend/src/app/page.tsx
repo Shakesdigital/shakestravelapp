@@ -588,8 +588,8 @@ export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
-    "name": "Shakes Travel",
-    "description": "Sustainable Uganda adventures and eco-friendly accommodations in the Pearl of Africa",
+    "name": "Shakes Travel - Uganda Safari & Gorilla Trekking Experts",
+    "description": "Discover Uganda's wonders with sustainable safari adventures, gorilla trekking, and eco-friendly accommodations in the Pearl of Africa. Experience authentic Ugandan travel with Shakes Travel.",
     "url": typeof window !== 'undefined' ? window.location.origin : '',
     "logo": `${typeof window !== 'undefined' ? window.location.origin : ''}/brand_assets/images/logo/logo.png`,
     "image": `${typeof window !== 'undefined' ? window.location.origin : ''}/images/uganda-hero.jpg`,
@@ -609,27 +609,52 @@ export default function Home() {
     "makesOffer": [
       {
         "@type": "Offer",
-        "name": "Gorilla Trekking Tours",
-        "description": "Experience mountain gorillas in their natural habitat",
-        "category": "Adventure Tourism"
-      },
-      {
-        "@type": "Offer", 
-        "name": "Safari Adventures",
-        "description": "Wildlife viewing in Uganda's national parks",
-        "category": "Wildlife Tourism"
+        "name": "Bwindi Gorilla Trekking Tours",
+        "description": "Experience mountain gorillas in Bwindi Impenetrable National Park and Mgahinga",
+        "category": "Adventure Tourism",
+        "areaServed": "Uganda"
       },
       {
         "@type": "Offer",
-        "name": "Cultural Tours",
-        "description": "Authentic cultural experiences with local communities",
-        "category": "Cultural Tourism"
+        "name": "Uganda Safari Adventures",
+        "description": "Wildlife safaris in Murchison Falls, Queen Elizabeth, Kidepo Valley, and Lake Mburo National Parks",
+        "category": "Wildlife Tourism",
+        "areaServed": "Uganda"
       },
       {
         "@type": "Offer",
-        "name": "Eco-Friendly Accommodations",
-        "description": "Sustainable lodging options across Uganda",
-        "category": "Green Accommodations"
+        "name": "Chimpanzee Tracking",
+        "description": "Primate tracking in Kibale National Park, the Primate Capital of the World",
+        "category": "Wildlife Tourism",
+        "areaServed": "Uganda"
+      },
+      {
+        "@type": "Offer",
+        "name": "White Water Rafting Jinja",
+        "description": "World-class rafting at the Source of the Nile River",
+        "category": "Adventure Tourism",
+        "areaServed": "Uganda"
+      },
+      {
+        "@type": "Offer",
+        "name": "Rwenzori Mountains Trekking",
+        "description": "Mountain trekking in the legendary Mountains of the Moon",
+        "category": "Adventure Tourism",
+        "areaServed": "Uganda"
+      },
+      {
+        "@type": "Offer",
+        "name": "Cultural Tours Uganda",
+        "description": "Authentic cultural experiences with Uganda's diverse communities and tribes",
+        "category": "Cultural Tourism",
+        "areaServed": "Uganda"
+      },
+      {
+        "@type": "Offer",
+        "name": "Eco-Friendly Uganda Accommodations",
+        "description": "Sustainable lodges and camps across Uganda's national parks",
+        "category": "Green Accommodations",
+        "areaServed": "Uganda"
       }
     ],
     "areaServed": {
