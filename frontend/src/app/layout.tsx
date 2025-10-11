@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Shakes Travel",
-  description: "Discover East Africa's wonders through sustainable adventures across Uganda, Kenya, Tanzania, and Rwanda. Experience eco-friendly accommodations and meaningful cultural connections.",
-  keywords: "East Africa travel, Uganda Kenya Tanzania Rwanda, eco-friendly tourism, sustainable travel, gorilla trekking, safari adventures, cultural tours, green travel, East Africa accommodations",
+  description: "Discover Uganda's wonders through sustainable adventures in the Pearl of Africa. Experience eco-friendly accommodations, gorilla trekking, and meaningful cultural connections.",
+  keywords: "Uganda travel, Pearl of Africa, eco-friendly tourism, sustainable travel, gorilla trekking, safari adventures, cultural tours, green travel, Uganda accommodations, Bwindi, Murchison Falls",
   authors: [{ name: "Shakes Travel" }],
   creator: "Shakes Travel",
   publisher: "Shakes Travel",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Shakes Travel",
-    description: "Experience East Africa's wonders through eco-friendly adventures and meaningful cultural connections across Uganda, Kenya, Tanzania, and Rwanda.",
+    description: "Experience Uganda's wonders through eco-friendly adventures and meaningful cultural connections in the Pearl of Africa.",
     url: '/',
     siteName: "Shakes Travel",
     images: [
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Shakes Travel",
-    description: "Discover eco-friendly travel experiences across East Africa. Book sustainable adventures in Uganda, Kenya, Tanzania, and Rwanda.",
+    description: "Discover eco-friendly travel experiences in Uganda. Book sustainable adventures in the Pearl of Africa - gorilla trekking, safaris, and more.",
     images: ['/images/uganda-hero.jpg'],
     creator: '@shakestravel',
   },
