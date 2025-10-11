@@ -281,7 +281,7 @@ export default function Home() {
               </p>
             </div>
             <Link
-              href="/view-all-properties"
+              href="/all-accommodations"
               className="hidden md:inline-block text-white px-8 py-3 rounded-xl font-semibold transition-colors"
               style={{ backgroundColor: primaryColor }}
             >
@@ -334,7 +334,7 @@ export default function Home() {
 
           <div className="text-center mt-8 md:hidden">
             <Link
-              href="/view-all-properties"
+              href="/all-accommodations"
               className="inline-block text-white px-8 py-3 rounded-xl font-semibold transition-colors"
               style={{ backgroundColor: primaryColor }}
             >
