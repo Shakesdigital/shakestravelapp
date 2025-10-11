@@ -40,14 +40,32 @@ const Accommodations: React.FC<AccommodationsProps> = ({
   // Map destination slugs to search queries
   const getLocationQuery = (slug: string): string => {
     const locationMap: { [key: string]: string } = {
-      'bwindi-impenetrable-forest': 'Bwindi',
-      'queen-elizabeth-national-park': 'Queen Elizabeth',
-      'murchison-falls-national-park': 'Murchison',
+      'amboseli-national-park': 'Amboseli',
+      'bwindi-impenetrable-national-park': 'Bwindi',
+      'diani-beach': 'Diani',
+      'hells-gate-national-park': 'Hell\'s Gate',
       'jinja': 'Jinja',
+      'kibale-national-park': 'Kibale',
+      'kidepo-valley-national-park': 'Kidepo',
       'lake-bunyonyi': 'Bunyonyi',
+      'lake-mburo-national-park': 'Mburo',
+      'lake-nakuru-national-park': 'Nakuru',
+      'lake-turkana-national-parks': 'Turkana',
+      'lamu-old-town': 'Lamu',
+      'masai-mara-national-reserve': 'Masai Mara',
+      'mount-elgon-national-park': 'Elgon',
+      'mount-kenya-national-park': 'Mount Kenya',
+      'murchison-falls-national-park': 'Murchison',
+      'nairobi-national-park': 'Nairobi',
+      'ngorongoro-conservation-area': 'Ngorongoro',
+      'queen-elizabeth-national-park': 'Queen Elizabeth',
+      'rwenzori-mountains-national-park': 'Rwenzori',
+      'samburu-national-reserve': 'Samburu',
+      'semuliki-valley-national-park': 'Semuliki',
+      'serengeti-national-park': 'Serengeti',
+      'tsavo-national-parks': 'Tsavo',
+      'watamu-marine-park': 'Watamu',
       'kampala': 'Kampala',
-      'kibale-forest': 'Kibale',
-      'mount-elgon': 'Elgon',
       'mgahinga-gorilla-national-park': 'Mgahinga',
       'lake-victoria': 'Victoria',
       'sipi-falls': 'Sipi',
@@ -108,7 +126,7 @@ const Accommodations: React.FC<AccommodationsProps> = ({
       amenities: ['Free WiFi', 'Restaurant', 'Eco-Friendly'],
       roomType: 'Standard Room',
       availability: 'Available',
-      features: ['Mountain Views', 'Eco-Friendly', 'Local Cuisine']
+      features: ['Scenic Views', 'Eco-Friendly', 'Local Cuisine']
     },
     {
       id: 2,
@@ -128,19 +146,19 @@ const Accommodations: React.FC<AccommodationsProps> = ({
     },
     {
       id: 3,
-      name: `Boutique Hotel ${destinationName}`,
+      name: `Resort in ${destinationName}`,
       location: destinationName,
-      category: 'Boutique Hotel',
+      category: 'Resort',
       rating: 4.4,
       reviews: 123,
       price: 120,
       originalPrice: 150,
-      image: '🏨',
-      description: `Charming boutique accommodation in ${destinationName}`,
+      image: '🏖️',
+      description: `Comfortable resort accommodation in ${destinationName}`,
       amenities: ['Pool', 'Spa', 'Restaurant'],
       roomType: 'Deluxe Room',
       availability: 'Available',
-      features: ['City Center', 'Modern Amenities', 'Cultural Tours']
+      features: ['Comfortable Stay', 'Modern Amenities', 'Local Experience']
     }
   ];
 

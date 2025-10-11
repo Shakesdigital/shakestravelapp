@@ -53,32 +53,38 @@ export default function Home() {
 
   const destinations = {
     uganda: [
-      { name: 'Kampala', description: "Uganda's vibrant capital city", country: 'Uganda' },
-      { name: 'Bwindi Impenetrable Forest', description: 'Home to mountain gorillas', country: 'Uganda' },
-      { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise', country: 'Uganda' },
-      { name: 'Murchison Falls', description: "World's most powerful waterfall", country: 'Uganda' },
-      { name: 'Lake Bunyonyi', description: 'Switzerland of Africa', country: 'Uganda' }
+      { name: 'Kampala', description: "Uganda's vibrant capital city", country: 'Uganda', image: '🏙️' },
+      { name: 'Bwindi Impenetrable National Park', description: 'Home to mountain gorillas', country: 'Uganda', image: '🦍' },
+      { name: 'Queen Elizabeth National Park', description: 'Wildlife safari paradise', country: 'Uganda', image: '🦁' },
+      { name: 'Murchison Falls National Park', description: "World's most powerful waterfall", country: 'Uganda', image: '🌊' },
+      { name: 'Lake Bunyonyi', description: 'Switzerland of Africa', country: 'Uganda', image: '🏞️' },
+      { name: 'Kibale National Park', description: 'Primate capital of the world', country: 'Uganda', image: '🦧' },
+      { name: 'Kidepo Valley National Park', description: 'Remote wilderness with unique wildlife', country: 'Uganda', image: '🐃' },
+      { name: 'Lake Mburo National Park', description: 'Acacia woodland and zebra sanctuary', country: 'Uganda', image: '🦓' }
     ],
     kenya: [
-      { name: 'Maasai Mara', description: 'Home to the Great Migration', country: 'Kenya' },
-      { name: 'Amboseli National Park', description: 'Elephants with Kilimanjaro backdrop', country: 'Kenya' },
-      { name: 'Lake Nakuru', description: 'Pink flamingo paradise', country: 'Kenya' },
-      { name: 'Samburu National Reserve', description: 'Unique northern wildlife', country: 'Kenya' },
-      { name: 'Diani Beach', description: 'White sand tropical coastline', country: 'Kenya' }
+      { name: 'Masai Mara National Reserve', description: 'Home to the Great Migration', country: 'Kenya', image: '🦁' },
+      { name: 'Amboseli National Park', description: 'Elephants with Kilimanjaro backdrop', country: 'Kenya', image: '🐘' },
+      { name: 'Lake Nakuru National Park', description: 'Pink flamingo paradise', country: 'Kenya', image: '🦩' },
+      { name: 'Samburu National Reserve', description: 'Unique northern wildlife', country: 'Kenya', image: '🐫' },
+      { name: 'Diani Beach', description: 'White sand tropical coastline', country: 'Kenya', image: '🏖️' },
+      { name: 'Nairobi National Park', description: 'Wildlife park near the capital', country: 'Kenya', image: '🦒' },
+      { name: 'Hell\'s Gate National Park', description: 'Dramatic gorges and geothermal activity', country: 'Kenya', image: '🧗' },
+      { name: 'Tsavo National Parks', description: 'Kenya\'s largest protected area', country: 'Kenya', image: '🦛' }
     ],
     tanzania: [
-      { name: 'Serengeti National Park', description: 'Endless plains of wildlife', country: 'Tanzania' },
-      { name: 'Ngorongoro Crater', description: "World's largest volcanic caldera", country: 'Tanzania' },
-      { name: 'Mount Kilimanjaro', description: "Africa's highest peak", country: 'Tanzania' },
-      { name: 'Zanzibar', description: 'Spice island paradise', country: 'Tanzania' },
-      { name: 'Tarangire National Park', description: 'Land of giants and baobabs', country: 'Tanzania' }
+      { name: 'Serengeti National Park', description: 'Endless plains of wildlife', country: 'Tanzania', image: '🦒' },
+      { name: 'Ngorongoro Conservation Area', description: "World's largest volcanic caldera", country: 'Tanzania', image: '🦓' },
+      { name: 'Mount Kilimanjaro', description: "Africa's highest peak", country: 'Tanzania', image: '🏔️' },
+      { name: 'Zanzibar', description: 'Spice island paradise', country: 'Tanzania', image: '🏝️' },
+      { name: 'Tarangire National Park', description: 'Land of giants and baobabs', country: 'Tanzania', image: '🌳' }
     ],
     rwanda: [
-      { name: 'Volcanoes National Park', description: 'Mountain gorilla sanctuary', country: 'Rwanda' },
-      { name: 'Nyungwe Forest', description: 'Pristine rainforest canopy', country: 'Rwanda' },
-      { name: 'Lake Kivu', description: 'Great Rift Valley jewel', country: 'Rwanda' },
-      { name: 'Akagera National Park', description: 'Big Five savanna experience', country: 'Rwanda' },
-      { name: 'Kigali', description: 'Clean, modern capital city', country: 'Rwanda' }
+      { name: 'Volcanoes National Park', description: 'Mountain gorilla sanctuary', country: 'Rwanda', image: '🦍' },
+      { name: 'Nyungwe Forest', description: 'Pristine rainforest canopy', country: 'Rwanda', image: '🌲' },
+      { name: 'Lake Kivu', description: 'Great Rift Valley jewel', country: 'Rwanda', image: '🌊' },
+      { name: 'Akagera National Park', description: 'Big Five savanna experience', country: 'Rwanda', image: '🐅' },
+      { name: 'Kigali', description: 'Clean, modern capital city', country: 'Rwanda', image: '🏙️' }
     ]
   };
 
@@ -93,199 +99,216 @@ export default function Home() {
   const featuredExperiences = [
     {
       id: 1,
+      title: 'Amboseli Elephant Safari',
+      location: 'Amboseli National Park',
+      country: '🇰🇪 Kenya',
+      rating: 4.8,
+      reviews: 245,
+      image: '🐘',
+      duration: '1 Day',
+      category: 'Wildlife Safari',
+      highlights: ['Elephant Herds', 'Kilimanjaro Views', 'Maasai Culture'],
+      difficulty: 'Easy',
+      availability: 'Daily',
+      description: 'Witness massive elephant herds against the backdrop of Mount Kilimanjaro in Kenya\'s premier wildlife sanctuary'
+    },
+    {
+      id: 2,
       title: 'Gorilla Trekking in Bwindi',
-      location: 'Bwindi Impenetrable Forest',
+      location: 'Bwindi Impenetrable National Park',
       country: '🇺🇬 Uganda',
       rating: 4.9,
       reviews: 234,
       image: '🦍',
-      duration: '1 Day',
-      category: 'Wildlife Safari',
-      highlights: ['Expert Guide', 'Permit Included'],
+      duration: 'Full Day',
+      category: 'Wildlife',
+      highlights: ['Gorilla Family', 'Forest Trek', 'Conservation'],
       difficulty: 'Moderate',
-      availability: 'Daily departures',
+      availability: 'Limited Spots',
       description: 'Experience the magic of encountering mountain gorillas in their natural habitat'
     },
     {
-      id: 2,
-      title: 'Great Migration Safari',
-      location: 'Masai Mara Reserve',
-      country: '🇰🇪 Kenya',
-      rating: 4.8,
-      reviews: 456,
-      image: '🦓',
-      duration: '3 Days',
-      category: 'Wildlife Safari',
-      highlights: ['Balloon Safari', 'Luxury Camp'],
-      difficulty: 'Easy',
-      availability: 'Jul-Oct Best',
-      description: "Witness one of nature's greatest spectacles as millions of animals cross the savanna"
-    },
-    {
       id: 3,
-      title: 'Kilimanjaro Summit Trek',
-      location: 'Mount Kilimanjaro',
-      country: '🇹🇿 Tanzania',
-      rating: 4.7,
-      reviews: 312,
-      image: '🏔️',
-      duration: '7 Days',
-      category: 'Adventure',
-      highlights: ['Full Equipment', 'Expert Guides'],
-      difficulty: 'Challenging',
+      title: 'Diani Beach Paradise',
+      location: 'Diani Beach',
+      country: '🇰🇪 Kenya',
+      rating: 4.6,
+      reviews: 189,
+      image: '🏖️',
+      duration: '2 Days',
+      category: 'Beach & Relaxation',
+      highlights: ['White Sand', 'Marine Life', 'Water Sports'],
+      difficulty: 'Easy',
       availability: 'Year-round',
-      description: "Conquer Africa's highest peak with breathtaking landscapes and unforgettable adventures"
+      description: 'Relax on Kenya\'s most stunning coastline with crystal-clear waters and pristine beaches'
     },
     {
       id: 4,
-      title: 'Golden Monkey Tracking',
-      location: 'Volcanoes National Park',
-      country: '🇷🇼 Rwanda',
-      rating: 4.8,
-      reviews: 189,
-      image: '🐒',
-      duration: '4 Hours',
-      category: 'Wildlife Safari',
-      highlights: ['Small Groups', 'Photography'],
-      difficulty: 'Easy',
-      availability: 'Daily 9AM & 2PM',
-      description: "Track playful golden monkeys in Rwanda's pristine mountain forests"
+      title: 'Hell\'s Gate Adventure',
+      location: 'Hell\'s Gate National Park',
+      country: '🇰🇪 Kenya',
+      rating: 4.7,
+      reviews: 156,
+      image: '🧗',
+      duration: 'Full Day',
+      category: 'Adventure & Hiking',
+      highlights: ['Cycling', 'Hiking', 'Rock Climbing'],
+      difficulty: 'Moderate',
+      availability: 'Daily',
+      description: 'Experience unique adventure activities in Kenya\'s dramatic gorges and cliffs'
     },
     {
       id: 5,
-      title: 'White Water Rafting Adventure',
-      location: 'Jinja, River Nile',
-      country: '🇺🇬 Uganda',
-      rating: 4.7,
-      reviews: 187,
-      image: '🚣',
-      duration: '4 Hours',
-      category: 'Water Sports',
-      highlights: ['Grade 5 Rapids', 'Safety Equipment'],
-      difficulty: 'Challenging',
-      availability: 'Daily 9AM & 2PM',
-      description: 'Navigate the legendary rapids of the River Nile with expert guides'
-    },
-    {
-      id: 6,
-      title: 'Ngorongoro Crater Safari',
-      location: 'Ngorongoro Conservation',
-      country: '🇹🇿 Tanzania',
-      rating: 4.9,
-      reviews: 523,
-      image: '🦁',
-      duration: '2 Days',
-      category: 'Wildlife Safari',
-      highlights: ['Big Five', 'Crater Lodge'],
-      difficulty: 'Easy',
-      availability: 'Daily departures',
-      description: 'Explore the world\'s largest intact volcanic caldera teeming with wildlife'
-    },
-    {
-      id: 7,
-      title: 'Canopy Walk in Nyungwe',
-      location: 'Nyungwe Forest',
-      country: '🇷🇼 Rwanda',
-      rating: 4.6,
-      reviews: 145,
-      image: '🌲',
-      duration: '3 Hours',
-      category: 'Adventure',
-      highlights: ['Suspended Bridge', 'Bird Watching'],
-      difficulty: 'Moderate',
-      availability: 'Morning tours',
-      description: "Walk among the treetops in one of Africa's oldest rainforests"
-    },
-    {
-      id: 8,
-      title: 'Serengeti Balloon Safari',
-      location: 'Serengeti National Park',
-      country: '🇹🇿 Tanzania',
-      rating: 5.0,
-      reviews: 267,
-      image: '🎈',
-      duration: '3 Hours',
-      category: 'Aerial Adventure',
-      highlights: ['Sunrise Flight', 'Champagne Breakfast'],
-      difficulty: 'Easy',
-      availability: 'Daily at dawn',
-      description: 'Float above the endless plains and witness wildlife from a unique perspective'
-    },
-    {
-      id: 9,
-      title: 'Maasai Cultural Experience',
-      location: 'Amboseli Region',
-      country: '🇰🇪 Kenya',
-      rating: 4.7,
-      reviews: 203,
-      image: '🏘️',
-      duration: '1 Day',
-      category: 'Cultural',
-      highlights: ['Village Visit', 'Traditional Dance'],
-      difficulty: 'Easy',
-      availability: 'Tue, Thu, Sat',
-      description: 'Immerse yourself in the rich traditions of the iconic Maasai people'
-    },
-    {
-      id: 10,
-      title: 'Chimpanzee Habituation',
-      location: 'Kibale Forest',
+      title: 'Chimp Tracking in Kibale',
+      location: 'Kibale National Park',
       country: '🇺🇬 Uganda',
       rating: 4.8,
       reviews: 178,
       image: '🦧',
-      duration: 'Full Day',
-      category: 'Wildlife Safari',
-      highlights: ['Research Team', 'All Day Access'],
+      duration: 'Half Day',
+      category: 'Wildlife',
+      highlights: ['Chimpanzee Families', 'Primate Research', 'Forest Walk'],
       difficulty: 'Moderate',
-      availability: 'Limited permits',
-      description: "Spend an entire day with our closest relatives in their natural forest home"
+      availability: 'Daily',
+      description: 'Track our closest relatives with expert primatologists in the \'Primate Capital of the World\''
+    },
+    {
+      id: 6,
+      title: 'Masai Mara Great Migration',
+      location: 'Masai Mara National Reserve',
+      country: '🇰🇪 Kenya',
+      rating: 4.9,
+      reviews: 456,
+      image: '🦁',
+      duration: '3 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Great Migration', 'Big Five', 'Maasai Culture'],
+      difficulty: 'Easy',
+      availability: 'Seasonal',
+      description: 'Witness one of nature\'s greatest spectacles with millions of wildebeest and zebra crossing the Mara'
+    },
+    {
+      id: 7,
+      title: 'Ngorongoro Safari',
+      location: 'Ngorongoro Conservation Area',
+      country: '🇹🇿 Tanzania',
+      rating: 4.8,
+      reviews: 234,
+      image: '🦓',
+      duration: '2 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Crater Safari', 'Big Five', 'Conservation Success'],
+      difficulty: 'Easy',
+      availability: 'Daily',
+      description: 'Explore the world\'s largest intact volcanic caldera teeming with wildlife'
+    },
+    {
+      id: 8,
+      title: 'Serengeti Safari Experience',
+      location: 'Serengeti National Park',
+      country: '🇹🇿 Tanzania',
+      rating: 4.9,
+      reviews: 215,
+      image: '🦒',
+      duration: '4 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Endless Plains', 'Predators', 'Landscape'],
+      difficulty: 'Easy',
+      availability: 'Year-round',
+      description: 'Experience Africa\'s most iconic wildlife sanctuary with unparalleled game viewing opportunities'
+    },
+    {
+      id: 9,
+      title: 'Samburu Safari Adventure',
+      location: 'Samburu National Reserve',
+      country: '🇰🇪 Kenya',
+      rating: 4.7,
+      reviews: 145,
+      image: '🐫',
+      duration: '2 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Special Six', 'Unique Wildlife', 'Cultural Experience'],
+      difficulty: 'Easy',
+      availability: 'Daily',
+      description: 'Discover Kenya\'s unique northern wildlife and experience authentic Samburu culture'
+    },
+    {
+      id: 10,
+      title: 'Tsavo National Parks Safari',
+      location: 'Tsavo National Parks',
+      country: '🇰🇪 Kenya',
+      rating: 4.6,
+      reviews: 167,
+      image: '🦛',
+      duration: '3 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Largest Park', 'Red Elephants', 'Mts. Kenya Views'],
+      difficulty: 'Easy',
+      availability: 'Daily',
+      description: 'Explore Kenya\'s largest protected area with diverse ecosystems and unique wildlife'
     },
     {
       id: 11,
-      title: 'Zanzibar Spice & Beach Tour',
-      location: 'Zanzibar Island',
-      country: '🇹🇿 Tanzania',
-      rating: 4.6,
-      reviews: 412,
-      image: '🏝️',
-      duration: '1 Day',
-      category: 'Cultural',
-      highlights: ['Spice Farm', 'Stone Town'],
-      difficulty: 'Easy',
-      availability: 'Daily tours',
-      description: 'Explore aromatic spice farms and pristine beaches on the exotic Spice Island'
-    },
-    {
-      id: 12,
       title: 'Lake Nakuru Flamingo Safari',
-      location: 'Lake Nakuru',
+      location: 'Lake Nakuru National Park',
       country: '🇰🇪 Kenya',
-      rating: 4.5,
+      rating: 4.7,
       reviews: 289,
       image: '🦩',
       duration: '1 Day',
       category: 'Wildlife Safari',
-      highlights: ['Pink Flamingos', 'Rhino Sanctuary'],
+      highlights: ['Flamingos', 'Rhinos', 'Bird Watching'],
       difficulty: 'Easy',
-      availability: 'Best Nov-Apr',
-      description: 'Marvel at thousands of pink flamingos and endangered rhinos in this beautiful park'
+      availability: 'Daily',
+      description: 'Marvel at thousands of pink flamingos and endangered rhinos in this unique alkaline lake'
+    },
+    {
+      id: 12,
+      title: 'Kidepo Valley Safari',
+      location: 'Kidepo Valley National Park',
+      country: '🇺🇬 Uganda',
+      rating: 4.8,
+      reviews: 105,
+      image: '🐃',
+      duration: '3 Days',
+      category: 'Wildlife Safari',
+      highlights: ['Remote Wilderness', 'Unique Wildlife', 'Mountain Views'],
+      difficulty: 'Moderate',
+      availability: 'Seasonal',
+      description: 'Experience Uganda\'s most remote and pristine national park with exceptional wildlife viewing'
     }
   ];
 
   const featuredAccommodations = [
-    // Uganda - Premium Gorilla Trekking & Safari Accommodations
+    // East Africa - Premium Accommodations
     {
       id: 1,
+      name: 'Amboseli Sopa Lodge',
+      location: 'Amboseli National Park',
+      country: '🇰🇪 Kenya',
+      rating: 4.8,
+      reviews: 156,
+      price: 280,
+      originalPrice: 350,
+      discount: 'Save $70',
+      image: '🐘',
+      type: 'Mountain View Suite',
+      category: 'Safari Lodge',
+      amenities: ['Kilimanjaro Views', 'Swimming Pool', 'Restaurant', 'Bar', 'Wi-Fi'],
+      specialFeatures: ['Kilimanjaro Views', 'Swimming Pool'],
+      availability: 'Available'
+    },
+    {
+      id: 2,
       name: 'Clouds Mountain Gorilla Lodge',
-      location: 'Bwindi Impenetrable Forest',
+      location: 'Bwindi Impenetrable National Park',
       country: '🇺🇬 Uganda',
       rating: 4.9,
       reviews: 156,
       price: 450,
       originalPrice: 520,
       discount: 'Save $70',
-      image: '🏞️',
+      image: '🦍',
       type: 'Stone Cottage',
       category: 'Luxury Lodge',
       amenities: ['Free WiFi', 'Restaurant', 'Spa', 'Mountain Views', 'Eco-Friendly'],
@@ -293,126 +316,107 @@ export default function Home() {
       availability: 'Available'
     },
     {
-      id: 2,
-      name: 'Chobe Safari Lodge',
-      location: 'Murchison Falls National Park',
-      country: '🇺🇬 Uganda',
-      rating: 4.7,
-      reviews: 203,
-      price: 280,
-      originalPrice: 340,
-      discount: 'Save $60',
-      image: '🦁',
-      type: 'Safari Tent',
-      category: 'Safari Lodge',
-      amenities: ['Pool', 'Restaurant', 'Bar', 'River Views', 'Wildlife Viewing'],
-      specialFeatures: ['River Views', 'Wildlife Viewing'],
-      availability: 'Available'
-    },
-    {
       id: 3,
-      name: 'Birdnest Resort',
-      location: 'Lake Bunyonyi',
-      country: '🇺🇬 Uganda',
-      rating: 4.8,
+      name: 'Diani La Casa',
+      location: 'Diani Beach',
+      country: '🇰🇪 Kenya',
+      rating: 4.6,
       reviews: 127,
       price: 180,
       originalPrice: 220,
       discount: 'Save $40',
-      image: '🌊',
-      type: 'Lake View Room',
-      category: 'Eco Resort',
-      amenities: ['Free WiFi', 'Restaurant', 'Canoe Rental', 'Lake Views', 'Bird Watching'],
-      specialFeatures: ['Lake Views', 'Bird Watching'],
+      image: '🏖️',
+      type: 'Beachfront Villa',
+      category: 'Beach Resort',
+      amenities: ['Private Beach', 'Swimming Pool', 'Restaurant', 'Water Sports', 'Free WiFi'],
+      specialFeatures: ['Beachfront', 'Water Sports'],
       availability: 'Available'
     },
     {
       id: 4,
-      name: 'Kibale Lodge',
-      location: 'Kibale Forest National Park',
-      country: '🇺🇬 Uganda',
+      name: 'Kichwa Tembo Tented Camp',
+      location: 'Masai Mara National Reserve',
+      country: '🇰🇪 Kenya',
       rating: 4.8,
       reviews: 189,
       price: 800,
       originalPrice: 1000,
       discount: 'Save $200',
-      image: '🦧',
-      type: 'Forest Cottage',
-      category: 'Luxury Lodge',
-      amenities: ['Chimpanzee Trekking', 'Spa', 'Forest Views', 'Butler Service', 'Organic Garden'],
-      specialFeatures: ['Rwenzori Mountain Views', 'Chimp Trekking'],
+      image: '🦁',
+      type: 'Luxury Tent',
+      category: 'Luxury Camp',
+      amenities: ['Game Drives', 'Restaurant', 'Bar', 'Swimming Pool', 'Butler Service'],
+      specialFeatures: ['Migration Route', 'Private Deck'],
       availability: 'Available'
     },
-    // Kenya - Migration & Safari Excellence
     {
       id: 5,
-      name: 'Angama Mara',
-      location: 'Masai Mara National Reserve',
+      name: 'Lake Nakuru Lodge',
+      location: 'Lake Nakuru National Park',
       country: '🇰🇪 Kenya',
-      rating: 4.9,
-      reviews: 324,
-      price: 800,
-      originalPrice: 1000,
-      discount: 'Save $200',
-      image: '🦓',
-      type: 'Luxury Suite',
-      category: 'Luxury Lodge',
-      amenities: ['Infinity Pool', 'Spa', 'Butler Service', 'Migration Views', 'Hot Air Balloon'],
-      specialFeatures: ['Migration Views', 'Out of Africa Film Site'],
-      availability: 'Available'
-    },
-    {
-      id: 6,
-      name: 'Tortilis Camp',
-      location: 'Amboseli National Park',
-      country: '🇰🇪 Kenya',
-      rating: 4.8,
-      reviews: 198,
-      price: 600,
-      originalPrice: 750,
-      discount: 'Save $150',
-      image: '🐘',
-      type: 'Tented Room',
-      category: 'Luxury Camp',
-      amenities: ['Kilimanjaro Views', 'Elephant Encounters', 'Pool', 'Spa', 'Game Drives'],
-      specialFeatures: ['Kilimanjaro Views', 'Elephant Encounters'],
-      availability: 'Available'
-    },
-    {
-      id: 7,
-      name: 'Peponi Hotel',
-      location: 'Lamu Old Town',
-      country: '🇰🇪 Kenya',
-      rating: 4.6,
+      rating: 4.7,
       reviews: 145,
       price: 350,
       originalPrice: 420,
       discount: 'Save $70',
-      image: '🏝️',
-      type: 'Beachfront Suite',
-      category: 'Boutique Hotel',
-      amenities: ['Private Beach', 'Water Sports', 'Cultural Tours', 'Swahili Architecture'],
-      specialFeatures: ['UNESCO Heritage Site', 'Private Beach'],
+      image: '🦩',
+      type: 'Lodge Room',
+      category: 'Safari Lodge',
+      amenities: ['Rhino Sanctuary', 'Restaurant', 'Bar', 'Swimming Pool', 'Game Drives'],
+      specialFeatures: ['Rhino Sanctuary', 'Flamingo Views'],
       availability: 'Available'
     },
     {
-      id: 8,
-      name: 'Sasaab Lodge',
+      id: 6,
+      name: 'Samburu Intrepids',
       location: 'Samburu National Reserve',
       country: '🇰🇪 Kenya',
       rating: 4.9,
       reviews: 156,
-      price: 1800,
-      originalPrice: 2200,
-      discount: 'Save $400',
-      image: '🦒',
-      type: 'Moroccan Suite',
-      category: 'Ultra Luxury',
-      amenities: ['Private Plunge Pool', 'Spa', 'Desert Views', 'Wildlife Encounters', 'Cultural Tours'],
-      specialFeatures: ['Westgate Conservancy', 'Unique Wildlife'],
+      price: 600,
+      originalPrice: 750,
+      discount: 'Save $150',
+      image: '🐫',
+      type: 'River View Room',
+      category: 'Luxury Lodge',
+      amenities: ['Private Pool', 'Spa', 'Restaurant', 'Bar', 'Game Drives'],
+      specialFeatures: ['Ewaso Nyiro River', 'Samburu Culture'],
       availability: 'Available'
     },
-    // Tanzania - Serengeti & Safari Masterpieces
+    {
+      id: 7,
+      name: 'Serena Hotel Kampala',
+      location: 'Kampala',
+      country: '🇺🇬 Uganda',
+      rating: 4.5,
+      reviews: 203,
+      price: 180,
+      originalPrice: 220,
+      discount: 'Save $40',
+      image: '🏙️',
+      type: 'Executive Room',
+      category: 'City Hotel',
+      amenities: ['Swimming Pool', 'Spa', 'Restaurant', 'Free WiFi', 'Conference Facilities'],
+      specialFeatures: ['City Center', 'Business Center'],
+      availability: 'Available'
+    },
+    {
+      id: 8,
+      name: 'Kibale Forest Camp',
+      location: 'Kibale National Park',
+      country: '🇺🇬 Uganda',
+      rating: 4.8,
+      reviews: 127,
+      price: 400,
+      originalPrice: 480,
+      discount: 'Save $80',
+      image: '🦧',
+      type: 'Forest Tent',
+      category: 'Eco Camp',
+      amenities: ['Chimpanzee Tracking', 'Restaurant', 'Bar', 'Forest Views', 'Wildlife Guides'],
+      specialFeatures: ['Chimpanzee Tracking', 'Forest Setting'],
+      availability: 'Available'
+    },
     {
       id: 9,
       name: 'Four Seasons Safari Lodge',
@@ -423,7 +427,7 @@ export default function Home() {
       price: 1200,
       originalPrice: 1500,
       discount: 'Save $300',
-      image: '🦁',
+      image: '🦒',
       type: 'Safari Suite',
       category: 'Ultra Luxury',
       amenities: ['Waterhole Views', 'Infinity Pool', 'Spa', 'Kids Club', 'Butler Service'],
@@ -433,14 +437,14 @@ export default function Home() {
     {
       id: 10,
       name: 'Ngorongoro Serena Safari Lodge',
-      location: 'Ngorongoro Crater',
+      location: 'Ngorongoro Conservation Area',
       country: '🇹🇿 Tanzania',
       rating: 4.7,
       reviews: 289,
       price: 800,
       originalPrice: 1000,
       discount: 'Save $200',
-      image: '🌋',
+      image: '🦓',
       type: 'Crater View Room',
       category: 'Luxury Lodge',
       amenities: ['Crater Views', 'Heated Rooms', 'Restaurant', 'Bar', 'Early Game Drives'],
@@ -449,105 +453,104 @@ export default function Home() {
     },
     {
       id: 11,
-      name: 'Park Hyatt Zanzibar',
-      location: 'Stone Town, Zanzibar',
-      country: '🇹🇿 Tanzania',
-      rating: 4.8,
-      reviews: 567,
-      price: 500,
-      originalPrice: 650,
+      name: 'Treetops Lodge',
+      location: 'Mount Kenya National Park',
+      country: '🇰🇪 Kenya',
+      rating: 4.6,
+      reviews: 145,
+      price: 650,
+      originalPrice: 800,
       discount: 'Save $150',
-      image: '🏝️',
-      type: 'Ocean Suite',
-      category: 'Luxury Beach Resort',
-      amenities: ['Anantara Spa', 'Private Beach', 'Heritage Location', 'Pool', 'Water Sports'],
-      specialFeatures: ['UNESCO Heritage Site', 'Anantara Spa'],
+      image: '🏔️',
+      type: 'Treehouse Suite',
+      category: 'Adventure Lodge',
+      amenities: ['Mountain Views', 'Restaurant', 'Bar', 'Hiking Trails', 'Wildlife Spotting'],
+      specialFeatures: ['Treehouse Experience', 'Mount Kenya Views'],
       availability: 'Available'
     },
     {
       id: 12,
-      name: 'The Residence Zanzibar',
-      location: 'Zanzibar Beaches',
-      country: '🇹🇿 Tanzania',
-      rating: 4.9,
-      reviews: 234,
-      price: 800,
-      originalPrice: 1000,
-      discount: 'Save $200',
-      image: '🏖️',
-      type: 'Beach Villa',
-      category: 'Ultra Luxury Beach',
-      amenities: ['Private Beach', 'Spa', 'Water Sports', 'Fine Dining', 'Butler Service'],
-      specialFeatures: ['Beachfront Luxury', 'Personalized Service'],
+      name: 'Hell\'s Gate Resort',
+      location: 'Hell\'s Gate National Park',
+      country: '🇰🇪 Kenya',
+      rating: 4.5,
+      reviews: 167,
+      price: 150,
+      originalPrice: 180,
+      discount: 'Save $30',
+      image: '🧗',
+      type: 'Standard Room',
+      category: 'Adventure Resort',
+      amenities: ['Cycling', 'Hiking', 'Rock Climbing', 'Restaurant', 'Tour Desk'],
+      specialFeatures: ['Adventure Activities', 'Cycling Included'],
       availability: 'Available'
     },
-    // Rwanda - Gorilla Trekking Excellence & Lake Retreats
     {
       id: 13,
-      name: "One & Only Gorilla's Nest",
-      location: 'Volcanoes National Park',
-      country: '🇷🇼 Rwanda',
-      rating: 5.0,
+      name: 'Murchison Falls Safari Lodge',
+      location: 'Murchison Falls National Park',
+      country: '🇺🇬 Uganda',
+      rating: 4.7,
       reviews: 98,
-      price: 2100,
-      originalPrice: 2400,
-      discount: 'Save $300',
-      image: '🦍',
-      type: 'Forest Villa',
-      category: 'Ultra Luxury',
-      amenities: ['Infinity Pool', 'Spa', 'Butler Service', 'Organic Garden', 'Forest Views'],
-      specialFeatures: ['Gorilla Trekking', 'Infinity Pool'],
+      price: 280,
+      originalPrice: 350,
+      discount: 'Save $70',
+      image: '🌊',
+      type: 'Park View Room',
+      category: 'Safari Lodge',
+      amenities: ['Nile River Views', 'Game Drives', 'Boating', 'Restaurant', 'Bar'],
+      specialFeatures: ['Nile River Views', 'Boating'],
       availability: 'Available'
     },
     {
       id: 14,
-      name: 'Wilderness Bisate Lodge',
-      location: 'Volcanoes National Park',
-      country: '🇷🇼 Rwanda',
-      rating: 4.9,
-      reviews: 134,
-      price: 1600,
-      originalPrice: 1900,
-      discount: 'Save $300',
-      image: '🌲',
-      type: 'Forest Villa',
-      category: 'Eco Luxury',
-      amenities: ['Award-winning Design', 'Tree Nursery', 'Spa', 'Volcano Views', 'Conservation'],
-      specialFeatures: ['Volcanic Amphitheater', 'Tree Nursery'],
+      name: 'Kidepo Valley Lodge',
+      location: 'Kidepo Valley National Park',
+      country: '🇺🇬 Uganda',
+      rating: 4.8,
+      reviews: 89,
+      price: 350,
+      originalPrice: 420,
+      discount: 'Save $70',
+      image: '🐃',
+      type: 'Valley View Room',
+      category: 'Remote Safari Lodge',
+      amenities: ['Wildlife Viewing', 'Game Drives', 'Cultural Tours', 'Restaurant', 'Bar'],
+      specialFeatures: ['Remote Location', 'Unique Wildlife'],
       availability: 'Available'
     },
     {
       id: 15,
-      name: 'Lake Kivu Serena Hotel',
-      location: 'Lake Kivu',
-      country: '🇷🇼 Rwanda',
+      name: 'Tsavo West Safari Lodge',
+      location: 'Tsavo National Parks',
+      country: '🇰🇪 Kenya',
       rating: 4.6,
       reviews: 245,
-      price: 400,
-      originalPrice: 500,
-      discount: 'Save $100',
-      image: '🌊',
-      type: 'Lakefront Room',
-      category: 'Resort',
-      amenities: ['Private Beach', 'Swimming Pool', 'Water Sports', 'Spa', 'Lake Views'],
-      specialFeatures: ['Lake Views', 'Private Beach'],
+      price: 220,
+      originalPrice: 280,
+      discount: 'Save $60',
+      image: '🦛',
+      type: 'Bush Suite',
+      category: 'Safari Lodge',
+      amenities: ['Bushman Rock', 'Game Drives', 'Swimming Pool', 'Restaurant', 'Bar'],
+      specialFeatures: ['Largest Park', 'Red Elephants'],
       availability: 'Available'
     },
     {
       id: 16,
-      name: 'Mantis Kivu Queen uBuranga',
-      location: 'Lake Kivu',
-      country: '🇷🇼 Rwanda',
-      rating: 4.8,
-      reviews: 67,
-      price: 800,
-      originalPrice: 1000,
-      discount: 'Save $200',
-      image: '⛵',
-      type: 'Luxury Cabin',
-      category: 'Expedition Vessel',
-      amenities: ['Lake Cruises', 'Spa', 'Fine Dining', 'Cultural Tours', 'Sunset Views'],
-      specialFeatures: ['Luxury Vessel Experience', 'Lake Cruises'],
+      name: 'Lake Bunyonyi Rock View Resort',
+      location: 'Lake Bunyonyi',
+      country: '🇺🇬 Uganda',
+      rating: 4.7,
+      reviews: 123,
+      price: 150,
+      originalPrice: 180,
+      discount: 'Save $30',
+      image: '🏞️',
+      type: 'Lake View Room',
+      category: 'Lake Resort',
+      amenities: ['Lake Views', 'Canoeing', 'Swimming', 'Restaurant', 'Cultural Tours'],
+      specialFeatures: ['Lake Views', 'Island Tour'],
       availability: 'Available'
     }
   ];
@@ -834,7 +837,7 @@ export default function Home() {
                           }
                         }}
                       >
-                        <span className="text-2xl" aria-hidden="true">{dest.image}</span>
+                        <span className="text-2xl" aria-hidden="true">{dest.image || '🌍'}</span>
                         <div>
                           <div className="font-medium">{dest.name}</div>
                           <div className="text-sm text-gray-500">{dest.description}</div>
@@ -1025,14 +1028,14 @@ export default function Home() {
                                 style={{ backgroundColor: `${primaryColor}10` }}
                                 aria-hidden="true"
                               >
-                                {/* Uganda destinations with existing images */}
+                                {/* East Africa destinations with specific images */}
                                 {destination.name === 'Kampala' ? (
                                   <img 
                                     src="/brand_assets/images/destinations/Kampala/Kampala Edited.jpg"
                                     alt={`${destination.name} destination`}
                                     className="w-full h-full object-cover"
                                   />
-                                ) : destination.name === 'Bwindi Impenetrable Forest' ? (
+                                ) : destination.name === 'Bwindi Impenetrable National Park' ? (
                                   <img 
                                     src="/brand_assets/images/destinations/Bwindi/Bwindi Edited.jpg"
                                     alt={`${destination.name} destination`}
@@ -1044,7 +1047,7 @@ export default function Home() {
                                     alt={`${destination.name} destination`}
                                     className="w-full h-full object-cover"
                                   />
-                                ) : destination.name === 'Murchison Falls' ? (
+                                ) : destination.name === 'Murchison Falls National Park' ? (
                                   <img 
                                     src="/brand_assets/images/destinations/Murchison Falls/Murchison Falls 1.jpg"
                                     alt={`${destination.name} destination`}
@@ -1056,7 +1059,7 @@ export default function Home() {
                                   </div>
                                 ) : 
                                 /* Kenya destinations */
-                                destination.name === 'Maasai Mara' ? (
+                                destination.name === 'Masai Mara National Reserve' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-orange-200 flex items-center justify-center">
                                     <span className="text-4xl">🦁</span>
                                   </div>
@@ -1064,27 +1067,39 @@ export default function Home() {
                                   <div className="w-full h-full bg-gradient-to-br from-gray-100 to-blue-200 flex items-center justify-center">
                                     <span className="text-4xl">🐘</span>
                                   </div>
-                                ) : destination.name === 'Lake Nakuru' ? (
+                                ) : destination.name === 'Lake Nakuru National Park' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-pink-100 to-purple-200 flex items-center justify-center">
                                     <span className="text-4xl">🦩</span>
                                   </div>
                                 ) : destination.name === 'Samburu National Reserve' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-red-100 to-yellow-200 flex items-center justify-center">
-                                    <span className="text-4xl">🦓</span>
+                                    <span className="text-4xl">🐫</span>
                                   </div>
                                 ) : destination.name === 'Diani Beach' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-blue-100 to-cyan-200 flex items-center justify-center">
                                     <span className="text-4xl">🏖️</span>
                                   </div>
+                                ) : destination.name === 'Nairobi National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-100 to-yellow-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦒</span>
+                                  </div>
+                                ) : destination.name === 'Hell\'s Gate National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-orange-100 to-red-200 flex items-center justify-center">
+                                    <span className="text-4xl">🧗</span>
+                                  </div>
+                                ) : destination.name === 'Tsavo National Parks' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-brown-100 to-green-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦛</span>
+                                  </div>
                                 ) : 
                                 /* Tanzania destinations */
                                 destination.name === 'Serengeti National Park' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-green-100 to-yellow-200 flex items-center justify-center">
-                                    <span className="text-4xl">🦁</span>
+                                    <span className="text-4xl">🦒</span>
                                   </div>
-                                ) : destination.name === 'Ngorongoro Crater' ? (
+                                ) : destination.name === 'Ngorongoro Conservation Area' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-brown-100 to-green-200 flex items-center justify-center">
-                                    <span className="text-4xl">🌋</span>
+                                    <span className="text-4xl">🦓</span>
                                   </div>
                                 ) : destination.name === 'Mount Kilimanjaro' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-white to-blue-200 flex items-center justify-center">
@@ -1097,6 +1112,20 @@ export default function Home() {
                                 ) : destination.name === 'Tarangire National Park' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-orange-100 to-red-200 flex items-center justify-center">
                                     <span className="text-4xl">🌳</span>
+                                  </div>
+                                ) : 
+                                /* Uganda destinations */
+                                destination.name === 'Kibale National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-100 to-gray-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦧</span>
+                                  </div>
+                                ) : destination.name === 'Kidepo Valley National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-orange-200 flex items-center justify-center">
+                                    <span className="text-4xl">🐃</span>
+                                  </div>
+                                ) : destination.name === 'Lake Mburo National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-green-200 flex items-center justify-center">
+                                    <span className="text-4xl">🦓</span>
                                   </div>
                                 ) : 
                                 /* Rwanda destinations */
@@ -1118,7 +1147,37 @@ export default function Home() {
                                   </div>
                                 ) : destination.name === 'Kigali' ? (
                                   <div className="w-full h-full bg-gradient-to-br from-green-100 to-blue-200 flex items-center justify-center">
-                                    <span className="text-4xl">🏝️</span>
+                                    <span className="text-4xl">🏙️</span>
+                                  </div>
+                                ) : 
+                                /* Other destinations */
+                                destination.name === 'Lamu Old Town' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-orange-100 to-yellow-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏛️</span>
+                                  </div>
+                                ) : destination.name === 'Mount Elgon National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-green-200 flex items-center justify-center">
+                                    <span className="text-4xl">⛰️</span>
+                                  </div>
+                                ) : destination.name === 'Mount Kenya National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-blue-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏔️</span>
+                                  </div>
+                                ) : destination.name === 'Lake Turkana National Parks' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-blue-200 to-cyan-200 flex items-center justify-center">
+                                    <span className="text-4xl">🏜️</span>
+                                  </div>
+                                ) : destination.name === 'Watamu Marine Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-cyan-200 to-blue-200 flex items-center justify-center">
+                                    <span className="text-4xl">🐠</span>
+                                  </div>
+                                ) : destination.name === 'Rwenzori Mountains National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-blue-300 flex items-center justify-center">
+                                    <span className="text-4xl">⛰️</span>
+                                  </div>
+                                ) : destination.name === 'Semuliki Valley National Park' ? (
+                                  <div className="w-full h-full bg-gradient-to-br from-green-200 to-yellow-200 flex items-center justify-center">
+                                    <span className="text-4xl">🌿</span>
                                   </div>
                                 ) : (
                                   <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">

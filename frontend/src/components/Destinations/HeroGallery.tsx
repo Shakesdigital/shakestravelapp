@@ -23,7 +23,7 @@ const HeroGallery: React.FC<HeroGalleryProps> = ({ destinationName, destinationS
   // Destination-specific image data (in production, this would come from API/CMS)
   const getDestinationImages = (slug: string): DestinationImage[] => {
     const imageMap: { [key: string]: DestinationImage[] } = {
-      'bwindi-impenetrable-forest': [
+      'bwindi-impenetrable-national-park': [
         { src: '/images/gorilla-trekking.jpg', alt: 'Mountain gorillas in Bwindi Forest', title: 'Mountain Gorilla Encounter' },
         { src: '/images/bwindi-forest.jpg', alt: 'Dense forest canopy of Bwindi', title: 'Ancient Rainforest' },
         { src: '/images/gorilla-family.jpg', alt: 'Gorilla family in natural habitat', title: 'Wildlife Photography' },
@@ -40,6 +40,138 @@ const HeroGallery: React.FC<HeroGalleryProps> = ({ destinationName, destinationS
         { src: '/images/source-of-nile.jpg', alt: 'Source of the River Nile', title: 'Source of the Nile' },
         { src: '/images/bungee-jumping.jpg', alt: 'Bungee jumping over the Nile', title: 'Extreme Sports' },
         { src: '/images/sunset-nile.jpg', alt: 'Beautiful sunset over River Nile', title: 'Nile Sunset Views' }
+      ],
+      'amboseli-national-park': [
+        { src: '/images/amboseli-elephants.jpg', alt: 'Elephants with Mount Kilimanjaro backdrop', title: 'Kilimanjaro Views' },
+        { src: '/images/amboseli-landscape.jpg', alt: 'Vast savanna with Mount Kilimanjaro', title: 'Iconic Views' },
+        { src: '/images/amboseli-safari.jpg', alt: 'Safari vehicles tracking wildlife', title: 'Wildlife Safari' },
+        { src: '/images/amboseli-maasai.jpg', alt: 'Maasai warriors with traditional livestock', title: 'Maasai Culture' }
+      ],
+      'diani-beach': [
+        { src: '/images/diani-beach.jpg', alt: 'Pristine white sand beach', title: 'Coastal Paradise' },
+        { src: '/images/diani-water-sports.jpg', alt: 'Water sports activities', title: 'Marine Adventures' },
+        { src: '/images/diani-resort.jpg', alt: 'Beachfront resort accommodation', title: 'Beach Stays' },
+        { src: '/images/diani-marine-life.jpg', alt: 'Tropical marine life', title: 'Underwater World' }
+      ],
+      'mara-national-reserve': [
+        { src: '/images/mara-migration.jpg', alt: 'Great Migration crossing', title: 'The Great Migration' },
+        { src: '/images/mara-safari.jpg', alt: 'Safari vehicles on plains', title: 'Safari Experience' },
+        { src: '/images/mara-camp.jpg', alt: 'Luxury safari camp', title: 'Safari Accommodation' },
+        { src: '/images/mara-wildlife.jpg', alt: 'Big Five wildlife', title: 'Wildlife Spectacular' }
+      ],
+      'serengeti-national-park': [
+        { src: '/images/serengeti-plains.jpg', alt: 'Endless acacia plains', title: 'Endless Plains' },
+        { src: '/images/serengeti-wildlife.jpg', alt: 'Migration animals crossing', title: 'Great Migration' },
+        { src: '/images/serengeti-sunset.jpg', alt: 'Safari sunset', title: 'African Sunsets' },
+        { src: '/images/serengeti-camp.jpg', alt: 'Tented safari camp', title: 'Safari Camping' }
+      ],
+      'ngorongoro-crater': [
+        { src: '/images/ngorongoro-crater.jpg', alt: 'Wildlife in Ngorongoro Crater', title: 'Crater Safari' },
+        { src: '/images/ngorongoro-wildlife.jpg', alt: 'Big Five in the crater', title: 'Big Five Safari' },
+        { src: '/images/ngorongoro-view.jpg', alt: 'View from crater rim', title: 'Crater Rim Views' },
+        { src: '/images/ngorongoro-lodge.jpg', alt: 'Lodge at crater rim', title: 'Crater Accommodation' }
+      ],
+      'kibale-national-park': [
+        { src: '/images/kibale-chimps.jpg', alt: 'Chimpanzees in forest', title: 'Chimpanzee Trekking' },
+        { src: '/images/kibale-forest.jpg', alt: 'Tropical forest canopy', title: 'Primate Habitat' },
+        { src: '/images/kibale-research.jpg', alt: 'Research in primate behavior', title: 'Research Experience' },
+        { src: '/images/kibale-trek.jpg', alt: 'Forest trekking', title: 'Forest Adventures' }
+      ],
+      'murchison-falls-national-park': [
+        { src: '/images/murchison-falls.jpg', alt: 'Powerful waterfall cascade', title: 'The Falls' },
+        { src: '/images/murchison-game-drive.jpg', alt: 'Game drive in park', title: 'Wildlife Safari' },
+        { src: '/images/murchison-boat-safari.jpg', alt: 'Boat safari on Nile', title: 'River Safari' },
+        { src: '/images/murchison-lodge.jpg', alt: 'Lodge near the falls', title: 'Park Accommodation' }
+      ],
+      'lake-nakuru-national-park': [
+        { src: '/images/lake-nakuru-flamingos.jpg', alt: 'Thousands of pink flamingos', title: 'Flamingo Paradise' },
+        { src: '/images/lake-nakuru-rhinos.jpg', alt: 'Rhinoceros in sanctuary', title: 'Rhino Sanctuary' },
+        { src: '/images/lake-nakuru-safari.jpg', alt: 'Safari in alkaline lake area', title: 'Alkaline Lake Safari' },
+        { src: '/images/lake-nakuru-lodge.jpg', alt: 'Lodge with lake views', title: 'Lake View Accommodation' }
+      ],
+      'samburu-national-reserve': [
+        { src: '/images/samburu-special-six.jpg', alt: 'Unique wildlife species', title: 'Special Six' },
+        { src: '/images/samburu-culture.jpg', alt: 'Samburu cultural experience', title: 'Cultural Encounter' },
+        { src: '/images/samburu-river.jpg', alt: 'Ewaso Nyiro River landscape', title: 'River Landscape' },
+        { src: '/images/samburu-camp.jpg', alt: 'Luxury camp in Samburu', title: 'Samburu Safari Camp' }
+      ],
+      'tsavo-national-parks': [
+        { src: '/images/tsavo-red-elephants.jpg', alt: 'Red elephants covered in dust', title: 'Red Elephants' },
+        { src: '/images/tsavo-bush.jpg', alt: 'Vast bush landscape', title: 'Bush Adventure' },
+        { src: '/images/tsavo-rock.jpg', alt: 'Bushman Rock landmark', title: 'Landmark Views' },
+        { src: '/images/tsavo-safari.jpg', alt: 'Safari in Tsavo', title: 'Tsavo Safari' }
+      ],
+      'mount-kilimanjaro': [
+        { src: '/images/kilimanjaro-summit.jpg', alt: 'Summit of Mount Kilimanjaro', title: 'Summit Experience' },
+        { src: '/images/kilimanjaro-trek.jpg', alt: 'Trekking through different zones', title: 'Trekking Adventure' },
+        { src: '/images/kilimanjaro-landscape.jpg', alt: 'Scenic mountain landscape', title: 'Mountain Views' },
+        { src: '/images/kilimanjaro-camp.jpg', alt: 'High altitude camping', title: 'High Altitude Adventure' }
+      ],
+      'kidepo-valley-national-park': [
+        { src: '/images/kidepo-landscape.jpg', alt: 'Remote wilderness landscape', title: 'Remote Wilderness' },
+        { src: '/images/kidepo-wildlife.jpg', alt: 'Unique wildlife in park', title: 'Unique Wildlife' },
+        { src: '/images/kidepo-cultural.jpg', alt: 'Karamojong cultural interaction', title: 'Cultural Experience' },
+        { src: '/images/kidepo-accommodation.jpg', alt: 'Remote park accommodation', title: 'Remote Stay' }
+      ],
+      'rwenzori-mountains-national-park': [
+        { src: '/images/rwenzori-mountain.jpg', alt: 'Rwenzori mountain peaks', title: 'Mountain Peaks' },
+        { src: '/images/rwenzori-trek.jpg', alt: 'Trekking through mountain terrain', title: 'Mountain Trekking' },
+        { src: '/images/rwenzori-glacier.jpg', alt: 'Equatorial glaciers', title: 'Glacial Views' },
+        { src: '/images/rwenzori-landscape.jpg', alt: 'Alpine mountain landscape', title: 'Alpine Adventure' }
+      ],
+      'hells-gate-national-park': [
+        { src: '/images/hells-gate-landscape.jpg', alt: 'Dramatic gorges and cliffs', title: 'Dramatic Gorges' },
+        { src: '/images/hells-gate-cycling.jpg', alt: 'Cycling through the park', title: 'Cycling Adventure' },
+        { src: '/images/hells-gate-rock-climbing.jpg', alt: 'Rock climbing activities', title: 'Rock Climbing' },
+        { src: '/images/hells-gate-geothermal.jpg', alt: 'Geothermal features', title: 'Geothermal Activity' }
+      ],
+      'lake-mburo-national-park': [
+        { src: '/images/lake-mburo-landscape.jpg', alt: 'Acacia woodland around the lake', title: 'Acacia Woodland' },
+        { src: '/images/lake-mburo-wildlife.jpg', alt: 'Zebra and other wildlife', title: 'Wildlife Viewing' },
+        { src: '/images/lake-mburo-boating.jpg', alt: 'Boating on the lake', title: 'Lake Activities' },
+        { src: '/images/lake-mburo-lodge.jpg', alt: 'Lakeside accommodation', title: 'Lakeside Stay' }
+      ],
+      'lake-turkana-national-parks': [
+        { src: '/images/lake-turkana-landscape.jpg', alt: 'Turkana desert landscape', title: 'Desert Lake' },
+        { src: '/images/lake-turkana-fossil.jpg', alt: 'Fossil sites', title: 'Cradle of Mankind' },
+        { src: '/images/lake-turkana-parks.jpg', alt: 'National parks around the lake', title: 'National Parks' },
+        { src: '/images/lake-turkana-communities.jpg', alt: 'Local Turkana communities', title: 'Cultural Experience' }
+      ],
+      'lamu-old-town': [
+        { src: '/images/lamu-town.jpg', alt: 'Historic Lamu architecture', title: 'Historic Town' },
+        { src: '/images/lamu-beaches.jpg', alt: 'Pr pristine beaches', title: 'Beach Paradise' },
+        { src: '/images/lamu-dhow.jpg', alt: 'Traditional dhow sailing', title: 'Dhow Sailing' },
+        { src: '/images/lamu-culture.jpg', alt: 'Swahili cultural heritage', title: 'Swahili Culture' }
+      ],
+      'mount-elgon-national-park': [
+        { src: '/images/mount-elgon-landscape.jpg', alt: 'Elgon volcanic caldera', title: 'Volcanic Landscape' },
+        { src: '/images/mount-elgon-trekking.jpg', alt: 'Mountain trekking', title: 'Trekking Adventure' },
+        { src: '/images/mount-elgon-sipi-falls.jpg', alt: 'Sipi Falls', title: 'Sipi Falls' },
+        { src: '/images/mount-elgon-caves.jpg', alt: 'Kitum Cave', title: 'Mountain Caves' }
+      ],
+      'mount-kenya-national-park': [
+        { src: '/images/mount-kenya-landscape.jpg', alt: 'Mount Kenya peaks', title: 'Mountain Peaks' },
+        { src: '/images/mount-kenya-trekking.jpg', alt: 'Mountain trekking', title: 'Trekking Adventure' },
+        { src: '/images/mount-kenya-wildlife.jpg', alt: 'Mountain wildlife', title: 'Mountain Wildlife' },
+        { src: '/images/mount-kenya-accommodation.jpg', alt: 'Mountain accommodation', title: 'Mountain Stay' }
+      ],
+      'nairobi-national-park': [
+        { src: '/images/nairobi-park-landscape.jpg', alt: 'Park with Nairobi skyline', title: 'Capital City Park' },
+        { src: '/images/nairobi-wildlife.jpg', alt: 'Wildlife in the park', title: 'Wildlife Safari' },
+        { src: '/images/nairobi-rhino.jpg', alt: 'Rhino sanctuary', title: 'Rhino Conservation' },
+        { src: '/images/nairobi-safari.jpg', alt: 'Safari with city view', title: 'Unique Safari' }
+      ],
+      'semuliki-valley-national-park': [
+        { src: '/images/semuliki-landscape.jpg', alt: 'Tropical valley landscape', title: 'Tropical Valley' },
+        { src: '/images/semuliki-hot-springs.jpg', alt: 'Sempaya hot springs', title: 'Hot Springs' },
+        { src: '/images/semuliki-wildlife.jpg', alt: 'Diverse wildlife', title: 'Wildlife Diversity' },
+        { src: '/images/semuliki-jungle.jpg', alt: 'Tropical jungle', title: 'Jungle Experience' }
+      ],
+      'watamu-marine-park': [
+        { src: '/images/watamu-beach.jpg', alt: 'Pristine white sand beach', title: 'Beach Paradise' },
+        { src: '/images/watamu-coral.jpg', alt: 'Coral reef snorkeling', title: 'Coral Reefs' },
+        { src: '/images/watamu-canoes.jpg', alt: 'Traditional canoes', title: 'Cultural Activities' },
+        { src: '/images/watamu-marine-life.jpg', alt: 'Marine life', title: 'Marine Adventures' }
       ]
     };
 

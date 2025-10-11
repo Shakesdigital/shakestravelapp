@@ -43,14 +43,32 @@ const AdventureExperiences: React.FC<AdventureExperiencesProps> = ({
   // Map destination slugs to search queries
   const getLocationQuery = (slug: string): string => {
     const locationMap: { [key: string]: string } = {
-      'bwindi-impenetrable-forest': 'Bwindi',
-      'queen-elizabeth-national-park': 'Queen Elizabeth',
-      'murchison-falls-national-park': 'Murchison',
+      'amboseli-national-park': 'Amboseli',
+      'bwindi-impenetrable-national-park': 'Bwindi',
+      'diani-beach': 'Diani',
+      'hells-gate-national-park': 'Hell\'s Gate',
       'jinja': 'Jinja',
+      'kibale-national-park': 'Kibale',
+      'kidepo-valley-national-park': 'Kidepo',
       'lake-bunyonyi': 'Bunyonyi',
+      'lake-mburo-national-park': 'Mburo',
+      'lake-nakuru-national-park': 'Nakuru',
+      'lake-turkana-national-parks': 'Turkana',
+      'lamu-old-town': 'Lamu',
+      'masai-mara-national-reserve': 'Masai Mara',
+      'mount-elgon-national-park': 'Elgon',
+      'mount-kenya-national-park': 'Mount Kenya',
+      'murchison-falls-national-park': 'Murchison',
+      'nairobi-national-park': 'Nairobi',
+      'ngorongoro-conservation-area': 'Ngorongoro',
+      'queen-elizabeth-national-park': 'Queen Elizabeth',
+      'rwenzori-mountains-national-park': 'Rwenzori',
+      'samburu-national-reserve': 'Samburu',
+      'semuliki-valley-national-park': 'Semuliki',
+      'serengeti-national-park': 'Serengeti',
+      'tsavo-national-parks': 'Tsavo',
+      'watamu-marine-park': 'Watamu',
       'kampala': 'Kampala',
-      'kibale-forest': 'Kibale',
-      'mount-elgon': 'Elgon',
       'mgahinga-gorilla-national-park': 'Mgahinga',
       'lake-victoria': 'Victoria',
       'sipi-falls': 'Sipi',
@@ -114,7 +132,7 @@ const AdventureExperiences: React.FC<AdventureExperiencesProps> = ({
       availability: 'Daily',
       groupSize: '2-8 people',
       ecoFriendly: true,
-      region: 'Uganda'
+      region: 'East Africa'
     },
     {
       id: 2,
@@ -133,7 +151,7 @@ const AdventureExperiences: React.FC<AdventureExperiencesProps> = ({
       availability: 'Daily',
       groupSize: '4-12 people',
       ecoFriendly: true,
-      region: 'Uganda'
+      region: 'East Africa'
     },
     {
       id: 3,
@@ -152,7 +170,7 @@ const AdventureExperiences: React.FC<AdventureExperiencesProps> = ({
       availability: 'Daily',
       groupSize: '2-10 people',
       ecoFriendly: true,
-      region: 'Uganda'
+      region: 'East Africa'
     }
   ];
 
