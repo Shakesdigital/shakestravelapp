@@ -1,56 +1,114 @@
-# 🚀 Deployment Guide
+# Deployment Guide - Shakes Travel
 
-## Auto-Deployment Status
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status.svg)](https://app.netlify.com/sites/YOUR_SITE_NAME/deploys)
+## Overview
 
-## 🔄 Automatic Deployments
+Shakes Travel is deployed on Netlify with automatic deployments from the main branch.
 
-### Frontend (Netlify)
-- **Triggers**: Every push to `main` branch
-- **Build Time**: ~2-5 minutes
-- **Live URL**: https://YOUR_SITE.netlify.app
+## Deployment Configuration
 
-### Backend (Render)
-- **Triggers**: Every push to `main` branch
-- **Build Time**: ~3-7 minutes  
-- **Live URL**: https://shakestravel-backend.onrender.com
+### Platform
+- **Provider**: Netlify
+- **Build Time**: 2-3 minutes
+- **Live URL**: https://main--shakestravel.netlify.app
+- **Custom Domain**: https://shakestravel.com
 
-## 🎯 Deployment Process
+### Build Settings
 
-1. **Make Changes** → Edit code locally
-2. **Commit & Push** → `git add . && git commit -m "your message" && git push`
-3. **Auto-Deploy** → Netlify & Render automatically deploy
-4. **Live in Minutes** → Changes appear on live site
+```yaml
+# Build Command
+cd frontend && npm run build
 
-## 📊 Monitoring
+# Publish Directory
+frontend/.next
 
-- **Netlify Dashboard**: Monitor frontend deployments
-- **Render Dashboard**: Monitor backend deployments
-- **GitHub Actions**: View build logs and status
+# Node Version
+18.x
+```
 
-## 🔧 Manual Deploy (if needed)
+## Deployment Process
 
-### Force Netlify Redeploy:
+### Automatic Deployment (Default)
+
+1. Make changes to the code
+2. Commit changes:
+   ```bash
+   git add .
+   git commit -m "feat: your descriptive message"
+   ```
+3. Push to main branch:
+   ```bash
+   git push origin main
+   ```
+4. Netlify automatically detects push and starts building
+5. Site is live in 2-3 minutes
+
+### Manual Deployment
+
 ```bash
-# Trigger deployment without changes
+# Trigger deployment without code changes
 git commit --allow-empty -m "trigger deploy"
 git push origin main
 ```
 
-### Local Testing:
+## Local Testing
+
 ```bash
-# Frontend
+# Development server
 cd frontend
 npm run dev
+# Visit http://localhost:3000
 
-# Backend  
-cd backend
-npm run dev
+# Production build test
+cd frontend
+npm run build
+npm start
 ```
 
-## 🚨 Troubleshooting
+## Environment Variables
 
-- **Build Fails**: Check GitHub Actions logs
-- **Site Down**: Check Netlify/Render dashboards
-- **API Errors**: Verify environment variables
-- **Slow Loading**: Check if Render backend is sleeping (free tier)
+Configure in Netlify Dashboard → Site Settings → Environment Variables:
+
+```bash
+NETLIFY_IDENTITY_URL=your-site-identity-url
+NEXT_PUBLIC_SITE_URL=https://shakestravel.com
+```
+
+## Custom Domain Setup
+
+1. Netlify Dashboard → Domain Settings
+2. Add custom domain: `shakestravel.com`
+3. Configure DNS records
+4. SSL certificate auto-provisioned
+
+## Troubleshooting
+
+### Build Failures
+- Check Netlify build logs
+- Verify Node version (18.x required)
+- Clear cache: `netlify build --clear-cache`
+
+### Site Not Updating
+- Clear browser cache
+- Check Netlify deploy log for errors
+- Trigger manual deploy
+
+### Custom Domain 503 Error
+- Check SSL certificate status
+- Verify DNS configuration
+- Contact Netlify support if persists
+
+## Rollback
+
+1. Netlify Dashboard → Deploys
+2. Find last working deployment
+3. Click "Publish deploy"
+
+## Monitoring
+
+- **Build Status**: Netlify Dashboard → Deploys
+- **Performance**: Lighthouse scores in dashboard
+- **Uptime**: 99.9% guaranteed by Netlify
+
+---
+
+Last Updated: 2025-10-11
